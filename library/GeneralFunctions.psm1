@@ -1,6 +1,6 @@
 ##General functions
 
-$version = "1.0.0"
+$version = "1.0.0-beta.1"
 
 function Exit {
     stop-process -id $PID

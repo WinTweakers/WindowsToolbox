@@ -18,19 +18,20 @@ $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 Info
 
-$objects =  @{
+$objects = @{
     #'Help' = 'Info'
-    'Exit' = 'Exit'
-    'Restart' = 'Restart'
-    'Install Apps' = @{
-        'Browsers' = "@(
+    'Exit'             = 'Exit'
+    'Restart'          = 'Restart'
+
+    'Install Apps'     = @{
+        'Browsers'               = "@(
             'Firefox',
             'Google Chrome',
             'Brave',
             'Vivaldi'
         )"
-        
-        'Dev Tools' = "@(
+
+        'Dev Tools'              = "@(
             'Visual Studio Code',
             'Atom',
             'Notepad++',
@@ -49,12 +50,12 @@ $objects =  @{
             'Skype'
         )"
 
-        'Gaming stuff' = "@(
+        'Gaming/Streaming'       = "@(
             'Steam',
             'OBS Studio'
         )"
-
-        'Multimedia' = "@(
+        
+        'Multimedia'             = "@(
             'iTunes',
             'Spotify',
             'VLC'
@@ -68,8 +69,8 @@ $objects =  @{
         'Disable Tailored Experiences',
         'Disable Advertising ID'
     )"
-
-    'Tweaks' = "@(
+    
+    'Tweaks'           = "@(
         'Enable Dark Mode', 
         'Lower RAM usage',
         'Enable photo viewer',
@@ -86,182 +87,204 @@ do {
     $mainMenu = Write-Menu -Title $title -Entries $objects
     switch ($mainMenu) {
         # Privacy Menu
+        "Disable Telemetry" {
+            Disable-Telemetry
+        }
 
-            "Disable Telemetry" {
-                Disable-Telemetry
-            }
+        "Privacy Fixes (WIP)" {
+            PrivacyFixSettings
+        }
 
-            "Privacy Fixes (WIP)" {
-                PrivacyFixSettings
-            }
+        "Disable App Suggestions" {
+            DisableAppSuggestions
+        }
 
-            "Disable App Suggestions" {
-                DisableAppSuggestions
-            }
+        "Disable Tailored Experiences" {
+            DisableTailoredExperiences
+        }
 
-            "Disable Tailored Experiences" {
-                DisableTailoredExperiences
-            }
-
-            "Disable Advertising ID" {
-                DisableAdvertisingID
-            }
-
+        "Disable Advertising ID" {
+            DisableAdvertisingID
+        }
+        
         # Install Menu
 
-            # Browsers
+        # Browsers
 
-            "Firefox" {
-                InstallChoco
-                choco install firefox
-            }
+        "Firefox" {
+            InstallChoco
+            choco install firefox
+        }
 
-            "Google Chrome" {
-                InstallChoco
-                choco install googlechrome
-            }
+        "Google Chrome" {
+            InstallChoco
+            choco install googlechrome
+        }
 
-            "Brave" {
-                InstallChoco
-                choco install brave
-            }
+        "Brave" {
+            InstallChoco
+            choco install brave
+        }
 
-            "Vivaldi" {
-                InstallChoco
-                choco install vivaldi
-            }
+        "Vivaldi" {
+            InstallChoco
+            choco install vivaldi
+        }
 
-            # Dev Tools
+        # Dev Tools
 
-            "Visual Studio Code" {
-                InstallChoco
-                choco install vscode
-            }
+        "Visual Studio Code" {
+            InstallChoco
+            choco install vscode
+        }
 
-            "Atom" {
-                InstallChoco
-                choco install atom
-            }
-            "Notepad++" {
-                InstallChoco
-                choco install notepadplusplus
-            }
-            "Github Desktop" {
-                InstallChoco
-                choco install github-desktop
-            }
-            "Github CLI" {
-                InstallChoco
-                choco install gh
-            }
+        "Atom" {
+            InstallChoco
+            choco install atom
+        }
 
-            "Git" {
-                InstallChoco
-                choco install git
-            }
+        "Notepad++" {
+            InstallChoco
+            choco install notepadplusplus
+        }
 
-            "JRE 8" {
-                InstallChoco
-                choco install jre8
-            }
-            "Python" {
-                InstallChoco
-                choco install python
-            }
-            "PuTTY" {
-                InstallChoco
-                choco install putty
-            }
+        "Github Desktop" {
+            InstallChoco
+            choco install github-desktop
+        }
 
-            # Communication Menu
+        "Github CLI" {
+            InstallChoco
+            choco install gh
+        }
 
-            "Discord" {
-                InstallChoco
-                choco install discord
-            }
+        "Git" {
+            InstallChoco
+            choco install git
+        }
 
-            "Slack" {
-                InstallChoco
-                choco install slack
-            }
+        "JRE 8" {
+            InstallChoco
+            choco install jre8
+        }
             
-            "Zoom" {
-                InstallChoco
-                choco install zoom
-            }
-            "Skype" {
-                InstallChoco
-                choco install skype
-            }
+        "Python" {
+            InstallChoco
+            choco install python
+        }
 
-            # Gaming stuff 
-            "Steam" {
-                InstallChoco
-                choco install steam
-            }
-            "OBS Studio" {
-                InstallChoco
-                choco install obs-studio
-            }     
-            
-            # Multimedia
-            "iTunes" {
-                InstallChoco
-                choco install itunes
-            }
-            "Spotify" {
-                InstallChoco
-                choco install spotify
-            }
-            "VLC" {
-                InstallChoco
-                choco install vlc
-            }
+        "PuTTY" {
+            InstallChoco
+            choco install putty
+        }
+
+        # Communication Menu
+
+        "Discord" {
+            InstallChoco
+            choco install discord
+        }
+
+        "Slack" {
+            InstallChoco
+            choco install slack
+        }
+
+        "Zoom" {
+            InstallChoco
+            choco install zoom
+        }
+
+        "Skype" {
+            InstallChoco
+            choco install skype
+        }
+
+        # Gaming stuff
+
+        "Steam" {
+            InstallChoco
+            choco install steam
+        }
         
+        "OBS Studio" {
+            InstallChoco
+            choco install obs-studio
+        }
+
+        # Multimedia
+
+        "iTunes" {
+            InstallChoco
+            choco install itunes
+        }
+
+        "Spotify" {
+            InstallChoco
+            choco install spotify
+        }
+
+        "VLC" {
+            InstallChoco
+            choco install vlc
+        }
+
         #Tweaks
-            "Enable Dark Mode" {
-                DarkMode
+
+        "Enable Dark Mode" {
+            DarkMode
+        }
+
+        "Lower RAM usage" {
+            RAM
+        }
+
+        "Enable photo viewer" {
+            EnablePhotoViewer
+        }
+
+        "Disable Prefetch prelaunch" {
+            DisablePrefetchPrelaunch
+        }
+
+        "Disable Edge prelaunch" {
+            DisableEdgePrelaunch
+        }
+
+        "Use UTC time" {
+            UseUTC
+        }
+
+        "Disable ShellExperienceHost" {
+            $yousure = Read-Host "Are you sure? This will somewhat break Explorer, WSL, etc (y/n)"
+            if ($yousure -eq "y") {
+                DisableShellExperienceHost
             }
-            "Lower RAM usage" {
-                RAM
+            else {
+                & $PSScriptRoot\main.ps1
             }
-            "Enable photo viewer" {
-                EnablePhotoViewer
-            }
-            "Disable Prefetch prelaunch" {
-                DisablePrefetchPrelaunch
-            }
-            "Disable Edge prelaunch" {
-                DisableEdgePrelaunch
-            }
-            "Use UTC time" {
-                UseUTC
-            }
-            "Disable ShellExperienceHost" {
-                $yousure = Read-Host "Are you sure? This will somewhat break Explorer, WSL, etc (y/n)"
-                if ($yousure -eq "y") {
-                    DisableShellExperienceHost
-                }
-                else {
-                    & $PSScriptRoot\main.ps1
-                }
-            }
-            "Disable SearchUI" {
-                DisableSearchUI
-            }
-            "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
-                ImproveSSD
-            }
+        }
+
+        "Disable SearchUI" {
+            DisableSearchUI
+        }
+
+        "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
+            ImproveSSD
+        }
 
         # Misc
-            #"Help" {
-            #    Info
-            #}
-            "Exit" {
-                Exit
-            }
-            "Restart" {
-                Restart
-            }
+
+        #"Help" {
+        #    Info
+        #}
+
+        "Exit" {
+            Exit
+        }
+
+        "Restart" {
+            Restart
+        }
     }
 } until($mainMenu -eq "ForeverLoop")
