@@ -17,7 +17,7 @@ $host.UI.RawUI.WindowTitle = $title
 
 do {
     $mainMenu = Write-Menu -Title $title -Sort -Entries @{
-        'Privacy Settings' = "@('Disable Telemetry', 'Privacy Fixes (WIP)')"
+        'Privacy Settings' = "@('Disable Telemetry', 'Privacy Fixes (WIP)', 'Disable App Suggestions')"
     }
     switch ($mainMenu) {
         "Disable Telemetry" {
@@ -25,6 +25,9 @@ do {
         }
         "Privacy Fixes (WIP)" {
             PrivacyFixSettings
+        }
+        "Disable App Suggestions"{
+            DisableAppSuggestions
         }
     }
 } until($mainMenu -eq "Quit")
