@@ -8,26 +8,122 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 Import-Module $PSScriptRoot\library\Write-Menu.psm1
-Import-Module $PSScriptRoot\library\WinCore.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\WinCore.psm1
 Import-Module $PSScriptRoot\library\PrivacyFunctions.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\Take-Own.psm1
 
 $title = "Windows Toolbox 1.0.0"
 $host.UI.RawUI.WindowTitle = $title
 
+$objects =  @{
+    'Privacy Settings' = "@(
+        'Disable Telemetry',
+        'Privacy Fixes (WIP)',
+        'Disable App Suggestions',
+        'Disable Tailored Experiences',
+        'Disable Advertising ID'
+    )"
+    
+    'Install Apps' = @{
+        'Browsers' = "@(
+            'Firefox',
+            'Google Chrome',
+            'Brave',
+            'Vivaldi'
+        )"
+        
+        'Dev Tools' = "@(
+            'Visual Studio Code',
+            'Atom',
+            'Github CLI',
+            'Git',
+            'JRE 8'
+        )"
+
+        'Communication Programs' = "@(
+            'Discord',
+            'Slack',
+            'Zoom'
+        )"
+    }
+}
+
+Read-Host "press enter"
 do {
-    $mainMenu = Write-Menu -Title $title -Sort -Entries @{
-        'Privacy Settings' = "@('Disable Telemetry', 'Privacy Fixes (WIP)', 'Disable App Suggestions')"
-    }
+    $mainMenu = Write-Menu -Title $title -Entries $objects
     switch ($mainMenu) {
-        "Disable Telemetry" {
-            Disable-Telemetry
-        }
-        "Privacy Fixes (WIP)" {
-            PrivacyFixSettings
-        }
-        "Disable App Suggestions"{
-            DisableAppSuggestions
-        }
+        # Privacy Menu
+
+            "Disable Telemetry" {
+                Disable-Telemetry
+            }
+            "Privacy Fixes (WIP)" {
+                PrivacyFixSettings
+            }
+            "Disable App Suggestions" {
+                DisableAppSuggestions
+            }
+            "Disable Tailored Experiences" {
+                DisableTailoredExperiences
+            }
+            "Disable Advertising ID" {
+                DisableAdvertisingID
+            }
+
+        # Install Menu
+
+            # Browsers
+            "Firefox" {
+                InstallChoco
+                choco install firefox
+            }
+            "Google Chrome" {
+                InstallChoco
+                choco install googlechrome
+            }
+            "Brave" {
+                InstallChoco
+                choco install brave
+            }
+            "Vivaldi" {
+                InstallChoco
+                choco install vivaldi
+            }
+
+            # Dev Tools
+            "Visual Studio Code" {
+                InstallChoco
+                choco install vscode
+            }
+            "Atom" {
+                InstallChoco
+                choco install atom
+            }
+            "Github CLI" {
+                InstallChoco
+                choco install gh
+            }
+            "Git" {
+                InstallChoco
+                choco install git
+            }
+            "JRE 8" {
+                InstallChoco
+                choco install jre8
+            }
+
+            # Communication Menu
+            "Discord" {
+                InstallChoco
+                choco install discord
+            }
+            "Slack" {
+                InstallChoco
+                choco install slack
+            }
+            "Zoom" {
+                InstallChoco
+                choco install zoom
+            }
     }
-} until($mainMenu -eq "Quit")
+} until($mainMenu -eq "ForeverLoop")

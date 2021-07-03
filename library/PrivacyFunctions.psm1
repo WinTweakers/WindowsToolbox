@@ -364,3 +364,20 @@ Function DisableAppSuggestions {
 		Write-Output "done"
 	}
 }
+
+function DisableTailoredExperiences {
+    Write-Output "Disabling Tailored Experiences..."
+	If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent")) {
+		New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableTailoredExperiencesWithDiagnosticData" -Type DWord -Value 1
+}
+
+function DisableAdvertisingID {
+	Write-Output "Disabling Advertising ID..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" -Name "DisabledByGroupPolicy" -Type DWord -Value 1
+	Write-Output "done"
+}
