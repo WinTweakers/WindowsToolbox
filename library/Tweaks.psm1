@@ -75,3 +75,8 @@ function ImproveSSD {
     fsutil behavior set DisableLastAccess 1
     fsutil behavior set EncryptPagingFile 0
 }
+
+function GodMode {
+    $DesktopPath = [Environment]::GetFolderPath("Desktop");
+    mkdir "$DesktopPath\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}"
+}

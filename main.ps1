@@ -13,18 +13,53 @@ Import-Module $PSScriptRoot\library\PrivacyFunctions.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\Take-Own.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\Tweaks.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\GeneralFunctions.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\DebloatFunctions.psm1
 
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
-Info
+$build = (Get-CimInstance Win32_OperatingSystem).version
+if ($build -lt "10.0.10240") {
+    Read-Host "Sorry, your Windows version is not supported, and will never be :( . Press Enter to exit"
+    Exit
+}
+else {
+   Info
+}
 
-$objects = @{
-    #'Help' = 'Info'
-    'Exit'             = 'Exit'
-    'Restart'          = 'Restart'
 
-    'Install Apps'     = @{
-        'Browsers'               = "@(
+$objects =  @{
+
+    'Debloat' = "@(
+        'Disable Windows Defender (NOT RECOMMENDED)',
+        'Remove Default UWP apps',
+        'Remove OneDrive',
+        'Optimize Windows Updates',
+        'Disable services (breaks Windows 11)'
+    )"
+
+    'Privacy Settings' = "@(
+        'Disable Telemetry',
+        'Privacy Fixes (WIP)',
+        'Disable App Suggestions',
+        'Disable Tailored Experiences',
+        'Disable Advertising ID'
+    )"
+
+    'Tweaks' = "@(
+        'Enable Dark Mode', 
+        'Lower RAM usage',
+        'Enable photo viewer',
+        'Disable Prefetch prelaunch',
+        'Disable Edge prelaunch',
+        'Use UTC time',
+        'Disable ShellExperienceHost',
+        'Disable SearchUI',
+        'Enable GodMode',
+        'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
+    )"
+
+    'Install Apps' = @{
+        'Browsers' = "@(
             'Firefox',
             'Google Chrome',
             'Brave',
@@ -81,15 +116,32 @@ $objects = @{
         'Disable SearchUI',
         'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
     )"
+    #'Restart' = 'Restart'
+    #'Help' = 'Info'
+    #'Exit' = 'Exit'
 }
 
 do {
     $mainMenu = Write-Menu -Title $title -Entries $objects
     switch ($mainMenu) {
-        # Privacy Menu
-        "Disable Telemetry" {
-            Disable-Telemetry
-        }
+        #Debloat menu
+            "Disable Windows Defender (NOT RECOMMENDED)" {
+                DisableWindowsDefender   
+            }
+            "Remove Default UWP apps" {
+                RemoveDefaultApps
+            }
+            "Remove OneDrive" {
+                RemoveOneDrive
+            }
+            "Optimize Windows Updates" {
+                OptimizeUpdates
+            }
+            "Disable services (breaks Windows 11)" {
+                DisableServices
+            }
+
+        # Privacy menu
 
         "Privacy Fixes (WIP)" {
             PrivacyFixSettings
@@ -260,8 +312,11 @@ do {
             if ($yousure -eq "y") {
                 DisableShellExperienceHost
             }
-            else {
-                & $PSScriptRoot\main.ps1
+            "Enable GodMode" {
+                GodMode
+            }
+            "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
+                ImproveSSD
             }
         }
 
@@ -274,17 +329,14 @@ do {
         }
 
         # Misc
-
-        #"Help" {
-        #    Info
-        #}
-
-        "Exit" {
-            Exit
-        }
-
-        "Restart" {
-            Restart
-        }
+            "Help" {
+                Info
+            }
+            "Exit" {
+                Exit
+            }
+            "Restart" {
+                Restart
+            }
     }
 } until($mainMenu -eq "ForeverLoop")
