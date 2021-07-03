@@ -23,13 +23,13 @@ if ($build -lt "10.0.10240") {
     Exit
 }
 else {
-   Info
+    Info
 }
 
 
-$objects =  @{
+$objects = @{
 
-    'Debloat' = "@(
+    'Debloat'          = "@(
         'Disable Windows Defender (NOT RECOMMENDED)',
         'Remove Default UWP apps',
         'Remove OneDrive',
@@ -45,7 +45,7 @@ $objects =  @{
         'Disable Advertising ID'
     )"
 
-    'Tweaks' = "@(
+    'Tweaks'           = "@(
         'Enable Dark Mode', 
         'Lower RAM usage',
         'Enable photo viewer',
@@ -58,8 +58,8 @@ $objects =  @{
         'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
     )"
 
-    'Install Apps' = @{
-        'Browsers' = "@(
+    'Install Apps'     = @{
+        'Browsers'               = "@(
             'Firefox',
             'Google Chrome',
             'Brave',
@@ -97,25 +97,6 @@ $objects =  @{
         )"
     }
 
-    'Privacy Settings' = "@(
-        'Disable Telemetry',
-        'Privacy Fixes (WIP)',
-        'Disable App Suggestions',
-        'Disable Tailored Experiences',
-        'Disable Advertising ID'
-    )"
-    
-    'Tweaks'           = "@(
-        'Enable Dark Mode', 
-        'Lower RAM usage',
-        'Enable photo viewer',
-        'Disable Prefetch prelaunch',
-        'Disable Edge prelaunch',
-        'Use UTC time',
-        'Disable ShellExperienceHost',
-        'Disable SearchUI',
-        'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
-    )"
     #'Restart' = 'Restart'
     #'Help' = 'Info'
     #'Exit' = 'Exit'
@@ -125,21 +106,21 @@ do {
     $mainMenu = Write-Menu -Title $title -Entries $objects
     switch ($mainMenu) {
         #Debloat menu
-            "Disable Windows Defender (NOT RECOMMENDED)" {
-                DisableWindowsDefender   
-            }
-            "Remove Default UWP apps" {
-                RemoveDefaultApps
-            }
-            "Remove OneDrive" {
-                RemoveOneDrive
-            }
-            "Optimize Windows Updates" {
-                OptimizeUpdates
-            }
-            "Disable services (breaks Windows 11)" {
-                DisableServices
-            }
+        "Disable Windows Defender (NOT RECOMMENDED)" {
+            DisableWindowsDefender   
+        }
+        "Remove Default UWP apps" {
+            RemoveDefaultApps
+        }
+        "Remove OneDrive" {
+            RemoveOneDrive
+        }
+        "Optimize Windows Updates" {
+            OptimizeUpdates
+        }
+        "Disable services (breaks Windows 11)" {
+            DisableServices
+        }
 
         # Privacy menu
 
@@ -312,31 +293,28 @@ do {
             if ($yousure -eq "y") {
                 DisableShellExperienceHost
             }
-            "Enable GodMode" {
-                GodMode
-            }
-            "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
-                ImproveSSD
-            }
+         
+        }
+        "Enable GodMode" {
+            GodMode
+        }
+        "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
+            ImproveSSD
         }
 
         "Disable SearchUI" {
             DisableSearchUI
         }
 
-        "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
-            ImproveSSD
-        }
-
         # Misc
-            "Help" {
-                Info
-            }
-            "Exit" {
-                Exit
-            }
-            "Restart" {
-                Restart
-            }
+        "Help" {
+            Info
+        }
+        "Exit" {
+            Exit
+        }
+        "Restart" {
+            Restart
+        }
     }
 } until($mainMenu -eq "ForeverLoop")
