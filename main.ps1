@@ -39,7 +39,7 @@ $objects =  @{
             'Git',
             'JRE 8',
             'Python',
-            'puTTY'
+            'PuTTY'
         )"
 
         'Communication Programs' = "@(
@@ -77,7 +77,8 @@ $objects =  @{
         'Disable Edge prelaunch',
         'Use UTC time',
         'Disable ShellExperienceHost',
-        'Disable SearchUI'
+        'Disable SearchUI',
+        'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
     )"
 }
 
@@ -167,7 +168,7 @@ do {
                 InstallChoco
                 choco install python
             }
-            "puTTY" {
+            "PuTTY" {
                 InstallChoco
                 choco install putty
             }
@@ -247,6 +248,9 @@ do {
             }
             "Disable SearchUI" {
                 DisableSearchUI
+            }
+            "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
+                ImproveSSD
             }
 
         # Misc

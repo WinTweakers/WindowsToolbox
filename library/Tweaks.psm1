@@ -69,3 +69,9 @@ function DisableSearchUI {
     Move-Item -Path "%windir%\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy" -Destination "%windir%\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy.bak"
     Write-Output "Done"
 }
+
+function ImproveSSD {
+    # SSD life improvement
+    fsutil behavior set DisableLastAccess 1
+    fsutil behavior set EncryptPagingFile 0
+}
