@@ -11,19 +11,17 @@ Import-Module $PSScriptRoot\library\Write-Menu.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\WinCore.psm1
 Import-Module $PSScriptRoot\library\PrivacyFunctions.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\Take-Own.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\Tweaks.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\GeneralFunctions.psm1
 
-$title = "Windows Toolbox 1.0.0"
+$title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
+Info
 
 $objects =  @{
-    'Privacy Settings' = "@(
-        'Disable Telemetry',
-        'Privacy Fixes (WIP)',
-        'Disable App Suggestions',
-        'Disable Tailored Experiences',
-        'Disable Advertising ID'
-    )"
-    
+    #'Help' = 'Info'
+    'Exit' = 'Exit'
+    'Restart' = 'Restart'
     'Install Apps' = @{
         'Browsers' = "@(
             'Firefox',
@@ -35,20 +33,54 @@ $objects =  @{
         'Dev Tools' = "@(
             'Visual Studio Code',
             'Atom',
+            'Notepad++',
+            'Github Desktop',
             'Github CLI',
             'Git',
-            'JRE 8'
+            'JRE 8',
+            'Python',
+            'puTTY'
         )"
 
         'Communication Programs' = "@(
             'Discord',
             'Slack',
-            'Zoom'
+            'Zoom',
+            'Skype'
+        )"
+
+        'Gaming stuff' = "@(
+            'Steam',
+            'OBS Studio'
+        )"
+
+        'Multimedia' = "@(
+            'iTunes',
+            'Spotify',
+            'VLC'
         )"
     }
+
+    'Privacy Settings' = "@(
+        'Disable Telemetry',
+        'Privacy Fixes (WIP)',
+        'Disable App Suggestions',
+        'Disable Tailored Experiences',
+        'Disable Advertising ID'
+    )"
+
+    'Tweaks' = "@(
+        'Enable Dark Mode', 
+        'Lower RAM usage',
+        'Enable photo viewer',
+        'Disable Prefetch prelaunch',
+        'Disable Edge prelaunch',
+        'Use UTC time',
+        'Disable ShellExperienceHost',
+        'Disable SearchUI'
+    )"
 }
 
-Read-Host "press enter"
 do {
     $mainMenu = Write-Menu -Title $title -Entries $objects
     switch ($mainMenu) {
@@ -90,7 +122,7 @@ do {
                 choco install vivaldi
             }
 
-            # Dev Tools
+            # Dev tools
             "Visual Studio Code" {
                 InstallChoco
                 choco install vscode
@@ -98,6 +130,14 @@ do {
             "Atom" {
                 InstallChoco
                 choco install atom
+            }
+            "Notepad++" {
+                InstallChoco
+                choco install notepadplusplus
+            }
+            "Github Desktop" {
+                InstallChoco
+                choco install github-desktop
             }
             "Github CLI" {
                 InstallChoco
@@ -111,8 +151,16 @@ do {
                 InstallChoco
                 choco install jre8
             }
+            "Python" {
+                InstallChoco
+                choco install python
+            }
+            "puTTY" {
+                InstallChoco
+                choco install putty
+            }
 
-            # Communication Menu
+            # Communication apps
             "Discord" {
                 InstallChoco
                 choco install discord
@@ -124,6 +172,77 @@ do {
             "Zoom" {
                 InstallChoco
                 choco install zoom
+            }
+            "Skype" {
+                InstallChoco
+                choco install skype
+            }
+
+            # Gaming stuff 
+            "Steam" {
+                InstallChoco
+                choco install steam
+            }
+            "OBS Studio" {
+                InstallChoco
+                choco install obs-studio
+            }     
+            
+            # Multimedia
+            "iTunes" {
+                InstallChoco
+                choco install itunes
+            }
+            "Spotify" {
+                InstallChoco
+                choco install spotify
+            }
+            "VLC" {
+                InstallChoco
+                choco install vlc
+            }
+        
+        #Tweaks
+            "Enable Dark Mode" {
+                DarkMode
+            }
+            "Lower RAM usage" {
+                RAM
+            }
+            "Enable photo viewer" {
+                EnablePhotoViewer
+            }
+            "Disable Prefetch prelaunch" {
+                DisablePrefetchPrelaunch
+            }
+            "Disable Edge prelaunch" {
+                DisableEdgePrelaunch
+            }
+            "Use UTC time" {
+                UseUTC
+            }
+            "Disable ShellExperienceHost" {
+                $yousure = Read-Host "Are you sure? This will somewhat break Explorer, WSL, etc (y/n)"
+                if ($yousure -eq "y") {
+                    DisableShellExperienceHost
+                }
+                else {
+                    & $PSScriptRoot\main.ps1
+                }
+            }
+            "Disable SearchUI" {
+                DisableSearchUI
+            }
+
+        # Misc
+            #"Help" {
+            #    Info
+            #}
+            "Exit" {
+                Exit
+            }
+            "Restart" {
+                Restart
             }
     }
 } until($mainMenu -eq "ForeverLoop")
