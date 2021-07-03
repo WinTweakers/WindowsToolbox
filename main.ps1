@@ -48,7 +48,6 @@ $objects =  @{
     }
 }
 
-Read-Host "press enter"
 do {
     $mainMenu = Write-Menu -Title $title -Entries $objects
     switch ($mainMenu) {
