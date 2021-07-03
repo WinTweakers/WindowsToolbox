@@ -56,15 +56,19 @@ do {
             "Disable Telemetry" {
                 Disable-Telemetry
             }
+
             "Privacy Fixes (WIP)" {
                 PrivacyFixSettings
             }
+
             "Disable App Suggestions" {
                 DisableAppSuggestions
             }
+
             "Disable Tailored Experiences" {
                 DisableTailoredExperiences
             }
+
             "Disable Advertising ID" {
                 DisableAdvertisingID
             }
@@ -72,54 +76,66 @@ do {
         # Install Menu
 
             # Browsers
+
             "Firefox" {
                 InstallChoco
                 choco install firefox
             }
+
             "Google Chrome" {
                 InstallChoco
                 choco install googlechrome
             }
+
             "Brave" {
                 InstallChoco
                 choco install brave
             }
+
             "Vivaldi" {
                 InstallChoco
                 choco install vivaldi
             }
 
             # Dev Tools
+
             "Visual Studio Code" {
                 InstallChoco
                 choco install vscode
             }
+
             "Atom" {
                 InstallChoco
                 choco install atom
             }
+
             "Github CLI" {
                 InstallChoco
                 choco install gh
             }
+
             "Git" {
                 InstallChoco
                 choco install git
             }
+
             "JRE 8" {
                 InstallChoco
                 choco install jre8
             }
 
             # Communication Menu
+
             "Discord" {
                 InstallChoco
                 choco install discord
             }
+
             "Slack" {
                 InstallChoco
                 choco install slack
             }
+            
             "Zoom" {
                 InstallChoco
                 choco install zoom
