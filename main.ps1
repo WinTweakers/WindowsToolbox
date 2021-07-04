@@ -23,6 +23,7 @@ if ($build -lt "10.0.10240") {
     Exit
 }
 else {
+    setup
     Info
 }
 

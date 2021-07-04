@@ -2,7 +2,16 @@
 
 $version = "1.0.0-beta.2"
 $build = (Get-CimInstance Win32_OperatingSystem).version
+$winver= (Get-WmiObject -class Win32_OperatingSystem).Caption
 
+
+function setup {
+    if ($winver -like "*Windows 11*") {
+        $winver = '11'
+    } elseif ($winver -like "*Windows 10*") {
+        $winver = '10'
+    }
+}
 function Exit {
     stop-process -id $PID
 }
