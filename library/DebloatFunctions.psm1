@@ -330,5 +330,5 @@ function DisableServices {
         Write-Output "Trying to disable $service"
         Get-Service -Name $service | Set-Service -StartupType Disabled
     }
-    [void][System.Console]::ReadKey($FALSE)
+    Read-Host "Press Enter To Continue"
 }
