@@ -1,6 +1,6 @@
 ##General functions
 
-$version = "1.0.0-beta.1"
+$version = "1.0.0-beta.2"
 $build = (Get-CimInstance Win32_OperatingSystem).version
 
 function Exit {
