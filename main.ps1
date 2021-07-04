@@ -35,7 +35,7 @@ $objects = @{
         'Remove Default UWP apps',
         'Remove OneDrive',
         'Optimize Windows Updates',
-        'Disable services (breaks Windows 11)'
+        'Disable services'
     )"
 
     'Privacy Settings' = "@(
@@ -119,7 +119,7 @@ do {
         "Optimize Windows Updates" {
             OptimizeUpdates
         }
-        "Disable services (breaks Windows 11)" {
+        "Disable services" {
             DisableServices
         }
 

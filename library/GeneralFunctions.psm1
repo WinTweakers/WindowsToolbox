@@ -36,7 +36,6 @@ function Info {
     Write-Output "- Disable SearchUI"
     Write-Output ""
     Write-Output "Stuff that breaks Windows 11 (will be fixed ofc):"
-    Write-Output "- Disabling services"
     Write-Output "- Disabling telemetry (if using insider)"
     Write-Output ""
     Write-Output ""
