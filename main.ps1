@@ -29,7 +29,7 @@ else {
 
 $objects = @{
 
-    'Debloat'          = "@(
+    'Debloat' = "@(
         'Disable Windows Defender (NOT RECOMMENDED)',
         'Remove Default UWP apps',
         'Remove OneDrive',
@@ -45,7 +45,7 @@ $objects = @{
         'Disable Advertising ID'
     )"
 
-    'Tweaks'           = "@(
+    'Tweaks' = "@(
         'Enable Dark Mode', 
         'Lower RAM usage',
         'Enable photo viewer',
@@ -58,15 +58,15 @@ $objects = @{
         'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
     )"
 
-    'Install Apps'     = @{
-        'Browsers'               = "@(
+    'Install Apps' = @{
+        'Browsers' = "@(
             'Firefox',
             'Google Chrome',
             'Brave',
             'Vivaldi'
         )"
 
-        'Dev Tools'              = "@(
+        'Dev Tools' = "@(
             'Visual Studio Code',
             'Atom',
             'Notepad++',
@@ -85,12 +85,12 @@ $objects = @{
             'Skype'
         )"
 
-        'Gaming/Streaming'       = "@(
+        'Gaming/Streaming' = "@(
             'Steam',
             'OBS Studio'
         )"
         
-        'Multimedia'             = "@(
+        'Multimedia' = "@(
             'iTunes',
             'Spotify',
             'VLC'
