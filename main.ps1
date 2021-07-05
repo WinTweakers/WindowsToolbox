@@ -35,7 +35,8 @@ $objects = @{
         'Remove Default UWP apps',
         'Remove OneDrive',
         'Optimize Windows Updates',
-        'Disable services'
+        'Disable services',
+        'Disable Cortana'
     )"
 
     'Privacy Settings' = "@(
@@ -46,18 +47,25 @@ $objects = @{
         'Disable Advertising ID'
     )"
 
-    'Tweaks' = "@(
-        'Enable Dark Mode', 
-        'Lower RAM usage',
-        'Enable photo viewer',
-        'Disable Prefetch prelaunch',
-        'Disable Edge prelaunch',
-        'Use UTC time',
-        'Disable ShellExperienceHost',
-        'Disable SearchUI',
-        'Enable GodMode',
-        'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
-    )"
+    'Tweaks' = @{
+        'System Tweaks' = "@(
+            'Lower RAM usage',
+            'Enable photo viewer',
+            'Disable Prefetch prelaunch',
+            'Disable Edge prelaunch',
+            'Use UTC time',
+            'Disable ShellExperienceHost',
+            'Disable SearchUI',
+            'Enable GodMode',
+            'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
+        )"
+
+        'UI Tweaks' = "@(
+            'Remove user folders under This PC',
+            'Enable dark mode',
+            'Disable Aero Shake'
+        )"
+    }    
 
     'Install Apps' = @{
         'Browsers' = "@(
@@ -76,7 +84,9 @@ $objects = @{
             'Git',
             'JRE 8',
             'Python',
-            'PuTTY'
+            'PuTTY',
+            'Windows Subsystem for Linux',
+            'Hyper-V'
         )"
 
         'Communication Programs' = "@(
@@ -107,21 +117,24 @@ do {
     $mainMenu = Write-Menu -Title $title -Entries $objects
     switch ($mainMenu) {
         #Debloat menu
-        "Disable Windows Defender (NOT RECOMMENDED)" {
-            DisableWindowsDefender   
-        }
-        "Remove Default UWP apps" {
-            RemoveDefaultApps
-        }
-        "Remove OneDrive" {
-            RemoveOneDrive
-        }
-        "Optimize Windows Updates" {
-            OptimizeUpdates
-        }
-        "Disable services" {
-            DisableServices
-        }
+            "Disable Windows Defender (NOT RECOMMENDED)" {
+                DisableWindowsDefender   
+            }
+            "Remove Default UWP apps" {
+                RemoveDefaultApps
+            }
+            "Remove OneDrive" {
+                RemoveOneDrive
+            }
+            "Optimize Windows Updates" {
+                OptimizeUpdates
+            }
+            "Disable services" {
+                DisableServices
+            }
+            "Disable Cortana" {
+                DisableCortana
+            }
 
         # Privacy menu
 
@@ -211,6 +224,12 @@ do {
             InstallChoco
             choco install putty
         }
+        "Windows Subsystem for Linux" {
+            InstallWSL
+        }
+        "Hyper-V" {
+            InstallHyperV
+        }
 
         # Communication Menu
 
@@ -264,48 +283,51 @@ do {
         }
 
         #Tweaks
-
-        "Enable Dark Mode" {
-            DarkMode
-        }
-
-        "Lower RAM usage" {
-            RAM
-        }
-
-        "Enable photo viewer" {
-            EnablePhotoViewer
-        }
-
-        "Disable Prefetch prelaunch" {
-            DisablePrefetchPrelaunch
-        }
-
-        "Disable Edge prelaunch" {
-            DisableEdgePrelaunch
-        }
-
-        "Use UTC time" {
-            UseUTC
-        }
-
-        "Disable ShellExperienceHost" {
-            $yousure = Read-Host "Are you sure? This will somewhat break Explorer, WSL, etc (y/n)"
-            if ($yousure -eq "y") {
-                DisableShellExperienceHost
+            #System tweaks
+            "Lower RAM usage" {
+                RAM
             }
-         
-        }
-        "Enable GodMode" {
-            GodMode
-        }
-        "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
-            ImproveSSD
-        }
 
-        "Disable SearchUI" {
-            DisableSearchUI
-        }
+            "Enable photo viewer" {
+                EnablePhotoViewer
+            }
+
+            "Disable Prefetch prelaunch" {
+                DisablePrefetchPrelaunch
+            }
+
+            "Disable Edge prelaunch" {
+                DisableEdgePrelaunch
+            }
+
+            "Use UTC time" {
+                UseUTC
+            }
+
+            "Disable ShellExperienceHost" {
+                DisableShellExperienceHost 
+            }
+            "Enable GodMode" {
+                GodMode
+            }
+            "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
+                ImproveSSD
+            }
+
+            "Disable SearchUI" {
+                DisableSearchUI
+            }
+
+            #UI Tweaks
+            "Remove user folders under This PC" {
+                RemoveThisPClutter
+            }
+            "Enable dark mode" {
+                DarkMode
+            }
+            "Disable Aero Share" {
+                DisableAeroShake
+            }
 
         # Misc
         "Help" {
