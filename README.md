@@ -1,6 +1,10 @@
 # WindowsToolbox
 A series of tweaks mainly for Windows 10 / Windows 11
-Work in progress. DO NOT USE YET NOT DONE
+Work in progress.
+
+## DISCLAMER:
+
+This software is in beta. **All scripts are provided as-is and you use them at your own risk. WinTweakers are NOT responsible for ANY damage caused by these scripts.**
 
 ## Contributing
 
