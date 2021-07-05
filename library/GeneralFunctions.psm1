@@ -1,6 +1,6 @@
 ##General functions
 
-$version = "1.0.0-beta.2"
+$version = "1.0.0-beta.3"
 $build = (Get-CimInstance Win32_OperatingSystem).version
 $winver= (Get-WmiObject -class Win32_OperatingSystem).Caption
 
