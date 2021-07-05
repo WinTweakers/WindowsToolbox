@@ -103,7 +103,7 @@ function Write-Menu {
 
     param(
         # Array or hashtable containing the menu entries
-        [Parameter(Mandatory=$true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [Alias('InputObject')]
         $Entries,
@@ -190,7 +190,8 @@ function Write-Menu {
         if ($Title -notlike $null) {
             $host.UI.RawUI.WindowTitle = $Title
             $script:menuTitle = "$Title"
-        } else {
+        }
+        else {
             $script:menuTitle = 'Menu'
         }
 
@@ -205,9 +206,9 @@ function Write-Menu {
                 $script:menuEntryTotal = 1
                 # Create object
                 $script:menuEntries = New-Object PSObject -Property @{
-                    Command = ''
-                    Name = $inputEntries
-                    Selected = $false
+                    Command   = ''
+                    Name      = $inputEntries
+                    Selected  = $false
                     onConfirm = 'Name'
                 }; break
             }
@@ -218,9 +219,9 @@ function Write-Menu {
                 foreach ($i in 0..$($menuEntryTotal - 1)) {
                     # Create object
                     $script:menuEntries += New-Object PSObject -Property @{
-                        Command = ''
-                        Name = $($inputEntries)[$i]
-                        Selected = $false
+                        Command   = ''
+                        Name      = $($inputEntries)[$i]
+                        Selected  = $false
                         onConfirm = 'Name'
                     }; $i++
                 }; break
@@ -234,7 +235,8 @@ function Write-Menu {
                     if ($menuEntryTotal -eq 1) {
                         $tempName = $($inputEntries.Keys)
                         $tempCommand = $($inputEntries.Values)
-                    } else {
+                    }
+                    else {
                         $tempName = $($inputEntries.Keys)[$i]
                         $tempCommand = $($inputEntries.Values)[$i]
                     }
@@ -242,17 +244,19 @@ function Write-Menu {
                     # Check if command contains nested menu
                     if ($tempCommand.GetType().Name -eq 'Hashtable') {
                         $tempAction = 'Hashtable'
-                    } elseif ($tempCommand.Substring(0,1) -eq '@') {
+                    }
+                    elseif ($tempCommand.Substring(0, 1) -eq '@') {
                         $tempAction = 'Invoke'
-                    } else {
+                    }
+                    else {
                         $tempAction = 'Command'
                     }
 
                     # Create object
                     $script:menuEntries += New-Object PSObject -Property @{
-                        Name = $tempName
-                        Command = $tempCommand
-                        Selected = $false
+                        Name      = $tempName
+                        Command   = $tempCommand
+                        Selected  = $false
                         onConfirm = $tempAction
                     }; $i++
                 }; break
@@ -315,7 +319,8 @@ function Write-Menu {
         # Get amount of entries for last page + fully populated page
         if ($pageCurrent -eq $pageTotal) {
             $script:pageEntryTotal = ($menuEntryTotal - ($pageSize * $pageTotal))
-        } else {
+        }
+        else {
             $script:pageEntryTotal = $pageSize
         }
 
@@ -399,7 +404,7 @@ function Write-Menu {
         $pOffset = ($pTotal.ToString()).Length
 
         # Build string, use offset and padding to right align current page number
-        $script:pageNumber = "{0,-$pOffset}{1,0}" -f "$("$pCurrent".PadLeft($pOffset))","/$pTotal"
+        $script:pageNumber = "{0,-$pOffset}{1,0}" -f "$("$pCurrent".PadLeft($pOffset))", "/$pTotal"
 
         # Move cursor to title
         [System.Console]::CursorTop = $lineTitle
@@ -427,7 +432,8 @@ function Write-Menu {
     #>
 
     # Loop through user input until valid key has been pressed
-    do { $inputLoop = $true
+    do {
+        $inputLoop = $true
 
         # Move cursor to first entry and beginning of line
         [System.Console]::CursorTop = $lineTop
@@ -450,8 +456,9 @@ function Write-Menu {
                     Get-Menu $($menuNested.GetEnumerator())[$menuNested.Count - 1].Value
                     Get-Page
                     $menuNested.RemoveAt($menuNested.Count - 1) | Out-Null
-                # Otherwise exit and return $null
-                } else {
+                    # Otherwise exit and return $null
+                }
+                else {
                     Clear-Host
                     $inputLoop = $false
                     [System.Console]::CursorVisible = $true
@@ -461,9 +468,12 @@ function Write-Menu {
 
             # Next entry
             'DownArrow' {
-                if ($lineSelected -lt ($pageEntryTotal - 1)) { # Check if entry isn't last on page
+                if ($lineSelected -lt ($pageEntryTotal - 1)) {
+                    # Check if entry isn't last on page
                     Update-Entry ($lineSelected + 1)
-                } elseif ($pageCurrent -ne $pageTotal) { # Switch if not on last page
+                }
+                elseif ($pageCurrent -ne $pageTotal) {
+                    # Switch if not on last page
                     $pageCurrent++
                     Get-Page
                 }; break
@@ -471,9 +481,12 @@ function Write-Menu {
 
             # Previous entry
             'UpArrow' {
-                if ($lineSelected -gt 0) { # Check if entry isn't first on page
+                if ($lineSelected -gt 0) {
+                    # Check if entry isn't first on page
                     Update-Entry ($lineSelected - 1)
-                } elseif ($pageCurrent -ne 0) { # Switch if not on first page
+                }
+                elseif ($pageCurrent -ne 0) {
+                    # Switch if not on first page
                     $pageCurrent--
                     Get-Page
                     Update-Entry ($pageEntryTotal - 1)
@@ -482,9 +495,12 @@ function Write-Menu {
 
             # Select top entry
             'Home' {
-                if ($lineSelected -ne 0) { # Check if top entry isn't already selected
+                if ($lineSelected -ne 0) {
+                    # Check if top entry isn't already selected
                     Update-Entry 0
-                } elseif ($pageCurrent -ne 0) { # Switch if not on first page
+                }
+                elseif ($pageCurrent -ne 0) {
+                    # Switch if not on first page
                     $pageCurrent--
                     Get-Page
                     Update-Entry ($pageEntryTotal - 1)
@@ -493,24 +509,29 @@ function Write-Menu {
 
             # Select bottom entry
             'End' {
-                if ($lineSelected -ne ($pageEntryTotal - 1)) { # Check if bottom entry isn't already selected
+                if ($lineSelected -ne ($pageEntryTotal - 1)) {
+                    # Check if bottom entry isn't already selected
                     Update-Entry ($pageEntryTotal - 1)
-                } elseif ($pageCurrent -ne $pageTotal) { # Switch if not on last page
+                }
+                elseif ($pageCurrent -ne $pageTotal) {
+                    # Switch if not on last page
                     $pageCurrent++
                     Get-Page
                 }; break
             }
 
             # Next page
-            { $_ -in 'RightArrow','PageDown' } {
-                if ($pageCurrent -lt $pageTotal) { # Check if already on last page
+            { $_ -in 'RightArrow', 'PageDown' } {
+                if ($pageCurrent -lt $pageTotal) {
+                    # Check if already on last page
                     $pageCurrent++
                     Get-Page
                 }; break
             }
 
             # Previous page
-            { $_ -in 'LeftArrow','PageUp' } { # Check if already on first page
+            { $_ -in 'LeftArrow', 'PageUp' } {
+                # Check if already on first page
                 if ($pageCurrent -gt 0) {
                     $pageCurrent--
                     Get-Page
@@ -558,8 +579,9 @@ function Write-Menu {
                         # Entry contains command, invoke it
                         if (($_.Selected) -and ($_.Command -notlike $null) -and ($entrySelected.Command.GetType().Name -ne 'Hashtable')) {
                             Invoke-Expression -Command $_.Command
-                        # Return name, entry does not contain command
-                        } elseif ($_.Selected) {
+                            # Return name, entry does not contain command
+                        }
+                        elseif ($_.Selected) {
                             return $_.Name
                         }
                     }

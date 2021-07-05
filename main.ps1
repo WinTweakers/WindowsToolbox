@@ -16,6 +16,7 @@ Import-Module -DisableNameChecking $PSScriptRoot\library\DebloatFunctions.psm1
 
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
+
 $build = (Get-CimInstance Win32_OperatingSystem).version
 if ($build -lt "10.0.10240") {
     Read-Host "Sorry, your Windows version is not supported, and will never be :( . Press Enter to exit"
@@ -29,7 +30,7 @@ else {
 
 $objects = @{
 
-    'Debloat' = "@(
+    'Debloat'          = "@(
         'Disable Windows Defender (NOT RECOMMENDED)',
         'Remove Default UWP apps',
         'Remove OneDrive',
@@ -46,7 +47,7 @@ $objects = @{
         'Disable Advertising ID'
     )"
 
-    'Tweaks' = @{
+    'Tweaks'           = @{
         'System Tweaks' = "@(
             'Lower RAM usage',
             'Enable photo viewer',
@@ -59,7 +60,7 @@ $objects = @{
             'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
         )"
 
-        'UI Tweaks' = "@(
+        'UI Tweaks'     = "@(
             'Remove user folders under This PC',
             'Enable dark mode',
             'Disable Aero Shake',
@@ -67,15 +68,15 @@ $objects = @{
         )"
     }    
 
-    'Install Apps' = @{
-        'Browsers' = "@(
+    'Install Apps'     = @{
+        'Browsers'               = "@(
             'Firefox',
             'Google Chrome',
             'Brave',
             'Vivaldi'
         )"
 
-        'Dev Tools' = "@(
+        'Dev Tools'              = "@(
             'Visual Studio Code',
             'Atom',
             'Notepad++',
@@ -96,12 +97,12 @@ $objects = @{
             'Skype'
         )"
 
-        'Gaming/Streaming' = "@(
+        'Gaming/Streaming'       = "@(
             'Steam',
             'OBS Studio'
         )"
         
-        'Multimedia' = "@(
+        'Multimedia'             = "@(
             'iTunes',
             'Spotify',
             'VLC'
@@ -117,24 +118,24 @@ do {
     $mainMenu = Write-Menu -Title $title -Entries $objects
     switch ($mainMenu) {
         #Debloat menu
-            "Disable Windows Defender (NOT RECOMMENDED)" {
-                DisableWindowsDefender   
-            }
-            "Remove Default UWP apps" {
-                RemoveDefaultApps
-            }
-            "Remove OneDrive" {
-                RemoveOneDrive
-            }
-            "Optimize Windows Updates" {
-                OptimizeUpdates
-            }
-            "Disable services" {
-                DisableServices
-            }
-            "Disable Cortana" {
-                DisableCortana
-            }
+        "Disable Windows Defender (NOT RECOMMENDED)" {
+            DisableWindowsDefender   
+        }
+        "Remove Default UWP apps" {
+            RemoveDefaultApps
+        }
+        "Remove OneDrive" {
+            RemoveOneDrive
+        }
+        "Optimize Windows Updates" {
+            OptimizeUpdates
+        }
+        "Disable services" {
+            DisableServices
+        }
+        "Disable Cortana" {
+            DisableCortana
+        }
 
         # Privacy menu
 
@@ -283,51 +284,51 @@ do {
         }
 
         #Tweaks
-            #System tweaks
-            "Lower RAM usage" {
-                RAM
-            }
+        #System tweaks
+        "Lower RAM usage" {
+            RAM
+        }
 
-            "Enable photo viewer" {
-                EnablePhotoViewer
-            }
+        "Enable photo viewer" {
+            EnablePhotoViewer
+        }
 
-            "Disable Prefetch prelaunch" {
-                DisablePrefetchPrelaunch
-            }
+        "Disable Prefetch prelaunch" {
+            DisablePrefetchPrelaunch
+        }
 
-            "Disable Edge prelaunch" {
-                DisableEdgePrelaunch
-            }
+        "Disable Edge prelaunch" {
+            DisableEdgePrelaunch
+        }
 
-            "Use UTC time" {
-                UseUTC
-            }
+        "Use UTC time" {
+            UseUTC
+        }
 
-            "Disable ShellExperienceHost" {
-                DisableShellExperienceHost 
-            }
-            "Enable GodMode" {
-                GodMode
-            }
-            "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
-                ImproveSSD
-            }
+        "Disable ShellExperienceHost" {
+            DisableShellExperienceHost 
+        }
+        "Enable GodMode" {
+            GodMode
+        }
+        "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
+            ImproveSSD
+        }
 
-            "Disable SearchUI" {
-                DisableSearchUI
-            }
+        "Disable SearchUI" {
+            DisableSearchUI
+        }
 
-            #UI Tweaks
-            "Remove user folders under This PC" {
-                RemoveThisPClutter
-            }
-            "Enable dark mode" {
-                DarkMode
-            }
-            "Disable Aero Share" {
-                DisableAeroShake
-            }
+        #UI Tweaks
+        "Remove user folders under This PC" {
+            RemoveThisPClutter
+        }
+        "Enable dark mode" {
+            DarkMode
+        }
+        "Disable Aero Share" {
+            DisableAeroShake
+        }
 
         "Switch Windows With a Single Click on the Taskbar" {
             TBSingleClick

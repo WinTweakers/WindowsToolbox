@@ -1,8 +1,8 @@
 function New-FolderForced {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
-		[Parameter(Position = 0, Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
-		[string]
+        [Parameter(Position = 0, Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [string]
         $Path
     )
 
@@ -16,13 +16,13 @@ function New-FolderForced {
 
 function InstallChoco {
     $testchoco = powershell choco -v
-    if(-not($testchoco)){
+    if (-not($testchoco)) {
         Write-Output "Seems Chocolatey is not installed, installing now"
         Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
         refreshenv
         choco feature enable -n allowGlobalConfirmation
     }
-    else{
+    else {
         choco feature enable -n allowGlobalConfirmation
         Write-Output "Chocolatey Version $testchoco is already installed"
     }
@@ -30,16 +30,17 @@ function InstallChoco {
 
 function InstallWSL {
     Write-Output "Installing Linux Subsystem..."
-	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Windows-Subsystem-Linux" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
+    Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Windows-Subsystem-Linux" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 }
 
 function InstallHyperV {
     Write-Output "Installing Hyper-V..."
-	if ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
-		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Hyper-V-All" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
-	} else {
-		Install-WindowsFeature -Name "Hyper-V" -IncludeManagementTools -WarningAction SilentlyContinue | Out-Null
-	}
+    if ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
+        Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Hyper-V-All" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
+    }
+    else {
+        Install-WindowsFeature -Name "Hyper-V" -IncludeManagementTools -WarningAction SilentlyContinue | Out-Null
+    }
 }
 
 # Take-Own
@@ -98,7 +99,8 @@ function Takeown-Folder($path) {
     foreach ($item in Get-ChildItem $path) {
         if (Test-Path $item -PathType Container) {
             Takeown-Folder $item.FullName
-        } else {
+        }
+        else {
             Takeown-File $item.FullName
         }
     }
