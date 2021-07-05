@@ -56,7 +56,8 @@ $objects = @{
         'Disable ShellExperienceHost',
         'Disable SearchUI',
         'Enable GodMode',
-        'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
+        'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)',
+        'Switch Windows With a Single Click on the Taskbar'
     )"
 
     'Install Apps' = @{
@@ -307,6 +308,10 @@ do {
             DisableSearchUI
         }
 
+        "Switch Windows With a Single Click on the Taskbar" {
+            TBSingleClick
+        }
+
         # Misc
         "Help" {
             Info
@@ -314,7 +319,7 @@ do {
         "Exit" {
             Exit
         }
-        "Restart" {
+        "Reboot" {
             Restart
         }
     }
