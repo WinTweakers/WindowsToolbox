@@ -10,7 +10,6 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 Import-Module $PSScriptRoot\library\Write-Menu.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\WinCore.psm1
 Import-Module $PSScriptRoot\library\PrivacyFunctions.psm1
-Import-Module -DisableNameChecking $PSScriptRoot\library\Take-Own.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\Tweaks.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\GeneralFunctions.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\DebloatFunctions.psm1
