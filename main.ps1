@@ -7,12 +7,13 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     }
 }
 
-Import-Module $PSScriptRoot\library\Write-Menu.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\Write-Menu.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\WinCore.psm1
-Import-Module $PSScriptRoot\library\PrivacyFunctions.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\PrivacyFunctions.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\Tweaks.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\GeneralFunctions.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\DebloatFunctions.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\UndoFunctions.psm1
 
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
@@ -108,6 +109,10 @@ $objects = @{
             'VLC'
         )"
     }
+
+    'Undo Scripts'             = "@(
+        '(Re)Enable Telemetry'
+    )"
 
     #'Restart' = 'Restart'
     #'Help' = 'Info'
@@ -332,6 +337,11 @@ do {
 
         "Switch Windows With a Single Click on the Taskbar" {
             TBSingleClick
+        }
+
+        # Undo
+        "(Re)Enable Telemetry" {
+            EnableTelemetry
         }
 
         # Misc

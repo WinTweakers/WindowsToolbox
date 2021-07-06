@@ -1,4 +1,4 @@
-##General functions
+# General functions
 
 $version = "1.0.0-beta.3"
 $build = (Get-CimInstance Win32_OperatingSystem).version

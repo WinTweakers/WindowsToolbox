@@ -1,7 +1,3 @@
-# Debloat Functions
-Import-Module $PSScriptRoot\WinCore.psm1
-Import-Module -DisableNameChecking $PSScriptRoot\Take-Own.psm1
-
 function DisableWindowsDefender {
 
     Write-Output "Elevating priviledges for this process"
