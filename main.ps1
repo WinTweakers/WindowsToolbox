@@ -18,6 +18,26 @@ Import-Module -DisableNameChecking $PSScriptRoot\library\UndoFunctions.psm1
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 
+try {
+    # Check if winget is already installed
+    $er = (invoke-expression "winget -v") 2>&1
+    if ($lastexitcode) { throw $er }
+    Write-Host "winget is already installed."
+}
+catch {
+    # If winget is not installed. Install it from the Github release
+    Write-Host "winget is not found, installing it right now."
+	
+    $download = "https://github.com/microsoft/winget-cli/releases/download/latest/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+    Write-Host "Dowloading latest release"
+    Invoke-WebRequest -Uri $download -OutFile $PSScriptRoot\winget-latest.appxbundle
+	
+    Write-Host "Installing the package"
+    Add-AppxPackage -Path $PSScriptRoot\winget-latest.appxbundle
+}
+
+
+
 $build = (Get-CimInstance Win32_OperatingSystem).version
 if ($build -lt "10.0.10240") {
     Read-Host "Sorry, your Windows version is not supported, and will never be :( . Press Enter to exit"
@@ -85,8 +105,12 @@ $objects = @{
             'Github CLI',
             'Git',
             'JRE 8',
-            'Python',
+            'Python 3',
+            'Python 2',
             'PuTTY',
+            'Node.JS',
+            'Vim',
+            'Docker',
             'Windows Subsystem for Linux',
             'Hyper-V'
         )"
@@ -110,7 +134,7 @@ $objects = @{
         )"
     }
 
-    'Undo Scripts'             = "@(
+    'Undo Scripts'     = "@(
         '(Re)Enable Telemetry'
     )"
 
@@ -165,74 +189,79 @@ do {
         # Browsers
 
         "Firefox" {
-            InstallChoco
-            choco install firefox
+            winget install -e --id Mozilla.Firefox
         }
 
         "Google Chrome" {
-            InstallChoco
-            choco install googlechrome
+            winget install -e --id Google.Chrome
         }
 
         "Brave" {
-            InstallChoco
-            choco install brave
+            winget install -e --id BraveSoftware.BraveBrowser
         }
 
         "Vivaldi" {
-            InstallChoco
-            choco install vivaldi
+            winget install -e --id VivaldiTechnologies.Vivaldi
         }
 
         # Dev Tools
 
         "Visual Studio Code" {
-            InstallChoco
-            choco install vscode
+            winget install -e --id Microsoft.VisualStudioCode
         }
 
         "Atom" {
-            InstallChoco
-            choco install atom
+            winget install -e --id GitHub.Atom
         }
 
         "Notepad++" {
-            InstallChoco
-            choco install notepadplusplus
+            winget install -e --id Notepad++.Notepad++
         }
 
         "Github Desktop" {
-            InstallChoco
-            choco install github-desktop
+            winget install -e --id GitHub.GitHubDesktop
         }
 
         "Github CLI" {
-            InstallChoco
-            choco install gh
+            winget install -e --id GitHub.cli
         }
 
         "Git" {
-            InstallChoco
-            choco install git
+            winget install -e --id Git.Git
         }
 
         "JRE 8" {
-            InstallChoco
-            choco install jre8
+            winget install -e --id Oracle.JavaRuntimeEnvironment
         }
             
-        "Python" {
-            InstallChoco
-            choco install python
+        "Python 3" {
+            winget install -e --id Python.Python.3
+        }
+
+        "Python 2" {
+            winget install -e --id Python.Python.2
         }
 
         "PuTTY" {
-            InstallChoco
-            choco install putty
+            winget install -e --id PuTTY.PuTTY
         }
+
+        "Node.JS" {
+            winget install -e --id OpenJS.Nodejs
+        }
+
+        "Vim" {
+            winget install -e --id vim.vim
+        }
+
+        "Docker" {
+            winget install -e --id Docker.DockerDesktop
+        }
+
         "Windows Subsystem for Linux" {
             InstallWSL
         }
+
         "Hyper-V" {
             InstallHyperV
         }
@@ -240,56 +269,49 @@ do {
         # Communication Menu
 
         "Discord" {
-            InstallChoco
-            choco install discord
+            winget install -e --id Discord.Discord
         }
 
         "Slack" {
-            InstallChoco
-            choco install slack
+            winget install -e --id SlackTechnologies.Slack
         }
 
         "Zoom" {
-            InstallChoco
-            choco install zoom
+            winget install -e --id Zoom.Zoom
         }
 
         "Skype" {
-            InstallChoco
-            choco install skype
+            winget install -e --id Microsoft.Skype
         }
 
         # Gaming stuff
 
         "Steam" {
-            InstallChoco
-            choco install steam
+            winget install -e --id Valve.Steam
         }
         
         "OBS Studio" {
-            InstallChoco
-            choco install obs-studio
+            winget install -e --id OBSProject.OBSStudio
         }
 
         # Multimedia
 
         "iTunes" {
-            InstallChoco
-            choco install itunes
+            winget install -e --id Apple.iTunes
         }
 
         "Spotify" {
-            InstallChoco
-            choco install spotify
+            winget install -e --id Spotify.Spotify
         }
 
         "VLC" {
-            InstallChoco
-            choco install vlc
+            winget install -e --id VideoLAN.VLC
         }
 
         #Tweaks
+
         #System tweaks
+
         "Lower RAM usage" {
             RAM
         }
