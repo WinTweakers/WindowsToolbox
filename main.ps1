@@ -36,7 +36,7 @@ catch {
     Add-AppxPackage -Path $PSScriptRoot\winget-latest.appxbundle
 }
 
-
+Clear-Host
 
 $build = (Get-CimInstance Win32_OperatingSystem).version
 if ($build -lt "10.0.10240") {
