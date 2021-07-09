@@ -189,73 +189,73 @@ do {
         # Browsers
 
         "Firefox" {
-            winget install -e --id Mozilla.Firefox
+            winget install Mozilla.Firefox
         }
 
         "Google Chrome" {
-            winget install -e --id Google.Chrome
+            winget install Google.Chrome
         }
 
         "Brave" {
-            winget install -e --id BraveSoftware.BraveBrowser
+            winget install BraveSoftware.BraveBrowser
         }
 
         "Vivaldi" {
-            winget install -e --id VivaldiTechnologies.Vivaldi
+            winget install VivaldiTechnologies.Vivaldi
         }
 
         # Dev Tools
 
         "Visual Studio Code" {
-            winget install -e --id Microsoft.VisualStudioCode
+            winget install Microsoft.VisualStudioCode
         }
 
         "Atom" {
-            winget install -e --id GitHub.Atom
+            winget install GitHub.Atom
         }
 
         "Notepad++" {
-            winget install -e --id Notepad++.Notepad++
+            winget install Notepad++.Notepad++
         }
 
         "Github Desktop" {
-            winget install -e --id GitHub.GitHubDesktop
+            winget install GitHub.GitHubDesktop
         }
 
         "Github CLI" {
-            winget install -e --id GitHub.cli
+            winget install GitHub.cli
         }
 
         "Git" {
-            winget install -e --id Git.Git
+            winget install Git.Git
         }
 
         "JRE 8" {
-            winget install -e --id Oracle.JavaRuntimeEnvironment
+            winget install Oracle.JavaRuntimeEnvironment
         }
             
         "Python 3" {
-            winget install -e --id Python.Python.3
+            winget install Python.Python.3
         }
 
         "Python 2" {
-            winget install -e --id Python.Python.2
+            winget install Python.Python.2
         }
 
         "PuTTY" {
-            winget install -e --id PuTTY.PuTTY
+            winget install PuTTY.PuTTY
         }
 
         "Node.JS" {
-            winget install -e --id OpenJS.Nodejs
+            winget install OpenJS.Nodejs
         }
 
         "Vim" {
-            winget install -e --id vim.vim
+            winget install vim.vim
         }
 
         "Docker" {
-            winget install -e --id Docker.DockerDesktop
+            winget install Docker.DockerDesktop
         }
 
         "Windows Subsystem for Linux" {
@@ -269,43 +269,43 @@ do {
         # Communication Menu
 
         "Discord" {
-            winget install -e --id Discord.Discord
+            winget install Discord.Discord
         }
 
         "Slack" {
-            winget install -e --id SlackTechnologies.Slack
+            winget install SlackTechnologies.Slack
         }
 
         "Zoom" {
-            winget install -e --id Zoom.Zoom
+            winget install Zoom.Zoom
         }
 
         "Skype" {
-            winget install -e --id Microsoft.Skype
+            winget install Microsoft.Skype
         }
 
         # Gaming stuff
 
         "Steam" {
-            winget install -e --id Valve.Steam
+            winget install Valve.Steam
         }
         
         "OBS Studio" {
-            winget install -e --id OBSProject.OBSStudio
+            winget install OBSProject.OBSStudio
         }
 
         # Multimedia
 
         "iTunes" {
-            winget install -e --id Apple.iTunes
+            winget install Apple.iTunes
         }
 
         "Spotify" {
-            winget install -e --id Spotify.Spotify
+            winget install Spotify.Spotify
         }
 
         "VLC" {
-            winget install -e --id VideoLAN.VLC
+            winget install VideoLAN.VLC
         }
 
         #Tweaks
