@@ -1,6 +1,6 @@
 # General functions
 
-$version = "1.0.0-beta.3"
+$version = "1.0.0-beta.5"
 $build = (Get-CimInstance Win32_OperatingSystem).version
 $winver = (Get-WmiObject -class Win32_OperatingSystem).Caption
 
@@ -13,7 +13,7 @@ function setup {
         $winver = '10'
     }
 }
-function Exit {
+function Quit {
     stop-process -id $PID
 }
 
@@ -24,6 +24,9 @@ function Restart {
 function Info {
     Write-Output "Windows Toolbox $version"
     Write-Output "Windows build $build"
+    if ($version -lt "$version") {
+        Write-Output "Older version of WindowsToolbox is detected, please update WindowsToolbox"
+    }
     Write-Output ""
     Write-Output ""
     Write-Output "Please read before using WindowsToolbox"

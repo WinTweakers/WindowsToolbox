@@ -66,6 +66,7 @@ $objects = @{
         'Disable App Suggestions',
         'Disable Tailored Experiences',
         'Disable Advertising ID'
+        'Disable Activity History'
     )"
 
     'Tweaks'           = @{
@@ -81,12 +82,24 @@ $objects = @{
             'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
         )"
 
-        'UI Tweaks'     = "@(
-            'Remove user folders under This PC',
-            'Enable dark mode',
-            'Disable Aero Shake',
-            'Switch Windows With a Single Click on the Taskbar'
-        )"
+        'UI Tweaks'           = @{
+            'Shell tweaks' = "@(
+                'Enable dark mode',
+                'Disable Aero Shake',
+                'Switch Windows With a Single Click on the Taskbar',
+                'Disable Action Center',
+                'Disable Accessibility Keys',
+                'Set Win+X menu to Command Prompt',
+                'Fix No Internet prompt',
+                'Enable verbose startup / shutdown messages'
+            )"
+
+            'Explorer tweaks' = "@(
+                'Remove user folders under This PC',
+                'Show build number on desktop',
+                'Show full directory path in Explorer title bar'
+            )"
+        }   
     }    
 
     'Install Apps'     = @{
@@ -167,6 +180,9 @@ do {
         }
 
         # Privacy menu
+        "Disable Telemetry" {
+            DisableTelemetry
+        }
 
         "Privacy Fixes (WIP)" {
             PrivacyFixSettings
@@ -182,6 +198,10 @@ do {
 
         "Disable Advertising ID" {
             DisableAdvertisingID
+        }
+
+        "Disable Activity History" {
+            DisableActivityHistory
         }
         
         # Install Menu
@@ -347,18 +367,42 @@ do {
         }
 
         #UI Tweaks
+
+        #Explorer tweaks
         "Remove user folders under This PC" {
             RemoveThisPClutter
         }
+        "Show build number on desktop" {
+            ShowBuildNumberOnDesktop
+        }
+        "Show full directory path in Explorer's title bar" {
+            ShowExplorerFullPath
+        }
+
+        #Shell tweaks
         "Enable dark mode" {
             DarkMode
         }
         "Disable Aero Share" {
             DisableAeroShake
         }
-
         "Switch Windows With a Single Click on the Taskbar" {
             TBSingleClick
+        }
+        "Disable Action Center" {
+            DisableActionCenter
+        }
+        "Disable Accessibility Keys" {
+            DisableAccessibilityKeys
+        }
+        "Fix No Internet prompt" {
+            FixNoInternetPrompt
+        }
+        "Set Win+X menu to Command Prompt" {
+            SetWinXMenuCMD
+        }
+        "Enable verbose startup / shutdown messages" {
+            EnableVerboseStartup
         }
 
         # Undo
@@ -371,7 +415,7 @@ do {
             Info
         }
         "Exit" {
-            Exit
+            Quit 
         }
         "Reboot" {
             Restart

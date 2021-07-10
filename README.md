@@ -8,10 +8,10 @@ This software is in beta. **All scripts are provided as-is and you use them at y
 
 ## Contributing
 
-Contributions are welcome, just make a pull request and we'll accept it if it's actually helpful.
+Contributions are welcomed, just make a pull request and we'll accept it if it's actually helpful.
 
 ## Execution
-Before launching the script(s), run these commands:
+Before launching the script, run these commands:
 
 Enable execution of PowerShell scripts:
 
@@ -20,6 +20,8 @@ Enable execution of PowerShell scripts:
 Unblock PowerShell scripts and modules within this directory:
 
     PS> ls -Recurse *.ps*1 | Unblock-File
+
+To run WindowsToolbox, run "WindowsToolbox.cmd"
 
 ## Liability
 

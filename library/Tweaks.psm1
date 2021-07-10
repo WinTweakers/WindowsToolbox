@@ -89,6 +89,7 @@ function TBSingleClick {
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LastActiveClick" -Type Dword -Value 0x00000001 -Force
     Write-Output "Done"
 }
+
 # UI Tweaks
 
 function RemoveThisPClutter {
@@ -129,5 +130,63 @@ function RemoveThisPClutter {
 function DisableAeroShake {
     Write-Output "Disabling Aero Shake..."
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DisallowShaking" -Type DWord -Value 1
+    Write-Output "Done"
+}
+
+function DisableActionCenter {
+	Write-Output "Disabling Action Center (Notification Center)..."
+	If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer")) {
+		New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0
+    Write-Output "Done"
+}
+
+function DisableAccessibilityKeys {
+	Write-Output "Disabling accessibility keys prompts..."
+	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "506"
+	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\ToggleKeys" -Name "Flags" -Type String -Value "58"
+	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\Keyboard Response" -Name "Flags" -Type String -Value "122"
+    Write-Output "Done"
+}
+
+function FixNoInternetPrompt {
+    if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" -force -ea SilentlyContinue };
+    New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'EnableActiveProbingl' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
+}
+
+function SetWinXMenuCMD {
+    Write-Output "Setting Command prompt instead of PowerShell in WinX menu..."
+    If ([System.Environment]::OSVersion.Version.Build -le 14393) {
+    Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DontUsePowerShellOnWinX" -ErrorAction SilentlyContinue
+    } Else {
+            Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DontUsePowerShellOnWinX" -Type DWord -Value 1
+    }
+}
+
+function ShowBuildNumberOnDesktop {
+	Write-Output "Showing Windows build number on desktop..."
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "PaintDesktopVersion" -Type DWord -Value 1
+    Write-Output "Done"
+}
+
+function ShowExplorerFullPath {
+	Write-Output "Showing full directory path in Explorer title bar..."
+	If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" -Name "FullPath" -Type DWord -Value 1
+    Write-Output "Done"
+}
+
+function EnableVerboseStartup {
+	Write-Output "Enabling verbose startup/shutdown status messages..."
+	if ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
+		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "VerboseStatus" -Type DWord -Value 1
+	} 
+    else {
+		Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "VerboseStatus" -ErrorAction SilentlyContinue
+	}
     Write-Output "Done"
 }
