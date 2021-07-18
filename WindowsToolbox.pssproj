@@ -7,19 +7,17 @@
     <RootNamespace>MyApplication</RootNamespace>
     <AssemblyName>MyApplication</AssemblyName>
     <Name>WindowsToolbox</Name>
-    <StartupFile>WindowsToolbox.ps1</StartupFile>
-    <PackageEntryPoint>WindowsToolbox.ps1</PackageEntryPoint>
-    <DotNetVersion>net462</DotNetVersion>
+    <PackageAsExecutable>True</PackageAsExecutable>
+    <PackageEntryPoint>main.ps1</PackageEntryPoint>
+    <Bundle>True</Bundle>
+    <DotNetVersion>net470</DotNetVersion>
+    <RequireElevation>True</RequireElevation>
+    <PackageModules>True</PackageModules>
     <PackageType>Console</PackageType>
     <PowerShellVersion>Windows PowerShell</PowerShellVersion>
-    <Bundle>True</Bundle>
-    <RequireElevation>True</RequireElevation>
-    <PackageAsExecutable>True</PackageAsExecutable>
-    <PackageModules>True</PackageModules>
-    <FileDescription>A powerful but simple, easy to use toolbox for Windows 10 / 11. </FileDescription>
-    <ProductName>WindowsToolbox</ProductName>
-    <ProductVersion>v1.0.0-beta.6</ProductVersion>
-    <Copyright>WinTweakers</Copyright>
+    <ApplicationIconPath>C:\Users\Roman\Projects\WinTweakers\WindowsToolbox\toolbox.ico</ApplicationIconPath>
+    <Obfuscate>False</Obfuscate>
+    <PackagePlatform>x86</PackagePlatform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,12 +37,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="library\" />
+    <Content Include=".gitignore" />
+    <Content Include="ExtLicense.md" />
+    <Content Include="LICENSE" />
+    <Content Include="README.md" />
+    <Content Include="WindowsToolbox.cmd" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="library\Write-Menu.psm1" />
+    <Compile Include="library\DebloatFunctions.psm1" />
+    <Compile Include="library\GeneralFunctions.psm1" />
+    <Compile Include="library\PrivacyFunctions.psm1" />
+    <Compile Include="library\Tweaks.psm1" />
+    <Compile Include="library\UndoFunctions.psm1" />
     <Compile Include="library\WinCore.psm1" />
-    <Compile Include="WindowsToolbox.ps1" />
+    <Compile Include="library\Write-Menu.psm1" />
+    <Compile Include="main.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="library\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />

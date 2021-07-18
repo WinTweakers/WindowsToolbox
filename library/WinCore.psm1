@@ -1,5 +1,3 @@
-$build = (Get-CimInstance Win32_OperatingSystem).version
-
 function New-FolderForced {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param (
@@ -30,26 +28,6 @@ function InstallChoco {
     }
 }
 
-function InstallWinget {
-    try {
-        # Check if winget is already installed
-        $er = (invoke-expression "winget -v") 2>&1
-        if ($lastexitcode) { throw $er }
-    }
-    catch {
-        # If winget is not installed. Install it from the Github release
-        Write-Host "winget is not found, installing it right now."
-        
-        $download = "https://github.com/microsoft/winget-cli/releases/download/v1.0.11692/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-        Write-Host "Dowloading latest release"
-        Invoke-WebRequest -Uri $download -OutFile $PSScriptRoot\winget-latest.appxbundle
-        
-        Write-Host "Installing the package"
-        Add-AppxPackage -Path $PSScriptRoot\winget-latest.appxbundle
-        Clear-Host
-    }
-}
-
 function InstallWSL {
     Write-Output "Installing Linux Subsystem..."
     Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Windows-Subsystem-Linux" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
@@ -65,7 +43,9 @@ function InstallHyperV {
     }
 }
 
-function Unlock-Registry($key) {
+# Take-Own
+
+function Takeown-Registry($key) {
     # TODO does not work for all root keys yet
     switch ($key.split('\')[0]) {
         "HKEY_CLASSES_ROOT" {
@@ -99,7 +79,7 @@ function Unlock-Registry($key) {
     $key.SetAccessControl($acl)
 }
 
-function Unlock-File($path) {
+function Takeown-File($path) {
     takeown.exe /A /F $path
     $acl = Get-Acl $path
 
@@ -114,7 +94,7 @@ function Unlock-File($path) {
     Set-Acl -Path $path -AclObject $acl
 }
 
-function Unlock-Folder($path) {
+function Takeown-Folder($path) {
     Takeown-File $path
     foreach ($item in Get-ChildItem $path) {
         if (Test-Path $item -PathType Container) {
@@ -126,7 +106,7 @@ function Unlock-Folder($path) {
     }
 }
 
-function Get-Privileges {
+function Elevate-Privileges {
     param($Privilege)
     $Definition = @"
     using System;
@@ -165,12 +145,4 @@ function Get-Privileges {
     $ProcessHandle = (Get-Process -id $pid).Handle
     $type = Add-Type $definition -PassThru
     $type[0]::EnablePrivilege($processHandle, $Privilege)
-}
-
-function Exit {
-    stop-process -id $PID
-}
-
-function Restart {
-    Restart-Computer
 }
