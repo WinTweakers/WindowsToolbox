@@ -10,18 +10,10 @@ This software is in beta. **All scripts are provided as-is and you use them at y
 
 Contributions are welcomed, just make a pull request and we'll accept it if it's actually helpful.
 
-## Execution
-Before launching the script, run these commands:
-
-Enable execution of PowerShell scripts:
-
-    Set-ExecutionPolicy Unrestricted -Scope CurrentUser
-
-Unblock PowerShell scripts and modules within this directory:
-
-    ls -Recurse *.ps*1 | Unblock-File
-
-To run WindowsToolbox, run "WindowsToolbox.cmd"
+## Usage
+1. Download `WindowsToolbox.zip` from [the releases tab](https://github.com/WinTweakers/WindowsToolbox/releases).
+2. Unzip `WindowsToolbox.zip` to a new folder
+3. Run `WindowsToolbox.exe`
 
 ## Support
 [Join Our Discord For Support](https://discord.gg/9FJceeKUr6)
