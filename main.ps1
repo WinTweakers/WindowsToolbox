@@ -1,22 +1,48 @@
 ﻿# Self-elevate the script if required
-if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
-    if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
-        $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
-        Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
-        Exit
+# Get the ID and security principal of the current user account
+ $myWindowsID=[System.Security.Principal.WindowsIdentity]::GetCurrent()
+ $myWindowsPrincipal=new-object System.Security.Principal.WindowsPrincipal($myWindowsID)
+
+ # Get the security principal for the Administrator role
+ $adminRole=[System.Security.Principal.WindowsBuiltInRole]::Administrator
+
+ # Check to see if we are currently running "as Administrator"
+ if ($myWindowsPrincipal.IsInRole($adminRole))
+    {
+    # We are running "as Administrator"
     }
+ else
+    {
+    # We are not running "as Administrator" - so relaunch as administrator
+
+    # Create a new process object that starts PowerShell
+    $newProcess = new-object System.Diagnostics.ProcessStartInfo "PowerShell";
+
+    # Specify the current script path and name as a parameter
+    $newProcess.Arguments = $myInvocation.MyCommand.Definition;
+
+    # Indicate that the process should be elevated
+    $newProcess.Verb = "runas";
+
+    # Start the new process
+    [System.Diagnostics.Process]::Start($newProcess) | Out-Null
+
+    # Exit from the current, unelevated, process
+    exit
 }
+
+Set-Location -Path $PSScriptRoot
 
 Set-ExecutionPolicy Unrestricted -Scope CurrentUser
 ls -Recurse *.ps*1 | Unblock-File
 
-Import-Module -DisableNameChecking .\library\Write-Menu.psm1
-Import-Module .\library\WinCore.psd1
-Import-Module -DisableNameChecking .\library\PrivacyFunctions.psm1
-Import-Module -DisableNameChecking .\library\Tweaks.psm1
-Import-Module -DisableNameChecking .\library\GeneralFunctions.psm1
-Import-Module -DisableNameChecking .\library\DebloatFunctions.psm1
-Import-Module -DisableNameChecking .\library\UndoFunctions.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\Write-Menu.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\WinCore.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\PrivacyFunctions.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\Tweaks.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\GeneralFunctions.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\DebloatFunctions.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\library\UndoFunctions.psm1
 
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
@@ -441,4 +467,5 @@ do {
             Restart
         }
     }
+    Read-Host "Press Enter To Continue"
 } until($mainMenu -eq "ForeverLoop")
