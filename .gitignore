@@ -2,3 +2,4 @@ bin/
 obj/
 .vs/
 winget-latest.appxbundle
+WindowsToolbox.pssproj.user
