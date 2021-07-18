@@ -94,7 +94,8 @@ Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 1
 
 ### Prerequisites
 
-* Powershell 7
+* Powershell
+* Windows 10 Or 11
 
 ### Installation
 
