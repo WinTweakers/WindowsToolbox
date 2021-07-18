@@ -15,16 +15,16 @@ Before launching the script, run these commands:
 
 Enable execution of PowerShell scripts:
 
-    PS> Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+    Set-ExecutionPolicy Unrestricted -Scope CurrentUser
 
 Unblock PowerShell scripts and modules within this directory:
 
-    PS> ls -Recurse *.ps*1 | Unblock-File
+    ls -Recurse *.ps*1 | Unblock-File
 
 To run WindowsToolbox, run "WindowsToolbox.cmd"
 
 ## Support
-Join Our Discord For Support https://discord.gg/9FJceeKUr6
+[Join Our Discord For Support](https://discord.gg/9FJceeKUr6)
 
 ## Liability
 
