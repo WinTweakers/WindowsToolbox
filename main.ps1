@@ -47,36 +47,46 @@ Import-Module -DisableNameChecking $PSScriptRoot\library\UndoFunctions.psm1
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 
-try {
-    # Check if winget is already installed
-    $er = (invoke-expression "winget -v") 2>&1
-    if ($lastexitcode) { throw $er }
-    Write-Host "winget is already installed."
-}
-catch {
-    # If winget is not installed. Install it from the Github release
-    Write-Host "winget is not found, installing it right now."
-	
-    $download = "https://github.com/microsoft/winget-cli/releases/download/v1.0.11692/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-    Write-Host "Dowloading latest release"
-    Invoke-WebRequest -Uri $download -OutFile $PSScriptRoot\winget-latest.appxbundle
-	
-    Write-Host "Installing the package"
-    Add-AppxPackage -Path $PSScriptRoot\winget-latest.appxbundle
-}
+
 
 Clear-Host
 
 $build = (Get-CimInstance Win32_OperatingSystem).version
 if ($build -lt "10.0.10240") {
-    Read-Host "Sorry, your Windows version is not supported, and will never be :( . Press Enter to exit"
+    Read-Host "Sorry, your Windows version is not supported, and never will be :( . Press Enter to exit"
     Exit
-}
-else {
+} elseif ($build -lt "10.0.17134") {
+    Write-Warning "Your Windows Version Is To Low For Winget. Using Chocolatey"
+    InstallChoco
+    Read-Host "Press enter to continue"
+    Clear-Host
+} else {
+    try {
+        # Check if winget is already installed
+        $er = (invoke-expression "winget -v") 2>&1
+        if ($lastexitcode) { throw $er }
+        Write-Host "winget is already installed."
+        Read-Host "Press enter to continue"
+        Clear-Host
+    }
+    catch {
+        # If winget is not installed. Install it from the Github release
+        Write-Host "winget is not found, installing it right now."
+	
+        $download = "https://github.com/microsoft/winget-cli/releases/download/v1.0.11692/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+        Write-Host "Dowloading latest release"
+        Invoke-WebRequest -Uri $download -OutFile $PSScriptRoot\winget-latest.appxbundle
+	
+        Write-Host "Installing the package"
+        Add-AppxPackage -Path $PSScriptRoot\winget-latest.appxbundle
+
+        Read-Host "Press enter to continue"
+        Clear-Host
+    }
+
     setup
     Info
 }
-
 
 $objects = @{
 
