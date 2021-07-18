@@ -23,6 +23,9 @@ Unblock PowerShell scripts and modules within this directory:
 
 To run WindowsToolbox, run "WindowsToolbox.cmd"
 
+## Support
+Join Our Discord For Support https://discord.gg/9FJceeKUr6
+
 ## Liability
 
 **All scripts are provided as-is and you use them at your own risk.**
