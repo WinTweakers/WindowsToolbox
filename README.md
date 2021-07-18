@@ -135,7 +135,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Discord: https://discord.gg/invite/9FJceeKUr6
+Discord: https://discord.gg/invite/9FJceeKUr6 or contact hmuy: hmuy#0608
 
 Project Link: [https://github.com/WinTweakers/WindowsToolbox](https://github.com/WinTweakers/WindowsToolbox)
 
@@ -144,9 +144,9 @@ Project Link: [https://github.com/WinTweakers/WindowsToolbox](https://github.com
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* [hmuy](https://github.com/khanhmuy)
+* [khanhmuy](https://github.com/khanhmuy)
 * [CallMeEcho](https://github.com/CallMeEchoCodes)
-* [Sillysock](https://github.com/AvaaaUwU)
+* [Silly Sock](https://github.com/AvaaaUwU)
 
 
 

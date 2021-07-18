@@ -359,5 +359,6 @@ function RemoveIE {
     Write-Output "Uninstalling Internet Explorer..."
     Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -like "Internet-Explorer-Optional*" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
     Get-WindowsCapability -Online | Where-Object { $_.Name -like "Browser.InternetExplorer*" } | Remove-WindowsCapability -Online | Out-Null
-    Write-Output "done"
+    Write-Output "Done"
+    Read-Host "Press Enter to continue"
 }
