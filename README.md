@@ -144,9 +144,9 @@ Project Link: [https://github.com/WinTweakers/WindowsToolbox](https://github.com
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* []()
-* []()
-* []()
+* [hmuy](https://github.com/khanhmuy)
+* [CallMeEcho](https://github.com/CallMeEchoCodes)
+* [Sillysock](https://github.com/AvaaaUwU)
 
 
 
