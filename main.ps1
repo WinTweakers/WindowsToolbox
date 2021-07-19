@@ -58,6 +58,7 @@ if ($build -lt "10.0.10240") {
 } elseif ($build -lt "10.0.17134") {
     Write-Warning "Your Windows Version Is To Low For Winget. Using Chocolatey"
     InstallChoco
+    $global:pkgmgr = "choco"
     Read-Host "Press enter to continue"
     Clear-Host
 } else {
@@ -88,6 +89,8 @@ if ($build -lt "10.0.10240") {
     Info
 }
 
+Write-Host $global:pkgmgr
+Read-Host "test"
 $objects = @{
 
     'Debloat' = "@(
