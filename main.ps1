@@ -47,7 +47,7 @@ Import-Module -DisableNameChecking $PSScriptRoot\library\UndoFunctions.psm1
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 
-
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
 Clear-Host
 
