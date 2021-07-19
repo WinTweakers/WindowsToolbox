@@ -52,10 +52,10 @@ $host.UI.RawUI.WindowTitle = $title
 Clear-Host
 
 $build = (Get-CimInstance Win32_OperatingSystem).version
-if ($build -lt "10.0.10240") {
+if ($build -eq "10.0.10240") {
     Read-Host "Sorry, your Windows version is not supported, and never will be :( . Press Enter to exit"
     Exit
-} elseif ($build -lt "10.0.17134") {
+} elseif ($build -eq "10.0.17134") {
     Write-Warning "Your Windows Version Is To Low For Winget. Using Chocolatey"
     InstallChoco
     $global:pkgmgr = "choco"
