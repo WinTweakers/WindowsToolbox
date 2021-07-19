@@ -18,7 +18,6 @@
     A powerful but simple, easy to use toolbox for Windows 10 / 11. 
     <br />
     <br />
-    <br />
     <a href="https://github.com/WinTweakers/WindowsToolbox/issues">Report Bug</a>
     ·
     <a href="https://github.com/WinTweakers/WindowsToolbox/issues">Request Feature</a>
