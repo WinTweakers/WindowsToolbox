@@ -3,7 +3,7 @@
 $version = "1.0.0-beta.8"
 $build = (Get-CimInstance Win32_OperatingSystem).version
 $winver = (Get-WmiObject -class Win32_OperatingSystem).Caption
-
+$chocoinstalled = Get-Command -Name choco.exe -ErrorAction SilentlyContinue
 
 function setup {
     if ($winver -like "*Windows 11*") {
@@ -47,7 +47,7 @@ function Info {
 }
 
 function InstallChoco {
-    if (Get-Command -Name choco.exe -ErrorAction -eq $null) {
+    if ($chocoinstalled -eq $null) {
         Write-Output "Seems Chocolatey is not installed, installing now"
         Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
         refreshenv
