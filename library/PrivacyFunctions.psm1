@@ -203,10 +203,10 @@ function DisableTelemetry {
         "204.79.197.200"
         "23.218.212.69"
         "65.39.117.230"
-        "65.52.108.33"   # Causes problems with Microsoft Store
         "65.55.108.23"
         "64.4.54.254"
     )
+    #"65.52.108.33" Causes problems with Microsoft Store
     Remove-NetFirewallRule -DisplayName "Block Telemetry IPs" -ErrorAction SilentlyContinue
     New-NetFirewallRule -DisplayName "Block Telemetry IPs" -Direction Outbound `
         -Action Block -RemoteAddress ([string[]]$ips)

@@ -34,7 +34,7 @@
 Set-Location -Path $PSScriptRoot
 
 Set-ExecutionPolicy Unrestricted -Scope CurrentUser
-ls -Recurse *.ps*1 | Unblock-File
+Get-ChildItem -Recurse *.ps*1 | Unblock-File
 
 Import-Module -DisableNameChecking $PSScriptRoot\library\Write-Menu.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\library\WinCore.psm1
@@ -84,10 +84,10 @@ if ($build -lt "10.0.10240") {
         Read-Host "Press enter to continue"
         Clear-Host
     }
-
-    setup
-    Info
 }
+
+setup
+Info
 
 Write-Host $global:pkgmgr
 Read-Host "test"
@@ -99,7 +99,8 @@ $objects = @{
         'Remove OneDrive',
         'Optimize Windows Updates',
         'Disable services',
-        'Disable Cortana'
+        'Disable Cortana',
+        'Remove Internet Explorer'
     )"
 
     'Privacy Settings' = "@(
@@ -190,7 +191,10 @@ $objects = @{
     }
 
     'Undo Scripts' = "@(
-        '(Re)Enable Telemetry'
+        '(Re)Enable Telemetry',
+        '(Re)Enable Windows Defender',
+        '(Re)Install OneDrive',
+        '(Re)Install default UWP apps'
     )"
 
     # 'Restart PC' = 'Restart'
@@ -224,6 +228,9 @@ do {
 
         "Disable Cortana" {
             DisableCortana
+        }
+        "Remove Internet Explorer" {
+            RemoveIE
         }
 
         # Privacy menu
@@ -465,6 +472,15 @@ do {
         # Undo
         "(Re)Enable Telemetry" {
             EnableTelemetry
+        }
+        "(Re)Enable Windows Defender" {
+            EnableDefender
+        }
+        "(Re)Install OneDrive" {
+            InstallOneDrive
+        }
+        "(Re)Install default UWP apps" {
+            ReinstallDefaultApps
         }
 
         # Misc
