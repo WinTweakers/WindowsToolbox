@@ -84,13 +84,12 @@ if ($build -lt "10.0.10240") {
         Read-Host "Press enter to continue"
         Clear-Host
     }
+    $global:pkgmgr = "winget"
 }
 
 setup
 Info
 
-Write-Host $global:pkgmgr
-Read-Host "test"
 $objects = @{
 
     'Debloat' = "@(
@@ -263,73 +262,141 @@ do {
         # Browsers
 
         "Firefox" {
-            winget install Mozilla.Firefox
+            if ($global:pkgmgr -eq "choco") {
+                choco install firefox            
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Mozilla.Firefox
+            }
         }
 
         "Google Chrome" {
-            winget install Google.Chrome
+            if ($global:pkgmgr -eq "choco") {
+                choco install googlechrome
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Google.Chrome
+            }
         }
 
         "Brave" {
-            winget install BraveSoftware.BraveBrowser
+            if ($global:pkgmgr -eq "choco") {
+                choco install brave
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install BraveSoftware.BraveBrowser
+            }
         }
 
         "Vivaldi" {
-            winget install VivaldiTechnologies.Vivaldi
+            if ($global:pkgmgr -eq "choco") {
+                choco install vivaldi
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install VivaldiTechnologies.Vivaldi
+            }
         }
 
         # Dev Tools
 
         "Visual Studio Code" {
-            winget install Microsoft.VisualStudioCode
+            if ($global:pkgmgr -eq "choco") {
+                choco install vscode
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Microsoft.VisualStudioCode
+            }
         }
 
         "Atom" {
-            winget install GitHub.Atom
+            if ($global:pkgmgr -eq "choco") {
+                choco install atom
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install GitHub.Atom
+            }
         }
 
         "Notepad++" {
-            winget install Notepad++.Notepad++
+            if ($global:pkgmgr -eq "choco") {
+                choco install notepadplusplus
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Notepad++.Notepad++
+            }
         }
 
         "Github Desktop" {
-            winget install GitHub.GitHubDesktop
+            if ($global:pkgmgr -eq "choco") {
+                choco install github-desktop
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install GitHub.GitHubDesktop
+            }
         }
 
         "Github CLI" {
-            winget install GitHub.cli
+            if ($global:pkgmgr -eq "choco") {
+                choco install gh
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install GitHub.cli
+            }
         }
 
         "Git" {
-            winget install Git.Git
+            if ($global:pkgmgr -eq "choco") {
+                choco install git
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Git.Git
+            }
         }
 
         "JRE 8" {
-            winget install Oracle.JavaRuntimeEnvironment
+            if ($global:pkgmgr -eq "choco") {
+                choco install jre8
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Oracle.JavaRuntimeEnvironment
+            }
         }
             
         "Python 3" {
-            winget install Python.Python.3
+            if ($global:pkgmgr -eq "choco") {
+                choco install python3
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Python.Python.3
+            }
         }
 
         "Python 2" {
-            winget install Python.Python.2
+            if ($global:pkgmgr -eq "choco") {
+                choco install python2
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Python.Python.2
+            }
         }
 
         "PuTTY" {
-            winget install PuTTY.PuTTY
+            if ($global:pkgmgr -eq "choco") {
+                choco install putty
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install PuTTY.PuTTY
+            }
         }
 
         "Node.JS" {
-            winget install OpenJS.Nodejs
+            if ($global:pkgmgr -eq "choco") {
+                choco install nodejs
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install OpenJS.Nodejs
+            }
         }
 
         "Vim" {
-            winget install vim.vim
+            if ($global:pkgmgr -eq "choco") {
+                choco install vim
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install vim.vim
+            }
         }
 
         "Docker" {
-            winget install Docker.DockerDesktop
+            if ($global:pkgmgr -eq "choco") {
+                Write-Warning "Docker Cannot Be Installed With Choco"
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Docker.DockerDesktop
+            }
         }
 
         "Windows Subsystem for Linux" {
@@ -343,43 +410,79 @@ do {
         # Communication Menu
 
         "Discord" {
-            winget install Discord.Discord
+            if ($global:pkgmgr -eq "choco") {
+                choco install discord
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Discord.Discord
+            }
         }
 
         "Slack" {
-            winget install SlackTechnologies.Slack
+            if ($global:pkgmgr -eq "choco") {
+                choco install slack
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install SlackTechnologies.Slack
+            }
         }
 
         "Zoom" {
-            winget install Zoom.Zoom
+            if ($global:pkgmgr -eq "choco") {
+                choco install zoom
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Zoom.Zoom
+            }
         }
 
         "Skype" {
-            winget install Microsoft.Skype
+            if ($global:pkgmgr -eq "choco") {
+                choco install skype
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Microsoft.Skype
+            }
         }
 
         # Gaming stuff
 
         "Steam" {
-            winget install Valve.Steam
+            if ($global:pkgmgr -eq "choco") {
+                choco install steam-client
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Valve.Steam
+            }
         }
         
         "OBS Studio" {
-            winget install OBSProject.OBSStudio
+            if ($global:pkgmgr -eq "choco") {
+                choco install obs-studio
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install OBSProject.OBSStudio
+            }
         }
 
         # Multimedia
 
         "iTunes" {
-            winget install Apple.iTunes
+            if ($global:pkgmgr -eq "choco") {
+                choco install itunes
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Apple.iTunes
+            }
         }
 
         "Spotify" {
-            winget install Spotify.Spotify
+            if ($global:pkgmgr -eq "choco") {
+                choco install spotify
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Spotify.Spotify
+            }
         }
 
         "VLC" {
-            winget install VideoLAN.VLC
+            if ($global:pkgmgr -eq "choco") {
+                choco install vlc
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install VideoLAN.VLC
+            }
         }
 
         #Tweaks
