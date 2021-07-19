@@ -47,14 +47,12 @@ function Info {
 }
 
 function InstallChoco {
-    $testchoco = powershell choco -v
-    if (-not($testchoco)) {
+    if (-not Get-Command -Name choco.exe -ErrorAction) {
         Write-Output "Seems Chocolatey is not installed, installing now"
         Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
         refreshenv
         choco feature enable -n allowGlobalConfirmation
-    }
-    else {
+    } else {
         choco feature enable -n allowGlobalConfirmation
         Write-Output "Chocolatey Version $testchoco is already installed"
     }
