@@ -1,6 +1,6 @@
 # General functions
 
-$version = "1.0.0-beta.8"
+$version = "1.0.0-Release Canidate 3"
 $build = (Get-CimInstance Win32_OperatingSystem).version
 $winver = (Get-WmiObject -class Win32_OperatingSystem).Caption
 $chocoinstalled = Get-Command -Name choco.exe -ErrorAction SilentlyContinue
@@ -48,7 +48,7 @@ function Info {
 
 function InstallChoco {
     if ($chocoinstalled -eq $null) {
-        Write-Output "Seems Chocolatey is not installed, installing now"
+        Write-Output "Seems like Chocolatey is not installed, installing now"
         Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
         refreshenv
         choco feature enable -n allowGlobalConfirmation

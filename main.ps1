@@ -56,7 +56,7 @@ if ($build -eq "10.0.10240") {
     Read-Host "Sorry, your Windows version is not supported, and never will be :( . Press Enter to exit"
     Exit
 } elseif ($build -eq "10.0.17134") {
-    Write-Warning "Your Windows Version Is To Low For Winget. Using Chocolatey"
+    Write-Warning "Your Windows Version is too old to run Winget. Using Chocolatey"
     InstallChoco
     $global:pkgmgr = "choco"
     Read-Host "Press enter to continue"
@@ -148,8 +148,10 @@ $objects = @{
         'Browsers' = "@(
             'Firefox',
             'Google Chrome',
+            'Edge Chromium',
             'Brave',
-            'Vivaldi'
+            'Vivaldi',
+            'Tor Broswer'
         )"
 
         'Dev Tools' = "@(
@@ -162,34 +164,62 @@ $objects = @{
             'JRE 8',
             'Python 3',
             'Python 2',
+            'PowerShell',
             'PuTTY',
             'Node.JS',
             'Vim',
             'Docker',
-            'Windows Subsystem for Linux',
-            'Hyper-V'
+            'Windows Subsystem for Linux'
         )"
 
         'Communication Programs' = "@(
             'Discord',
             'Slack',
             'Zoom',
-            'Skype'
+            'Skype',
+            'Telegram',
+            'Zalo'
         )"
 
         'Gaming/Streaming' = "@(
             'Steam',
-            'OBS Studio'
+            'OBS Studio',
+            'Epic Games Launcher',
+            'Twitch'
         )"
         
         'Multimedia' = "@(
             'iTunes',
             'Spotify',
-            'VLC'
+            'VLC',
+            'Kodi',
+            'Audacity'
         )"
+
+        'Utilities' = @{
+            'Password managers' = "@(
+                'LastPass', 
+                'Dashlane'
+            )"
+
+            'Hypervisors / Emulators' = "@(
+                'VMware Workstation Pro',
+                'VMware Workstation Player',
+                'HyperV',
+                'VirtualBox',
+                'DOSBox'
+            )"
+
+            'Other' = "@(
+                '7-Zip',
+                'WinDynamicDesktop',
+                'PowerToys',
+                'Internet Download Manager'
+            )"
+        }
     }
 
-    'Undo Scripts' = "@(
+    'Undo Scripts (WIP)' = "@(
         '(Re)Enable Telemetry',
         '(Re)Enable Windows Defender',
         '(Re)Install OneDrive',
@@ -277,6 +307,14 @@ do {
             }
         }
 
+        "Edge Chromium" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install microsoft-edge
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Microsoft.Edge
+            }
+        }
+
         "Brave" {
             if ($global:pkgmgr -eq "choco") {
                 choco install brave
@@ -290,6 +328,14 @@ do {
                 choco install vivaldi
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install VivaldiTechnologies.Vivaldi
+            }
+        }
+
+        "Tor Broswer" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install tor-broswer
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install TorProject.TorBroswer
             }
         }
 
@@ -367,6 +413,14 @@ do {
             }
         }
 
+        "PowerShell" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install powershell-core
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Microsoft.PowerShell
+            }
+        }
+
         "PuTTY" {
             if ($global:pkgmgr -eq "choco") {
                 choco install putty
@@ -441,6 +495,22 @@ do {
             }
         }
 
+        "Zalo" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install zalopc
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install VNGCorp.Zalo
+            }
+        }
+
+        "Telegram" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install telegram
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Telegram.TelegramDesktop
+            } 
+        }
+
         # Gaming stuff
 
         "Steam" {
@@ -456,6 +526,22 @@ do {
                 choco install obs-studio
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install OBSProject.OBSStudio
+            }
+        }
+
+        "Epic Games Launcher" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install epicgameslauncher
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install EpicGames.EpicGamesLauncher
+            }
+        }
+
+        "Twitch" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install twitch
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Twitch.Twitch
             }
         }
 
@@ -482,6 +568,118 @@ do {
                 choco install vlc
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install VideoLAN.VLC
+            }
+        }
+
+        "Kodi" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install kodi
+            } elseif (global:pkgmgr -eq "winget") {
+                winget install XBMCFoundation.Kodi
+            }
+        }
+
+        "Audacity" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install audacity
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Audacity.Audacity
+            }
+        }
+
+        #Utilities
+
+        "TeamViewer" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install teamviewer
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install TeamViewer.TeamViewer
+            }
+        }
+
+        #Password managers
+
+        "LastPass" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install lastpass
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install LogMeIn.LastPass
+            }
+        }
+
+        "Dashlane" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install dashlane
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Dashlane.Dashlane
+            }
+        }
+
+        #Virtualization
+
+        'VMware Workstation Pro' {
+            if ($global:pkgmgr -eq "choco") {
+                choco install vmwareworkstation
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install VMware.WorkstationPro
+            }
+        }
+
+        'VMware Workstation Player' {
+            if ($global:pkgmgr -eq "choco") {
+                choco install vmware-workstation-player
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install VMware.WorkstationPlayer
+            }
+        }
+
+        'VirtualBox' {
+            if ($global:pkgmgr -eq "choco") {
+                choco install virtualbox
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Oracle.VirtualBox
+            }
+        }
+
+        'DOSBox' {
+            if ($global:pkgmgr -eq "choco") {
+                choco install dosbox
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install DOSBox.DOSBox
+            }
+        }
+
+        #Other
+
+        "7-Zip" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install 7zip
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install 7zip.7zip
+            }
+        }
+
+        "WinDynamicDesktop" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install windynamicdesktop
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install t1m0thyj.WinDynamicDesktop
+            }
+        }
+
+        "PowerToys" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install powertoys
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Microsoft.PowerToys
+            }
+        }
+
+        "Internet Download Manager" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install internetdownloadmanager
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Tonec.InternetDownloadManager
             }
         }
 
