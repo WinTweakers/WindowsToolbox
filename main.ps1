@@ -57,12 +57,36 @@ if ($build -eq "10.0.10240") {
     Exit
 } elseif ($build -eq "10.0.17134") {
     Write-Warning "Your Windows Version is too old to run Winget. Using Chocolatey"
-    InstallChoco
     $global:pkgmgr = "choco"
     Read-Host "Press enter to continue"
     Clear-Host
 } else {
-    try {
+    $global:pkgmgr = "winget"
+}
+
+$conflocation = "$env:APPDATA\WindowsToolbox\"
+if (!(Test-Path -Path $conflocation)) {
+    $JSONData = @{
+        pkgmgr = "$global:pkgmgr"
+    }
+    New-Item -ItemType directory -Path $conflocation | Out-Null
+    New-Item -Path $conflocation -Name "config.json" -ItemType "file" | Out-Null
+    $JSONData | ConvertTo-Json | Add-Content  -Path "$conflocation\config.json" | Out-Null
+} else {
+    $JSONData = Get-Content -Path "$conflocation\config.json" -Raw | ConvertFrom-Json
+    $global:pkgmgr = $JSONData.pkgmgr
+}
+
+if ($global:pkgmgr -eq "choco") {
+    $global:notpkgmgr = "winget"
+} else {
+    $global:notpkgmgr = "choco"
+}
+
+if ($global:pkgmgr -eq "choco") {
+    InstallChoco
+} else {
+        try {
         # Check if winget is already installed
         $er = (invoke-expression "winget -v") 2>&1
         if ($lastexitcode) { throw $er }
@@ -84,25 +108,6 @@ if ($build -eq "10.0.10240") {
         Read-Host "Press enter to continue"
         Clear-Host
     }
-    $global:pkgmgr = "winget"
-}
-
-if (!(Test-Path -Path "$env:APPDATA\WindowsToolbox\config.json")) {
-    $JSONData = @{
-        pkgmgr = "$global:pkgmgr"
-    }
-    New-Item -ItemType directory -Path "$env:APPDATA\WindowsToolbox\" | Out-Null
-    New-Item -Path "$env:APPDATA\WindowsToolbox\" -Name "config.json" -ItemType "file" | Out-Null
-    $JSONData | ConvertTo-Json | Add-Content  -Path "$env:APPDATA\WindowsToolbox\config.json" | Out-Null
-} else {
-    $JSONData = Get-Content -Path "$env:APPDATA\WindowsToolbox\config.json" -Raw | ConvertFrom-Json
-    $JSONData.pkgmgr = $global:pkgmgr
-}
-
-if ($global:pkgmgr -eq "choco") {
-    $global:notpkgmgr = "winget"
-} else {
-    $global:notpkgmgr = "choco"
 }
 
 setup
