@@ -259,7 +259,7 @@ function RemoveOneDrive {
     Get-ScheduledTask -TaskPath '\' -TaskName 'OneDrive*' -ea SilentlyContinue | Unregister-ScheduledTask -Confirm:$false
     
     Write-Output "Restarting explorer"
-    Start-Process "explorer.exe"
+    cmd.exe /c 'start "" "%windir%\explorer.exe"'
     
     Write-Output "Waiting for explorer to complete loading"
     Start-Sleep 10
