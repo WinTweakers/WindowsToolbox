@@ -33,6 +33,9 @@ function Info {
     Write-Output "- None of the scripts have configs (for now), you have to edit them to your liking beforehand."
     Write-Output "- Windows 10 and 11 are the only supported Windows versions (until Windows 12?)"
     Write-Output "- There is no undo (for now), all scripts are provided AS-IS and you use them at your own risk"
+    if ($build -ne "10.0.17134") {
+        Write-Output "- To Use $global:notpkgmgr instead of $global:pkgmgr edit $env:APPDATA\WindowsToolbox\config.json."
+    }
     Write-Output "- Navigation: Use the arrow keys to navigate, Enter to select and Esc to go back"
     Write-Output ""
     Write-Output "Stuff that breaks core functions (very unlikely to be fixed cuz this is Windows we're talking about)"

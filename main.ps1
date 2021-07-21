@@ -46,12 +46,12 @@ Import-Module -DisableNameChecking $PSScriptRoot\library\UndoFunctions.psm1
 
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
+$build = (Get-CimInstance Win32_OperatingSystem).version
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
 Clear-Host
 
-$build = (Get-CimInstance Win32_OperatingSystem).version
 if ($build -eq "10.0.10240") {
     Read-Host "Sorry, your Windows version is not supported, and never will be :( . Press Enter to exit"
     Exit
@@ -85,6 +85,24 @@ if ($build -eq "10.0.10240") {
         Clear-Host
     }
     $global:pkgmgr = "winget"
+}
+
+if (!(Test-Path -Path "$env:APPDATA\WindowsToolbox\config.json")) {
+    $JSONData = @{
+        pkgmgr = "$global:pkgmgr"
+    }
+    New-Item -ItemType directory -Path "$env:APPDATA\WindowsToolbox\" | Out-Null
+    New-Item -Path "$env:APPDATA\WindowsToolbox\" -Name "config.json" -ItemType "file" | Out-Null
+    $JSONData | ConvertTo-Json | Add-Content  -Path "$env:APPDATA\WindowsToolbox\config.json" | Out-Null
+} else {
+    $JSONData = Get-Content -Path "$env:APPDATA\WindowsToolbox\config.json" -Raw | ConvertFrom-Json
+    $JSONData.pkgmgr = $global:pkgmgr
+}
+
+if ($global:pkgmgr -eq "choco") {
+    $global:notpkgmgr = "winget"
+} else {
+    $global:notpkgmgr = "choco"
 }
 
 setup
