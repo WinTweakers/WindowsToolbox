@@ -326,7 +326,6 @@ function DisableServices {
         Write-Output "Trying to disable $service"
         Get-Service -Name $service | Set-Service -StartupType Disabled
     }
-    Read-Host "Press Enter To Continue"
 }
 
 function DisableCortana {

@@ -45,7 +45,6 @@ function InstallOneDrive {
 	Start-Process $onedrive -NoNewWindow
     Start-Process "explorer.exe"
     Write-Output "Done"
-    Read-Host "Press Enter to continue"
 }
 
 function ReinstallDefaultApps {
