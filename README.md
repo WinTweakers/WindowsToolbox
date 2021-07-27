@@ -75,9 +75,8 @@ Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 1
 
 ### Installation
 
-1. Download `WindowsToolbox.zip` From [Releases](https://github.com/WinTweakers/WindowsToolbox/releases)
-2. Extract `WindowsToolbox.zip` To A New Folder.
-3. Open `WindowsToolbox.exe`
+1. Download `WindowsToolbox.exe` From [Releases](https://github.com/WinTweakers/WindowsToolbox/releases)
+2. Run `WindowsToolbox.exe`
 
 
 
