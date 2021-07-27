@@ -1,6 +1,6 @@
 # General functions
 
-$version = "1.0.0-Release Canidate 3"
+$version = "1.0.1"
 $build = (Get-CimInstance Win32_OperatingSystem).version
 $winver = (Get-WmiObject -class Win32_OperatingSystem).Caption
 $chocoinstalled = Get-Command -Name choco.exe -ErrorAction SilentlyContinue
