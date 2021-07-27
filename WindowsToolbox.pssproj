@@ -18,6 +18,11 @@
     <ApplicationIconPath>C:\Users\Roman\Projects\WinTweakers\WindowsToolbox\toolbox.ico</ApplicationIconPath>
     <Obfuscate>False</Obfuscate>
     <PackagePlatform>x86</PackagePlatform>
+    <PreBuildScript>
+    </PreBuildScript>
+    <FileDescription>A powerful but simple, easy to use toolbox for Windows 10 / 11. </FileDescription>
+    <ProductVersion>1.0.1</ProductVersion>
+    <StartupFile>main.ps1</StartupFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

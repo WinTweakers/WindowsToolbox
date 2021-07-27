@@ -36,19 +36,30 @@ Set-Location -Path $PSScriptRoot
 Set-ExecutionPolicy Unrestricted -Scope CurrentUser
 Get-ChildItem -Recurse *.ps*1 | Unblock-File
 
-Import-Module -DisableNameChecking $PSScriptRoot\library\Write-Menu.psm1
-Import-Module -DisableNameChecking $PSScriptRoot\library\WinCore.psm1
-Import-Module -DisableNameChecking $PSScriptRoot\library\PrivacyFunctions.psm1
-Import-Module -DisableNameChecking $PSScriptRoot\library\Tweaks.psm1
-Import-Module -DisableNameChecking $PSScriptRoot\library\GeneralFunctions.psm1
-Import-Module -DisableNameChecking $PSScriptRoot\library\DebloatFunctions.psm1
-Import-Module -DisableNameChecking $PSScriptRoot\library\UndoFunctions.psm1
+Import-Module .\library\Write-Menu.psm1 -DisableNameChecking
+Import-Module .\library\WinCore.psm1 -DisableNameChecking
+Clear-Host
+Import-Module .\library\PrivacyFunctions.psm1 -DisableNameChecking
+Import-Module .\library\Tweaks.psm1 -DisableNameChecking
+Import-Module .\library\GeneralFunctions.psm1 -DisableNameChecking
+Import-Module .\library\DebloatFunctions.psm1 -DisableNameChecking
+Import-Module .\library\UndoFunctions.psm1 -DisableNameChecking
 
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 $build = (Get-CimInstance Win32_OperatingSystem).version
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+
+
+
+Write-Host "It is recommended that you create a system restore point."
+$reply = Read-Host -Prompt "Make One Now? [y/n]"
+if ( $reply -match "[yY]" ) {
+    Clear-Host
+    Checkpoint-Computer -Description "BeforeWindowsToolbox" -RestorePointType "MODIFY_SETTINGS"
+    Read-Host "Press enter to continue"
+}
 
 Clear-Host
 
@@ -58,7 +69,6 @@ if ($build -eq "10.0.10240") {
 } elseif ($build -eq "10.0.17134") {
     Write-Warning "Your Windows Version is too old to run Winget. Using Chocolatey"
     $global:pkgmgr = "choco"
-    Read-Host "Press enter to continue"
     Clear-Host
 } else {
     $global:pkgmgr = "winget"
@@ -228,7 +238,7 @@ $objects = @{
             'Hypervisors / Emulators' = "@(
                 'VMware Workstation Pro',
                 'VMware Workstation Player',
-                'HyperV',
+                'HyperV (Windows 10/11 Pro Only)',
                 'VirtualBox',
                 'DOSBox'
             )"
@@ -480,7 +490,7 @@ do {
             InstallWSL
         }
 
-        "Hyper-V" {
+        "Hyper-V (Windows 10/11 Pro Only)" {
             InstallHyperV
         }
 
@@ -534,7 +544,7 @@ do {
             } 
         }
 
-        # Gaming stuff
+        # Gaming Menu
 
         "Steam" {
             if ($global:pkgmgr -eq "choco") {
