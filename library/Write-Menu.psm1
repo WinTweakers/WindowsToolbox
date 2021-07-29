@@ -188,7 +188,6 @@ function Write-Menu {
 
         # Check if -Title has been provided, if so set window title, otherwise set default.
         if ($Title -notlike $null) {
-            $host.UI.RawUI.WindowTitle = $Title
             $script:menuTitle = "$Title"
         }
         else {

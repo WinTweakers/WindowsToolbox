@@ -1,51 +1,37 @@
 # General functions
 
 $version = "1.0.1"
+$title = "Windows Toolbox $version"
+$host.UI.RawUI.WindowTitle = $title
 $build = (Get-CimInstance Win32_OperatingSystem).version
 $winver = (Get-WmiObject -class Win32_OperatingSystem).Caption
 $chocoinstalled = Get-Command -Name choco.exe -ErrorAction SilentlyContinue
 
 function setup {
-    if ($winver -like "*Windows 11*") {
-        $winver = '11'
-    }
-    elseif ($winver -like "*Windows 10*") {
-        $winver = '10'
-    }
+    if ($winver -like "*Windows 11*") { $winver = '11' }
+    elseif ($winver -like "*Windows 10*") { $winver = '10' }
 }
 function Quit {
     stop-process -id $PID
 }
 
-function Restart {
-    Restart-Computer
-}
+function Restart { Restart-Computer }
 
 function Info {
     Write-Output "Windows Toolbox $version"
-    Write-Output "Windows build $build"
-    if ($version -lt "$version") {
-        Write-Output "Older version of WindowsToolbox is detected, please update WindowsToolbox"
-    }
-    Write-Output ""
-    Write-Output ""
+    Write-Output "Windows build $build `n`n"
+    if ($version -lt "$version") { Write-Output "Older version of WindowsToolbox is detected, please update WindowsToolbox" }
     Write-Output "Please read before using WindowsToolbox"
     Write-Output "- None of the functions have configs (for now), you have to edit them to your liking beforehand."
     Write-Output "- Windows 10 and 11 are the only supported Windows versions (for now)."
     Write-Output "- There is no undo (for now), all scripts are provided AS IS. You use them at your own risk."
-    if ($build -ne "10.0.17134") {
-        Write-Output "- To Use $global:notpkgmgr instead of $global:pkgmgr edit $env:APPDATA\WindowsToolbox\config.json."
-    }
-    Write-Output "- Navigation: Use the arrow keys to navigate, Enter to select and ESC to go back"
-    Write-Output ""
+    if ($build -ne "10.0.17134") { Write-Output "- To Use $global:notpkgmgr instead of $global:pkgmgr edit $env:APPDATA\WindowsToolbox\config.json." }
+    Write-Output "- Navigation: Use the arrow keys to navigate, Enter to select and ESC to go back `n"
     Write-Output "Things that break core functions (Very unlikely to be fixed)"
     Write-Output "- Disable ShellExperienceHost"
-    Write-Output "- Disable SearchUI"
-    Write-Output ""
+    Write-Output "- Disable SearchUI `n"
     Write-Output "Things that break Windows 11 (will be fixed):"
-    Write-Output "- Disabling telemetry (Disables updates. See #7)"
-    Write-Output ""
-    Write-Output ""
+    Write-Output "- Disabling telemetry (Disables updates. See #7) `n`n"
     Read-Host "Press Enter to continue"
 }
 
@@ -71,7 +57,5 @@ function InstallHyperV {
     if ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
         Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Hyper-V-All" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
     }
-    else {
-        Install-WindowsFeature -Name "Hyper-V" -IncludeManagementTools -WarningAction SilentlyContinue | Out-Null
-    }
+    else { Install-WindowsFeature -Name "Hyper-V" -IncludeManagementTools -WarningAction SilentlyContinue }
 }

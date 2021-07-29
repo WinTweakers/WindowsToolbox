@@ -1,40 +1,28 @@
 ﻿# Self-elevate the script if required
-# Get the ID and security principal of the current user account
  $myWindowsID=[System.Security.Principal.WindowsIdentity]::GetCurrent()
  $myWindowsPrincipal=new-object System.Security.Principal.WindowsPrincipal($myWindowsID)
-
- # Get the security principal for the Administrator role
  $adminRole=[System.Security.Principal.WindowsBuiltInRole]::Administrator
-
- # Check to see if we are currently running "as Administrator"
- if ($myWindowsPrincipal.IsInRole($adminRole))
+ if (-not $myWindowsPrincipal.IsInRole($adminRole))
     {
-    # We are running "as Administrator"
+        # We are not running "as Administrator" - so relaunch as administrator
+
+        # Create a new process object that starts PowerShell
+        $newProcess = new-object System.Diagnostics.ProcessStartInfo "PowerShell";
+
+        # Specify the current script path and name as a parameter
+        $newProcess.Arguments = $myInvocation.MyCommand.Definition;
+
+        # Indicate that the process should be elevated
+        $newProcess.Verb = "runas";
+
+        # Start the new process
+        [System.Diagnostics.Process]::Start($newProcess) | Out-Null
+
+        # Exit from the current, unelevated, process
+        exit
     }
- else
-    {
-    # We are not running "as Administrator" - so relaunch as administrator
 
-    # Create a new process object that starts PowerShell
-    $newProcess = new-object System.Diagnostics.ProcessStartInfo "PowerShell";
-
-    # Specify the current script path and name as a parameter
-    $newProcess.Arguments = $myInvocation.MyCommand.Definition;
-
-    # Indicate that the process should be elevated
-    $newProcess.Verb = "runas";
-
-    # Start the new process
-    [System.Diagnostics.Process]::Start($newProcess) | Out-Null
-
-    # Exit from the current, unelevated, process
-    exit
-}
-
-Set-Location -Path $PSScriptRoot
-
-Set-ExecutionPolicy Unrestricted -Scope CurrentUser
-Get-ChildItem -Recurse *.ps*1 | Unblock-File
+Set-Location $PSScriptRoot
 
 Import-Module .\library\Write-Menu.psm1 -DisableNameChecking
 Import-Module .\library\WinCore.psm1 -DisableNameChecking
@@ -45,13 +33,7 @@ Import-Module .\library\GeneralFunctions.psm1 -DisableNameChecking
 Import-Module .\library\DebloatFunctions.psm1 -DisableNameChecking
 Import-Module .\library\UndoFunctions.psm1 -DisableNameChecking
 
-$title = "Windows Toolbox $version"
-$host.UI.RawUI.WindowTitle = $title
-$build = (Get-CimInstance Win32_OperatingSystem).version
-
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
-
-
 
 Write-Host "It is recommended that you create a system restore point."
 $reply = Read-Host -Prompt "Make One Now? [y/n]"
@@ -79,22 +61,26 @@ if (!(Test-Path -Path $conflocation)) {
     $JSONData = @{
         pkgmgr = "$global:pkgmgr"
     }
+    if ( -not $build -eq "10.0.17134" ) {
+        Write-Host "It has been detected that this is your first time using Windows Toolbox, please choose a package manager."
+        $reply = Read-Host -Prompt "[W]inget Or [C]hocolatey (winget is recomended)"
+        if ( $reply -match "[wW]" ) { $global:pkgmgr = "winget" } elseif ( $reply -match "[cC]" ) { $global:pkgmgr = "choco" }
+        Clear-Host
+    }
     New-Item -ItemType directory -Path $conflocation | Out-Null
     New-Item -Path $conflocation -Name "config.json" -ItemType "file" | Out-Null
     $JSONData | ConvertTo-Json | Add-Content  -Path "$conflocation\config.json" | Out-Null
+
 } else {
     $JSONData = Get-Content -Path "$conflocation\config.json" -Raw | ConvertFrom-Json
     $global:pkgmgr = $JSONData.pkgmgr
 }
 
-if ($global:pkgmgr -eq "choco") {
-    $global:notpkgmgr = "winget"
-} else {
-    $global:notpkgmgr = "choco"
-}
+if ($global:pkgmgr -eq "choco") { $global:notpkgmgr = "winget" } else { $global:notpkgmgr = "choco" }
 
 if ($global:pkgmgr -eq "choco") {
     InstallChoco
+    Clear-Host
 } else {
         try {
         # Check if winget is already installed
@@ -264,7 +250,7 @@ $objects = @{
     # 'Exit' = 'Exit'
 }
 
-do {
+while ($true) {
     $mainMenu = Write-Menu -Title $title -Entries $objects
     switch ($mainMenu) {
         #Debloat menu
@@ -822,8 +808,8 @@ do {
             Info
         }
 
-        "Exit" {
-            Quit 
+        $null {
+            Quit
         }
 
         "Restart PC" {
@@ -831,4 +817,4 @@ do {
         }
     }
     Read-Host "Press Enter To Continue"
-} until($mainMenu -eq "ForeverLoop")
+} 
