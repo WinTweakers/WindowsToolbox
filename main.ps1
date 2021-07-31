@@ -39,17 +39,18 @@ Write-Host "It is recommended that you create a system restore point."
 $reply = Read-Host -Prompt "Make One Now? [y/n]"
 if ( $reply -match "[yY]" ) {
     Clear-Host
+    Enable-ComputerRestore -Drive "$env:SystemDrive"
     Checkpoint-Computer -Description "BeforeWindowsToolbox" -RestorePointType "MODIFY_SETTINGS"
     Read-Host "Press enter to continue"
 }
 
 Clear-Host
 
-if ($build -eq "10.0.10240") {
+if ($build -lt "10.0.10240") {
     Read-Host "Sorry, your Windows version is not supported, and never will be :( . Press Enter to exit"
     Exit
-} elseif ($build -eq "10.0.17134") {
-    Write-Warning "Your Windows Version is too old to run Winget. Using Chocolatey"
+} elseif ($build -le "10.0.17134") {
+    Write-Warning "Your Windows version is too old to run Winget. Using Chocolatey"
     $global:pkgmgr = "choco"
     Clear-Host
 } else {
@@ -118,7 +119,8 @@ $objects = @{
         'Optimize Windows Updates',
         'Disable services',
         'Disable Cortana',
-        'Remove Internet Explorer'
+        'Remove Internet Explorer',
+        'Remove Xbox bloat'
     )"
 
     'Privacy Settings' = "@(
@@ -127,7 +129,8 @@ $objects = @{
         'Disable App Suggestions',
         'Disable Tailored Experiences',
         'Disable Advertising ID',
-        'Disable Activity History'
+        'Disable Activity History',
+        'Disable Location Services'
     )"
 
     'Tweaks' = @{
@@ -136,6 +139,7 @@ $objects = @{
             'Enable photo viewer',
             'Disable Prefetch prelaunch',
             'Disable Edge prelaunch',
+            'Disable Superfetch',
             'Use UTC time',
             'Disable ShellExperienceHost',
             'Disable SearchUI',
@@ -152,13 +156,15 @@ $objects = @{
                 'Disable Accessibility Keys',
                 'Set Win+X menu to Command Prompt',
                 'Fix No Internet prompt',
-                'Enable verbose startup / shutdown messages'
+                'Enable verbose startup / shutdown messages',
+                'Disable Xbox Game DVR and Game Bar'
             )"
 
             'Explorer tweaks' = "@(
                 'Remove user folders under This PC',
                 'Show build number on desktop',
-                'Show full directory path in Explorer title bar'
+                'Show full directory path in Explorer title bar',
+                'Change default explorer view to This PC'
             )"
         }   
     }    
@@ -242,7 +248,9 @@ $objects = @{
         '(Re)Enable Telemetry',
         '(Re)Enable Windows Defender',
         '(Re)Install OneDrive',
-        '(Re)Install default UWP apps'
+        '(Re)Install default UWP apps',
+        '(Re)Enable Location Services',
+        '(Re)Enable Activity History'
     )"
 
     # 'Restart PC' = 'Restart'
@@ -281,6 +289,10 @@ while ($true) {
             RemoveIE
         }
 
+        "Remove Xbox bloat" {
+            RemoveXboxBloat
+        }
+
         # Privacy menu
         "Disable Telemetry" {
             DisableTelemetry
@@ -304,6 +316,10 @@ while ($true) {
 
         "Disable Activity History" {
             DisableActivityHistory
+        }
+
+        "Disable Location Services" {
+            DisableLocation
         }
         
         # Install Menu
@@ -722,6 +738,10 @@ while ($true) {
             DisableEdgePrelaunch
         }
 
+        "Disable Superfetch" {
+            DisableSuperfetch
+        }
+
         "Use UTC time" {
             UseUTC
         }
@@ -757,6 +777,10 @@ while ($true) {
             ShowExplorerFullPath
         }
 
+        "Change default explorer view to This PC" {
+            SetExplorerThisPC
+        }
+
         #Shell tweaks
         "Enable dark mode" {
             DarkMode
@@ -789,6 +813,10 @@ while ($true) {
             EnableVerboseStartup
         }
 
+        "Disable Xbox Game DVR and Game Bar" {
+            DisableXboxGameBar
+        }
+
         # Undo
         "(Re)Enable Telemetry" {
             EnableTelemetry
@@ -801,6 +829,14 @@ while ($true) {
         }
         "(Re)Install default UWP apps" {
             ReinstallDefaultApps
+        }
+
+        "(Re)Enable Location Services" {
+            EnableLocation
+        }
+
+        "(Re)Enable Activity History" {
+            EnableActivityHistory
         }
 
         # Misc

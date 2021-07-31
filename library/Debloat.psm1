@@ -1,5 +1,4 @@
 function DisableWindowsDefender {
-
     Write-Output "Elevating priviledges for this process"
     do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
     

@@ -78,6 +78,13 @@ function ImproveSSD {
     Write-Output "Done"
 }
 
+function DisableSuperfetch {
+	Write-Output "Stopping and disabling Superfetch service..."
+	Stop-Service "SysMain" -WarningAction SilentlyContinue
+	Set-Service "SysMain" -StartupType Disabled
+    Read-Host "Done"
+}
+
 function GodMode {
     $DesktopPath = [Environment]::GetFolderPath("Desktop");
     mkdir "$DesktopPath\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}"
@@ -188,5 +195,18 @@ function EnableVerboseStartup {
     else {
 		Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "VerboseStatus" -ErrorAction SilentlyContinue
 	}
-    Write-Output "Done"
+    Read-Host "Done"
+}
+
+function SetExplorerThisPC {
+	Write-Output "Changing default Explorer view to This PC..."
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
+    Read-Host "Done"
+}
+
+function DisableXboxGameBar {
+    Write-Output "Disable Game DVR and Game Bar"
+    New-FolderForced -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR" "AllowgameDVR" 0
+    Read-Host "Done"
 }

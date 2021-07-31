@@ -1,6 +1,6 @@
 # General functions
 
-$version = "1.0.1"
+$version = "1.0.2"
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 $build = (Get-CimInstance Win32_OperatingSystem).version
@@ -30,8 +30,9 @@ function Info {
     Write-Output "Things that break core functions (Very unlikely to be fixed)"
     Write-Output "- Disable ShellExperienceHost"
     Write-Output "- Disable SearchUI `n"
-    Write-Output "Things that break Windows 11 (will be fixed):"
+    Write-Output "Things that break (or doesn't work on) Windows 11 (will be fixed):"
     Write-Output "- Disabling telemetry (Disables updates. See #7) `n`n"
+    Write-Output "- Remove user folders under This PC"
     Read-Host "Press Enter to continue"
 }
 
