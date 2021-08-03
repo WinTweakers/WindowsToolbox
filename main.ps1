@@ -46,7 +46,7 @@ if ( $reply -match "[yY]" ) {
 
 Clear-Host
 
-if ($build -lt "10.0.10240") {
+if ($build -eq "10.0.10240") {
     Read-Host "Sorry, your Windows version is not supported, and never will be :( . Press Enter to exit"
     Exit
 } elseif ($build -le "10.0.17134") {
@@ -239,7 +239,8 @@ $objects = @{
                 '7-Zip',
                 'WinDynamicDesktop',
                 'PowerToys',
-                'Internet Download Manager'
+                'Internet Download Manager',
+                'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)'
             )"
         }
     }
@@ -716,6 +717,10 @@ while ($true) {
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install Tonec.InternetDownloadManager
             }
+        }
+
+        'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)' {
+            MSDOSMode
         }
 
         #Tweaks
