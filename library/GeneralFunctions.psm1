@@ -1,6 +1,6 @@
 # General functions
 
-$version = "1.0.2"
+$version = "1.0.3"
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 $build = (Get-CimInstance Win32_OperatingSystem).version
@@ -91,4 +91,12 @@ function MSDOSMode {
     Write-Output "Please use WinXEditor to add the entry to the Win+X menu"
     Start-Process $conflocation\WinXEditor\WinXEditor.exe
     Read-Host "Done"
+}
+
+function BCDInfo {
+    Clear-Host
+    Write-Output "This is only for power users who know what they're doing"
+    Write-Output "To start, take note of the identifier of the entry you want to modify"
+    Read-Host "Press Enter to continue"
+    bcdedit
 }

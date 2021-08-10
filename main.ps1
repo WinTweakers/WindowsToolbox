@@ -166,7 +166,15 @@ $objects = @{
                 'Show full directory path in Explorer title bar',
                 'Change default explorer view to This PC'
             )"
-        }   
+        }
+
+        'Boot Configuration Data (BCD)' = "@(
+            'Remove entry',
+            'Set timeout',
+            'Set default',
+            'Export BCD configuration',
+            'Import BCD configuration'    
+        )"
     }    
 
     'Install Apps' = @{
@@ -820,6 +828,44 @@ while ($true) {
 
         "Disable Xbox Game DVR and Game Bar" {
             DisableXboxGameBar
+        }
+
+        #BCD edit 
+
+        "Remove entry" {
+            BCDInfo
+            Write-Output "`n `n"
+            $removeid = Read-Host "Please enter/paste the entry identifier here (without the curly brackets)"
+            bcdedit /displayorder "{$removeid}" /remove
+            bcdedit /delete "{$removeid}"
+            
+        }
+
+        "Set timeout" {
+            $timeout = Read-Host "Please enter the countdown time (in seconds)"
+            bcdedit /timeout $timeout
+        }
+
+        "Set default" {
+            BCDInfo
+            $id = Read-Host "Please enter/paste the entry identifier here (without the curly brackets)"
+            bcdedit /default "{$id}"
+        }
+
+        "Export BCD configuration" {
+            $timestamp = Get-Date -Format o | ForEach-Object { $_ -replace ":", "." }
+            $exportbcd = Read-Host "Enter full path and filename of where you want to save BCD data (Default is youruserfolder\Documents\bcd-backup-timestamp"
+            if ($exportbcd -eq "") {
+                bcdedit /export $env:HOMEPATH\Documents\bcd-backup-$timestamp
+            }
+            else {
+                bcdedit /export $exportbcd
+            }
+        }
+
+        "Import BCD configuration" {
+            $importbcd = Read-Host 'Enter full path to your ".bcd" file'
+            bcdedit /import $importbcd
         }
 
         # Undo
