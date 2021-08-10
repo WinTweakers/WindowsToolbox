@@ -71,11 +71,11 @@ Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 1
 ### Prerequisites
 
 * Powershell
-* Windows 10 Or 11
+* Windows 10 or 11
 
 ### Installation
 
-1. Download `WindowsToolbox.exe` From [Releases](https://github.com/WinTweakers/WindowsToolbox/releases)
+1. Download `WindowsToolbox.exe` from [Releases](https://github.com/WinTweakers/WindowsToolbox/releases)
 2. Run `WindowsToolbox.exe`
 
 
@@ -83,7 +83,8 @@ Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 1
 <!-- ROADMAP -->
 ## Roadmap
 
-  See the [open issues](https://github.com/WinTweakers/WindowsToolbox/issues) for a list of proposed features (and known issues).
+  - See the [open issues](https://github.com/WinTweakers/WindowsToolbox/issues) for a list of proposed features (and known issues).
+  - Documentation of features is coming soon
 
 
 
@@ -110,7 +111,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Discord: https://discord.gg/invite/9FJceeKUr6 or contact hmuy: hmuy#0608
+Discord: https://discord.gg/invite/9FJceeKUr6
 
 Project Link: [https://github.com/WinTweakers/WindowsToolbox](https://github.com/WinTweakers/WindowsToolbox)
 
