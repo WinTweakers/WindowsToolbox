@@ -64,7 +64,7 @@ function InstallHyperV {
 function MSDOSMode {
     Write-Output '"MS-DOS Mode" for Windows 10 (PoC, made by Endermanch)'
     Write-Output "This is provided WITHOUT WARRANTY OF ANY KIND and is only a Proof of Concept."
-    Write-Output "Big thanks to Endermanch for this and his discovery of the BCPE exploit. `n`n"
+    Write-Output "Big thanks to Endermanch for the scripts and his discovery of the BCPE exploit. `n`n"
     
     $conflocation = "$env:APPDATA\WindowsToolbox\"
     $windowsdos = "https://dl.malwarewatch.org/multipurpose/Windows10DOS.zip"
