@@ -219,8 +219,9 @@ $objects = @{
         'Gaming/Streaming' = "@(
             'Steam',
             'OBS Studio',
+            'Twitch',
             'Epic Games Launcher',
-            'Twitch'
+            'GOG Galaxy'
         )"
         
         'Multimedia' = "@(
@@ -243,6 +244,13 @@ $objects = @{
                 'HyperV (Windows 10/11 Pro Only)',
                 'VirtualBox',
                 'DOSBox'
+            )"
+
+            'Hardware info & Benchmarks' = "@(
+                'CPU-Z',
+                'GPU-Z',
+                'CrystalDiskMark',
+                'AIDA64 Extreme'
             )"
 
             'Other' = "@(
@@ -595,6 +603,14 @@ while ($true) {
             }
         }
 
+        "GOG Galaxy" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install goggalaxy
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install GOG.Galaxy
+            }
+        }
+
         # Multimedia
 
         "iTunes" {
@@ -696,6 +712,40 @@ while ($true) {
                 choco install dosbox
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install DOSBox.DOSBox
+            }
+        }
+
+        #Hardware info & Benchmarks
+
+        "CPU-Z" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install cpu-z
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install CPUID.CPU-Z
+            }
+        }
+
+        "GPU-Z" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install gpu-z
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install TechPowerUp.GPU-Z
+            }
+        }
+
+        "Crystal Disk Mark" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install crystaldiskmark
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install CrystalDewWorld.CrystalDiskMark
+            }
+        }
+
+        "AIDA64 Extreme" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install aida64-extreme
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install FinalWire.AIDA64Extreme
             }
         }
 
