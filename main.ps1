@@ -114,6 +114,7 @@ $objects = @{
 
     'Debloat' = "@(
         'Disable Windows Defender (NOT RECOMMENDED)',
+        'Disable Windows Defender Cloud',
         'Remove Default UWP apps',
         'Remove OneDrive',
         'Optimize Windows Updates',
@@ -157,7 +158,8 @@ $objects = @{
                 'Set Win+X menu to Command Prompt',
                 'Fix No Internet prompt',
                 'Enable verbose startup / shutdown messages',
-                'Disable Xbox Game DVR and Game Bar'
+                'Disable Xbox Game DVR and Game Bar',
+                'Hide People icon on the Taskbar'
             )"
 
             'Explorer tweaks' = "@(
@@ -273,6 +275,10 @@ while ($true) {
         #Debloat menu
         "Disable Windows Defender (NOT RECOMMENDED)" {
             DisableWindowsDefender   
+        }
+
+        "Disable Windows Defender Cloud" {
+            DisableWindowsDefenderCloud
         }
 
         "Remove Default UWP apps" {
@@ -828,6 +834,10 @@ while ($true) {
 
         "Disable Xbox Game DVR and Game Bar" {
             DisableXboxGameBar
+        }
+
+        "Hide People icon on the Taskbar" {
+            HideTaskbarPeople
         }
 
         #BCD edit 

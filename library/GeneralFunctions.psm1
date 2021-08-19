@@ -88,7 +88,7 @@ function MSDOSMode {
     Remove-Item -Path $conflocation\win.bat -Force
     Remove-Item -Path $conflocation\reboot.bat -Force
     
-    Write-Output "Please use WinXEditor to add the entry to the Win+X menu"
+    Write-Output "Please use WinXEditor to add the entry to the Win+X menu (the batch file is under C:\Windows\System32\msdos.bat"
     Start-Process $conflocation\WinXEditor\WinXEditor.exe
     Read-Host "Done"
 }

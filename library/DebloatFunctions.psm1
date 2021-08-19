@@ -42,6 +42,15 @@ function DisableWindowsDefender {
     Remove-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" "WindowsDefender" -ea 0
 }
 
+function DisableWindowsDefenderCloud {
+    Write-Output "Disabling Windows Defender Cloud..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "SpynetReporting" -Type DWord -Value 0
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "SubmitSamplesConsent" -Type DWord -Value 2
+}
+
 function RemoveDefaultApps {
     # Add "#" (without quotes) in front of a package to prevent it from being removed.
     # So "Microsoft.SomeBloatware" becomes #"Microsoft.SomeBloatware"
