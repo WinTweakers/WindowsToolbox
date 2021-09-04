@@ -196,6 +196,7 @@ $objects = @{
             'Github Desktop',
             'Github CLI',
             'Git',
+            'Heroku CLI',
             'JRE 8',
             'Python 3',
             'Python 2',
@@ -235,7 +236,8 @@ $objects = @{
         'Utilities' = @{
             'Password managers' = "@(
                 'LastPass', 
-                'Dashlane'
+                'Dashlane',
+                'Bitwarden'
             )"
 
             'Hypervisors / Emulators' = "@(
@@ -444,6 +446,14 @@ while ($true) {
                 choco install git
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install Git.Git
+            }
+        }
+
+        "Heroku CLI" {
+            if($global:pkgmgr -eq "choco") {
+                choco install heroku-cli
+            } elseif($global:pkgmgr -eq "winget") {
+                winget install Heroku.HerokuCLI
             }
         }
 
@@ -678,6 +688,14 @@ while ($true) {
                 choco install dashlane
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install Dashlane.Dashlane
+            }
+        }
+
+        "Bitwarden" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install bitwarden
+            } elseif($global:pkgmgr -eq "winget") {
+                winget install Bitwarden.Bitwarden
             }
         }
 
