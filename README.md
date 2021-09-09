@@ -1,4 +1,4 @@
-## This project is no longer actively developed
+## This project is no longer being actively developed
 WindowsToolbox is truly one of the projects that we've put the most effort into and we're incredibly proud of it. While you may see the code and think that it's janky, well it kinda is but still. TLDR, WindowsToolbox (and therefore WinTweakers) is no longer our main concern due to various reasons. We will still add new features and fix bugs from time to time, but there's not going to be new releases for quite a while, oh and we do still accept contributions (if there's any lol). That's it.
 
 [![Contributors][contributors-shield]][contributors-url]
