@@ -237,7 +237,8 @@ $objects = @{
             'Password managers' = "@(
                 'LastPass', 
                 'Dashlane',
-                'Bitwarden'
+                'Bitwarden',
+                '1Password'
             )"
 
             'Hypervisors / Emulators' = "@(
@@ -245,7 +246,8 @@ $objects = @{
                 'VMware Workstation Player',
                 'HyperV (Windows 10/11 Pro Only)',
                 'VirtualBox',
-                'DOSBox'
+                'DOSBox',
+                'QEMU'
             )"
 
             'Hardware info & Benchmarks' = "@(
@@ -259,6 +261,8 @@ $objects = @{
                 '7-Zip',
                 'WinDynamicDesktop',
                 'PowerToys',
+                'TaskbarX',
+                'StartIsBack',
                 'Internet Download Manager',
                 'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)'
             )"
@@ -273,10 +277,6 @@ $objects = @{
         '(Re)Enable Location Services',
         '(Re)Enable Activity History'
     )"
-
-    # 'Restart PC' = 'Restart'
-    # 'Help' = 'Info'
-    # 'Exit' = 'Exit'
 }
 
 while ($true) {
@@ -515,7 +515,7 @@ while ($true) {
 
         "Docker" {
             if ($global:pkgmgr -eq "choco") {
-                Write-Warning "Docker Cannot Be Installed With Choco"
+                Write-Warning "Docker cannot be installed with Chocolatey"
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install Docker.DockerDesktop
             }
@@ -699,6 +699,14 @@ while ($true) {
             }
         }
 
+        "1Password" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install 1password
+            } elseif($global:pkgmgr -eq "winget") {
+                winget install AgileBits.1Password
+            }
+        }
+
         #Virtualization
 
         'VMware Workstation Pro' {
@@ -730,6 +738,14 @@ while ($true) {
                 choco install dosbox
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install DOSBox.DOSBox
+            }
+        }
+
+        "QEMU" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install qemu
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install SoftwareFreedomConservancy.QEMU
             }
         }
 
@@ -790,6 +806,22 @@ while ($true) {
                 choco install powertoys
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install Microsoft.PowerToys
+            }
+        }
+
+        "TaskbarX" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install taskbarx
+            } elseif ($global:pkgmgr -eq "winget") {
+                Write-Output "TaskbarX cannot be installed with winget"
+            }
+        }
+
+        "StartIsBack" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install startisback
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install StartIsBack.StartIsBack
             }
         }
 
@@ -965,20 +997,8 @@ while ($true) {
         }
 
         "(Re)Enable Activity History" {
+            #yay the 1000th line
             EnableActivityHistory
-        }
-
-        # Misc
-        "Help" {
-            Info
-        }
-
-        $null {
-            Quit
-        }
-
-        "Restart PC" {
-            Restart
         }
     }
     Read-Host "Press Enter To Continue"

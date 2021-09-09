@@ -11,11 +11,6 @@ function setup {
     if ($winver -like "*Windows 11*") { $winver = '11' }
     elseif ($winver -like "*Windows 10*") { $winver = '10' }
 }
-function Quit {
-    stop-process -id $PID
-}
-
-function Restart { Restart-Computer }
 
 function Info {
     Write-Output "Windows Toolbox $version"
@@ -31,7 +26,7 @@ function Info {
     Write-Output "- Disable ShellExperienceHost"
     Write-Output "- Disable SearchUI `n"
     Write-Output "Things that break (or doesn't work on) Windows 11 (will be fixed):"
-    Write-Output "- Disabling telemetry (Disables updates. See #7)"
+    Write-Output "- Disabling telemetry (Disables Insider build updates. See #7)"
     Write-Output "- Remove user folders under This PC  `n`n"
     Read-Host "Press Enter to continue"
 }
