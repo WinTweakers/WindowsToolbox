@@ -63,7 +63,7 @@ Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 1
 
 ### Built With
 
-* [Powershell](https://github.com/PowerShell/PowerShell) 5
+* [Visual Studio Code](https://code.visualstudio.com)
 * [Powershell Pro Tools](https://ironmansoftware.com/powershell-pro-tools)
 
 
@@ -88,7 +88,7 @@ Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 1
 ## Roadmap
 
   - See the [open issues](https://github.com/WinTweakers/WindowsToolbox/issues) for a list of proposed features (and known issues).
-  - Documentation of features is coming "soon"
+  - Documentation of features is coming "soon" (see above)
 
 
 
@@ -126,7 +126,7 @@ Project Link: [https://github.com/WinTweakers/WindowsToolbox](https://github.com
 
 * [khanhmuy](https://github.com/khanhmuy)
 * [CallMeEcho](https://github.com/CallMeEchoCodes)
-* [Silly Sock](https://github.com/AvaaaUwU)
+* [Silly Sock](https://github.com/Sillysockk)
 * [W4RH4WK](https://github.com/W4RH4WK)
 * [Disassembler0](https://github.com/Disassembler0)
 * [QuietusPlus](https://github.com/QuietusPlus)
