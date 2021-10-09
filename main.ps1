@@ -217,7 +217,7 @@ $objects = @{
             'Zalo'
         )"
 
-        'Gaming/Streaming' = "@(
+        'Gaming' = "@(
             'Steam',
             'OBS Studio',
             'Twitch',
@@ -257,19 +257,22 @@ $objects = @{
                 'AIDA64 Extreme'
             )"
 
-            'Other' = "@(
-                '7-Zip',
+            'Personalization' = "@( 
                 'WinDynamicDesktop',
                 'PowerToys',
                 'TaskbarX',
-                'StartIsBack',
+                'StartIsBack'
+            )"
+
+            'Other' = "@(
+                '7-Zip',
                 'Internet Download Manager',
                 'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)'
             )"
         }
     }
 
-    'Undo Scripts (WIP)' = "@(
+    'Undo (WIP)' = "@(
         '(Re)Enable Telemetry',
         '(Re)Enable Windows Defender',
         '(Re)Install OneDrive',

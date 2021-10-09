@@ -18,8 +18,8 @@ function Info {
     if ($version -lt "$version") { Write-Output "Older version of WindowsToolbox is detected, please update WindowsToolbox" }
     Write-Output "Please read before using WindowsToolbox"
     Write-Output "- None of the functions have configs (for now), you have to edit them to your liking beforehand."
-    Write-Output "- Windows 10 and 11 are the only supported Windows versions (for now)."
-    Write-Output "- There is no undo (for now), all scripts are provided AS IS. You use them at your own risk."
+    Write-Output "- Windows 10 and 11 are the only supported Windows versions."
+    Write-Output "- There is no undo function with a guaranteed success, all scripts are provided AS IS. Use them at your own risk."
     if ($build -ne "10.0.17134") { Write-Output "- To Use $global:notpkgmgr instead of $global:pkgmgr edit $env:APPDATA\WindowsToolbox\config.json." }
     Write-Output "- Navigation: Use the arrow keys to navigate, Enter to select and ESC to go back `n"
     Write-Output "Things that break core functions (Very unlikely to be fixed)"
@@ -27,7 +27,8 @@ function Info {
     Write-Output "- Disable SearchUI `n"
     Write-Output "Things that break (or doesn't work on) Windows 11 (will be fixed):"
     Write-Output "- Disabling telemetry (Disables Insider build updates. See #7)"
-    Write-Output "- Remove user folders under This PC  `n`n"
+    Write-Output "- Remove user folders under This PC"
+    Write-Output "- Tweaks might not work reliably, try again if they don't `n`n"
     Read-Host "Press Enter to continue"
 }
 
@@ -67,7 +68,7 @@ function MSDOSMode {
     Write-Output "Downloading"
     Invoke-WebRequest -Uri $windowsdos -OutFile $conflocation\Windows10DOS.zip
     
-    Write-Output "Installing 7Zip4PowerShell (sorry, Expand-Archive does not support passwords)"
+    Write-Output "Installing 7Zip4PowerShell"
     Install-Module 7Zip4PowerShell -Scope CurrentUser -Force -Verbose
     Clear-Host
     Write-Output "Extracting..."
