@@ -208,7 +208,7 @@ $objects = @{
             'Windows Subsystem for Linux'
         )"
 
-        'Communication Programs' = "@(
+        'Communication' = "@(
             'Discord',
             'Slack',
             'Zoom',
@@ -257,15 +257,21 @@ $objects = @{
                 'AIDA64 Extreme'
             )"
 
-            'Personalization' = "@( 
+            'Customisation' = "@( 
                 'WinDynamicDesktop',
                 'PowerToys',
                 'TaskbarX',
-                'StartIsBack'
+                'StartIsBack',
+                'Winaero Tweaker (Chocolatey only)'
+            )"
+
+            'Archiving' = "@(
+                '7-Zip',
+                'WinRAR',
+                'WinZip (Winget only)'
             )"
 
             'Other' = "@(
-                '7-Zip',
                 'Internet Download Manager',
                 'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)'
             )"
@@ -788,14 +794,6 @@ while ($true) {
 
         #Other
 
-        "7-Zip" {
-            if ($global:pkgmgr -eq "choco") {
-                choco install 7zip
-            } elseif ($global:pkgmgr -eq "winget") {
-                winget install 7zip.7zip
-            }
-        }
-
         "WinDynamicDesktop" {
             if ($global:pkgmgr -eq "choco") {
                 choco install windynamicdesktop
@@ -838,6 +836,40 @@ while ($true) {
 
         'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)' {
             MSDOSMode
+        }
+
+        "Winaero Tweaker (Chocolatey only)" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install winaero-tweaker
+            } elseif ($global:pkgmgr -eq "winget") {
+                Write-Output "Winaero Tweaker cannot be installed with Winget"
+            }
+        }
+
+        #Archiving
+
+        "7-Zip" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install 7zip
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install 7zip.7zip
+            }
+        }
+
+        "WinRAR" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install winrar
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install RARLab.WinRAR
+            }
+        }
+
+        "WinZip (Winget only)" {
+            if ($global:pkgmgr -eq "choco") {
+                Write-Output "WinZip cannot be installed with Chocolatey"
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Corel.WinZip
+            }
         }
 
         #Tweaks
