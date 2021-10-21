@@ -46,7 +46,7 @@ function InstallChoco {
 
 function InstallWSL {
     Write-Output "Installing WSL..."
-    Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Windows-Subsystem-Linux" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
+    wsl --install
 }
 
 function InstallHyperV {

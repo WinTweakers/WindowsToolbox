@@ -42,6 +42,8 @@ if ( $reply -match "[yY]" ) {
     Enable-ComputerRestore -Drive "$env:SystemDrive"
     Checkpoint-Computer -Description "BeforeWindowsToolbox" -RestorePointType "MODIFY_SETTINGS"
     Read-Host "Press enter to continue"
+} else {
+    Enable-ComputerRestore -Drive "$env:SystemDrive"
 }
 
 Clear-Host
@@ -113,7 +115,7 @@ Info
 
 $objects = @{
 
-    'Debloat' = "@(
+    '1) Debloat' = "@(
         'Disable Windows Defender (NOT RECOMMENDED)',
         'Disable Windows Defender Cloud',
         'Remove Default UWP apps',
@@ -125,7 +127,7 @@ $objects = @{
         'Remove Xbox bloat'
     )"
 
-    'Privacy Settings' = "@(
+    '2) Privacy Settings' = "@(
         'Disable Telemetry',
         'Privacy Fixes (WIP)',
         'Disable App Suggestions',
@@ -135,7 +137,7 @@ $objects = @{
         'Disable Location Services'
     )"
 
-    'Tweaks' = @{
+    '3) Tweaks' = @{
         'System Tweaks' = "@(
             'Lower RAM usage',
             'Enable photo viewer',
@@ -180,7 +182,7 @@ $objects = @{
         )"
     }    
 
-    'Install Apps' = @{
+    '4) Install Apps' = @{
         'Browsers' = "@(
             'Firefox',
             'Google Chrome',
@@ -279,7 +281,7 @@ $objects = @{
         }
     }
 
-    'Undo (WIP)' = "@(
+    '5) Undo (WIP)' = "@(
         '(Re)Enable Telemetry',
         '(Re)Enable Windows Defender',
         '(Re)Install OneDrive',
@@ -287,10 +289,18 @@ $objects = @{
         '(Re)Enable Location Services',
         '(Re)Enable Activity History'
     )"
+
+    '6) Options' = "@(
+        '1) Create restore point',
+        '2) Change package manager',
+        '3) Info',
+        '4) Restart',
+        '5) Exit'   
+    )"
 }
 
 while ($true) {
-    $mainMenu = Write-Menu -Title $title -Entries $objects
+    $mainMenu = Write-Menu -Sort -Title $title -Entries $objects
     switch ($mainMenu) {
         #Debloat menu
         "Disable Windows Defender (NOT RECOMMENDED)" {
@@ -1033,9 +1043,46 @@ while ($true) {
         }
 
         "(Re)Enable Activity History" {
-            #yay the 1000th line
             EnableActivityHistory
         }
+
+        #Options
+        "1) Create restore point" {
+            Write-Output "Creating restore point..."
+            Checkpoint-Computer -Description "BeforeWindowsToolbox" -RestorePointType "MODIFY_SETTINGS"
+            Write-Output "Done"
+        }
+
+        "2) Change package manager" {
+            Write-Output "WindowsToolbox is currently using $global:pkgmgr"
+            $10vers = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion").ReleaseId
+            if($10vers -le 1803) {
+                Write-Output "This option is not applicable for your Windows build"
+            } else {
+                $reply = Read-Host -Prompt "[W]inget Or [C]hocolatey (winget is recomended)"
+                if ( $reply -match "[wW]" ) {
+                    ((Get-Content -Path $conflocation\config.json -Raw) -replace 'choco','winget') | Set-Content -Path $conflocation\config.json
+                } elseif ( $reply -match "[cC]" ) {
+                    ((Get-Content -Path $conflocation\config.json -Raw) -replace 'winget','choco') | Set-Content -Path $conflocation\config.json
+                }
+            }
+        }
+
+        "3) Info" {
+            Info
+        }
+
+        "4) Restart" {
+            $confirm = Read-Host "Are you sure you want to restart? (y/n)"
+            if($confirm -eq "y") {
+                Restart-Computer
+            }
+        }
+
+        "5) Exit" {
+            stop-process -id $PID
+        }
     }
+    Clear-Host
     Read-Host "Press Enter To Continue"
 } 
