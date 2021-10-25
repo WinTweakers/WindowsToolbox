@@ -275,6 +275,7 @@ $objects = @{
             )"
 
             'Other' = "@(
+                'iMazing',
                 'Internet Download Manager',
                 'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)'
             )"
@@ -857,6 +858,14 @@ while ($true) {
             }
         }
 
+        "iMazing" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install imazing
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install DigiDNA.iMazing
+            }
+        }
+
         #Archiving
 
         "7-Zip" {
@@ -1083,6 +1092,6 @@ while ($true) {
             stop-process -id $PID
         }
     }
-    Clear-Host
     Read-Host "Press Enter To Continue"
+    Clear-Host
 } 
