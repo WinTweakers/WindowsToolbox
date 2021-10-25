@@ -177,7 +177,6 @@ function ReinstallDefaultApps {
         Get-AppxProvisionedPackage -Online
     }
 
-    # Prevents Apps from re-installing
     $cdn = @(
         "ContentDeliveryAllowed"
         "FeatureManagementEnabled"

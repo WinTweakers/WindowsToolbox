@@ -295,8 +295,9 @@ $objects = @{
         '1) Create restore point',
         '2) Change package manager',
         '3) Info',
-        '4) Restart',
-        '5) Exit'   
+        '4) Restart Explorer',
+        '5) Restart',
+        '6) Exit'   
     )"
 }
 
@@ -1081,14 +1082,24 @@ while ($true) {
             Info
         }
 
-        "4) Restart" {
+        "4) Restart Explorer" {
+            Write-Output "Killing Explorer process..."
+            taskkill.exe /F /IM "explorer.exe"
+            Write-Output "Restarting Explorer..."
+            Start-Process "explorer.exe"
+            Write-Output "Waiting for explorer to complete loading"
+            Start-Sleep 10
+            Write-Output "Done!"
+        }
+
+        "5) Restart" {
             $confirm = Read-Host "Are you sure you want to restart? (y/n)"
             if($confirm -eq "y") {
                 Restart-Computer
             }
         }
 
-        "5) Exit" {
+        "6) Exit" {
             stop-process -id $PID
         }
     }

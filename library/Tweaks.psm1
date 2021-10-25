@@ -3,7 +3,7 @@ function DarkMode {
     if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -force -ea SilentlyContinue };
     New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
     New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function RAM {
@@ -12,14 +12,14 @@ function RAM {
     if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks" -force -ea SilentlyContinue };
     if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio" -force -ea SilentlyContinue };
     if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture" -force -ea SilentlyContinue };
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function DisablePrefetchPrelaunch {
     Disable-MMAgent -ApplicationPreLaunch
     reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v EnablePrefetcher /t REG_DWORD /d "0" /f
     reg add "HKLM\SOFTWARE\Policies\Microsoft\MicrosoftEdge\Main" /v AllowPrelaunch /t REG_DWORD /d "0" /f
-    Write-Output "Done"
+    Write-Output "Done!"
     
 }
 
@@ -28,7 +28,7 @@ function DisableEdgePrelaunch {
     if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\TabPreloader") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\TabPreloader" -force -ea SilentlyContinue };
     New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\Main' -Name 'AllowPrelaunch' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
     New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\TabPreloader' -Name 'AllowTabPreloading' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function EnablePhotoViewer {
@@ -47,13 +47,13 @@ function EnablePhotoViewer {
     New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.bmp' -Name '(default)' -Value 'PhotoViewer.FileAssoc.Tiff' -PropertyType String -Force -ea SilentlyContinue;
     New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.tiff' -Name '(default)' -Value 'PhotoViewer.FileAssoc.Tiff' -PropertyType String -Force -ea SilentlyContinue;
     New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.ico' -Name '(default)' -Value 'PhotoViewer.FileAssoc.Tiff' -PropertyType String -Force -ea SilentlyContinue;
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function UseUTC {
     if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\TimeZoneInformation") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\TimeZoneInformation" -force -ea SilentlyContinue };
     New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\TimeZoneInformation' -Name 'RealTimeIsUniversal' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function DisableShellExperienceHost {
@@ -61,40 +61,40 @@ function DisableShellExperienceHost {
     Write-Output "Disabling ShellExperienceHost"
     taskkill.exe /F /IM ShellExperienceHost.exe
     Move-Item -Path "%windir%\SystemApps\ShellExperienceHost_cw5n1h2txyewy" -Destination "%windir%\SystemApps\ShellExperienceHost_cw5n1h2txyewy.bak" 
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function DisableSearchUI {
     Write-Output "Disabling SearchUI"
     taskkill.exe /F /IM SearchUI.exe
     Move-Item -Path "%windir%\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy" -Destination "%windir%\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy.bak"
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function ImproveSSD {
     # SSD life improvement
     fsutil behavior set DisableLastAccess 1
     fsutil behavior set EncryptPagingFile 0
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function DisableSuperfetch {
 	Write-Output "Stopping and disabling Superfetch service..."
 	Stop-Service "SysMain" -WarningAction SilentlyContinue
 	Set-Service "SysMain" -StartupType Disabled
-    Read-Host "Done"
+    Write-Output "Done!"
 }
 
 function GodMode {
     $DesktopPath = [Environment]::GetFolderPath("Desktop");
     mkdir "$DesktopPath\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}"
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function TBSingleClick {
     New-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -ErrorAction SilentlyContinue | Out-Null
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LastActiveClick" -Type Dword -Value 0x00000001 -Force
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 # UI Tweaks
@@ -131,13 +131,13 @@ function RemoveThisPClutter {
     # Remove 3D Objects from This PC
     Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}"
     Remove-Item -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}"
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function DisableAeroShake {
     Write-Output "Disabling Aero Shake..."
     Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DisallowShaking" -Type DWord -Value 1
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function DisableActionCenter {
@@ -147,7 +147,7 @@ function DisableActionCenter {
 	}
 	Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function DisableAccessibilityKeys {
@@ -155,7 +155,7 @@ function DisableAccessibilityKeys {
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "506"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\ToggleKeys" -Name "Flags" -Type String -Value "58"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\Keyboard Response" -Name "Flags" -Type String -Value "122"
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function FixNoInternetPrompt {
@@ -175,7 +175,7 @@ function SetWinXMenuCMD {
 function ShowBuildNumberOnDesktop {
 	Write-Output "Showing Windows build number on desktop..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "PaintDesktopVersion" -Type DWord -Value 1
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function ShowExplorerFullPath {
@@ -184,7 +184,7 @@ function ShowExplorerFullPath {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" -Name "FullPath" -Type DWord -Value 1
-    Write-Output "Done"
+    Write-Output "Done!"
 }
 
 function EnableVerboseStartup {
@@ -195,20 +195,20 @@ function EnableVerboseStartup {
     else {
 		Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "VerboseStatus" -ErrorAction SilentlyContinue
 	}
-    Read-Host "Done"
+    Write-Output "Done!"
 }
 
 function SetExplorerThisPC {
 	Write-Output "Changing default Explorer view to This PC..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
-    Read-Host "Done"
+    Write-Output "Done!"
 }
 
 function DisableXboxGameBar {
     Write-Output "Disable Game DVR and Game Bar"
     New-FolderForced -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR" "AllowgameDVR" 0
-    Read-Host "Done"
+    Write-Output "Done!"
 }
 
 function HideTaskbarPeople {
