@@ -1,6 +1,6 @@
 # General functions
 
-$version = "1.0.4"
+$version = "1.0.4 (2021.10.31)"
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 $build = (Get-CimInstance Win32_OperatingSystem).version
@@ -65,10 +65,10 @@ function MSDOSMode {
     $conflocation = "$env:APPDATA\WindowsToolbox\"
     $windowsdos = "https://dl.malwarewatch.org/multipurpose/Windows10DOS.zip"
     
-    Write-Output "Downloading"
+    Write-Output "Downloading files..."
     Invoke-WebRequest -Uri $windowsdos -OutFile $conflocation\Windows10DOS.zip
     
-    Write-Output "Installing 7Zip4PowerShell"
+    Write-Output "Installing 7Zip4PowerShell..."
     Install-Module 7Zip4PowerShell -Scope CurrentUser -Force -Verbose
     Clear-Host
     Write-Output "Extracting..."
@@ -79,14 +79,14 @@ function MSDOSMode {
     Copy-Item $conflocation\win.bat -Destination "C:\Windows\System32" -Force
     Copy-Item $conflocation\reboot.bat -Destination "C:\Windows\System32" -Force
 
-    Write-Output "Removing leftovers"
+    Write-Output "Removing leftovers..."
     Remove-Item -Path $conflocation\msdos.bat -Force
     Remove-Item -Path $conflocation\win.bat -Force
     Remove-Item -Path $conflocation\reboot.bat -Force
     
     Write-Output "Please use WinXEditor to add the entry to the Win+X menu (the batch file is under C:\Windows\System32\msdos.bat"
     Start-Process $conflocation\WinXEditor\WinXEditor.exe
-    Read-Host "Done"
+    Write-Output "Done!"
 }
 
 function BCDInfo {
