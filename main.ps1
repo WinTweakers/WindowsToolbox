@@ -196,6 +196,7 @@ $objects = @{
             'Visual Studio Code',
             'Atom',
             'Notepad++',
+            'Sublime Text',
             'Github Desktop',
             'Github CLI',
             'Git',
@@ -275,6 +276,7 @@ $objects = @{
             )"
 
             'Other' = "@(
+                'Gpg4win',
                 'iMazing',
                 'Internet Download Manager',
                 'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)'
@@ -444,6 +446,14 @@ while ($true) {
                 choco install notepadplusplus
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install Notepad++.Notepad++
+            }
+        }
+
+        "Sublime Text" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install sublimetext3.app
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install SublimeHQ.SublimeText
             }
         }
 
@@ -864,6 +874,14 @@ while ($true) {
                 choco install imazing
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install DigiDNA.iMazing
+            }
+        }
+
+        "Gpg4win" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install gpg4win
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install gnupg.Gpg4win
             }
         }
 
