@@ -221,12 +221,15 @@ $objects = @{
             'Zalo'
         )"
 
-        'Gaming' = "@(
+        'Game Launchers' = "@(
             'Steam',
-            'OBS Studio',
-            'Twitch',
             'Epic Games Launcher',
             'GOG Galaxy'
+        )"
+
+        'Live Streaming' = "@(
+            'OBS Studio',
+            'StreamlabsOBS'
         )"
         
         'Multimedia' = "@(
@@ -234,7 +237,8 @@ $objects = @{
             'Spotify',
             'VLC',
             'Kodi',
-            'Audacity'
+            'Audacity',
+            'Twitch'
         )"
 
         'Utilities' = @{
@@ -276,10 +280,12 @@ $objects = @{
             )"
 
             'Other' = "@(
+                'Evernote',
                 'Gpg4win',
                 'iMazing',
                 'Internet Download Manager',
-                'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)'
+                'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)',
+                'Nitroless (1.0.0-a4)'
             )"
         }
     }
@@ -629,6 +635,14 @@ while ($true) {
             }
         }
 
+        "StreamlabsOBS" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install streamlabs-obs
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Streamlabs.StreamlabsOBS
+            }
+        }
+
         "Epic Games Launcher" {
             if ($global:pkgmgr -eq "choco") {
                 choco install epicgameslauncher
@@ -883,6 +897,20 @@ while ($true) {
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install gnupg.Gpg4win
             }
+        }
+
+        "Evernote" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install evernote
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install evernote.evernote
+            }
+        }
+
+        "Nitroless (1.0.0-a4)" {
+            $nitroless = "https://github.com/Nitroless/Electron/releases/download/1.0.0-Alpha4/Nitroless.Setup.1.0.0-alpha4.exe"
+            Invoke-WebRequest -Uri $nitroless -OutFile $conflocation\nitroless.exe
+            Start-Process -FilePath $conflocation\nitroless.exe
         }
 
         #Archiving
