@@ -223,3 +223,16 @@ function EnableActivityHistory {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities" -Type DWord -Value 1
     Write-Output "Done"
 }
+
+function EnableSuperfetch {
+    Write-Output "Enabling Superfetch..."
+	Start-Service "SysMain" -WarningAction SilentlyContinue
+	Set-Service "SysMain" -StartupType Enabled
+    Write-Output "Done!"
+}
+
+function HideBuildNumberOnDesktop {
+    Write-Output "Hiding Windows build number on desktop..."
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "PaintDesktopVersion" -Type DWord -Value 0
+    Write-Output "Done!"   
+}

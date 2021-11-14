@@ -296,7 +296,9 @@ $objects = @{
         '(Re)Install OneDrive',
         '(Re)Install default UWP apps',
         '(Re)Enable Location Services',
-        '(Re)Enable Activity History'
+        '(Re)Enable Activity History',
+        '(Re)Enable Superfetch',
+        'Hide build number on desktop'
     )"
 
     '6) Options' = "@(
@@ -1100,6 +1102,14 @@ while ($true) {
 
         "(Re)Enable Activity History" {
             EnableActivityHistory
+        }
+
+        "(Re)Enable Superfetch" {
+            EnableSuperfetch
+        }
+
+        "Hide build number on desktop" {
+            HideBuildNumberOnDesktop
         }
 
         #Options

@@ -40,6 +40,8 @@ function DisableWindowsDefender {
     
     Write-Output "Removing Windows Defender GUI / tray from autorun"
     Remove-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" "WindowsDefender" -ea 0
+    gpupdate /force /target:computer
+    Write-Output "Done!"
 }
 
 function DisableWindowsDefenderCloud {
