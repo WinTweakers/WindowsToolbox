@@ -192,25 +192,29 @@ $objects = @{
             'Tor Broswer'
         )"
 
-        'Dev Tools' = "@(
-            'Visual Studio Code',
-            'Atom',
-            'Notepad++',
-            'Sublime Text',
-            'Github Desktop',
-            'Github CLI',
-            'Git',
-            'Heroku CLI',
-            'JRE 8',
-            'Python 3',
-            'Python 2',
-            'PowerShell',
-            'PuTTY',
-            'Node.JS',
-            'Vim',
-            'Docker',
-            'Windows Subsystem for Linux'
-        )"
+        'Dev Tools' = @{
+            'Text editors | IDEs' = "@(
+                'Visual Studio Code',
+                'Atom',
+                'Notepad++',
+                'Sublime Text',
+                'Vim'   
+            )"
+            'Development' = "@(
+                'Github Desktop',
+                'Github CLI',
+                'Git',
+                'Heroku CLI',
+                'JRE 8',
+                'Python 3',
+                'Python 2',
+                'PowerShell',
+                'PuTTY',
+                'Node.JS',
+                'Docker',
+                'Windows Subsystem for Linux'   
+            )"
+        }
 
         'Communication' = "@(
             'Discord',
@@ -218,7 +222,9 @@ $objects = @{
             'Zoom',
             'Skype',
             'Telegram',
-            'Zalo'
+            'Zalo',
+            'Microsoft Teams',
+            'Teamspeak'
         )"
 
         'Game Launchers' = "@(
@@ -227,19 +233,28 @@ $objects = @{
             'GOG Galaxy'
         )"
 
-        'Live Streaming' = "@(
+        'Streaming' = "@(
             'OBS Studio',
             'StreamlabsOBS'
         )"
         
-        'Multimedia' = "@(
-            'iTunes',
-            'Spotify',
-            'VLC',
-            'Kodi',
-            'Audacity',
-            'Twitch'
-        )"
+        'Multimedia' = @{
+            'Imaging' = "@(
+                'ShareX',
+                'Krita',
+                'GIMP',
+                'Inkscape' 
+            )"
+
+            'Media Playing' = "@(
+                'iTunes',
+                'Spotify',
+                'VLC',
+                'Audacity',
+                'Kodi',
+                'Twitch'   
+            )"
+        }
 
         'Utilities' = @{
             'Password managers' = "@(
@@ -279,13 +294,19 @@ $objects = @{
                 'WinZip (Winget only)'
             )"
 
+            'Remote' = "@(
+                'TeamViewer',
+                'Parsec'   
+            )"
+
             'Other' = "@(
                 'Evernote',
                 'Gpg4win',
                 'iMazing',
                 'Internet Download Manager',
                 'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)',
-                'Nitroless (1.0.0-a4)'
+                'Nitroless (1.0.0-a4)',
+                'Authy Desktop'
             )"
         }
     }
@@ -619,6 +640,22 @@ while ($true) {
             } 
         }
 
+        "Microsoft Teams" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install microsoft-teams
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Microsoft.Teams
+            }
+        }
+
+        "Teamspeak" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install teamspeak
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install TeamSpeakSystems.TeamSpeakClient
+            }
+        }
+
         # Gaming Menu
 
         "Steam" {
@@ -711,13 +748,53 @@ while ($true) {
             }
         }
 
-        #Utilities
+        "ShareX" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install sharex
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install ShareX.ShareX
+            }
+        }
+
+        "Krita" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install krita
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install KDE.Krita
+            }
+        }
+
+        "GIMP" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install gimp
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install GIMP.GIMP
+            }
+        }
+
+        "Inkscape" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install inkscape
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Inkscape.Inkscape
+            }
+        }
+
+        #Remote
 
         "TeamViewer" {
             if ($global:pkgmgr -eq "choco") {
                 choco install teamviewer
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install TeamViewer.TeamViewer
+            }
+        }
+
+        "Parsec" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install parsec
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install ParsecCloudInc.Parsec
             }
         }
 
@@ -913,6 +990,14 @@ while ($true) {
             $nitroless = "https://github.com/Nitroless/Electron/releases/download/1.0.0-Alpha4/Nitroless.Setup.1.0.0-alpha4.exe"
             Invoke-WebRequest -Uri $nitroless -OutFile $conflocation\nitroless.exe
             Start-Process -FilePath $conflocation\nitroless.exe
+        }
+
+        "Authy Desktop" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install authy-desktop
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Twilio.Authy
+            }
         }
 
         #Archiving
