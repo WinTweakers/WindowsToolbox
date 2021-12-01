@@ -236,7 +236,7 @@ $objects = @{
 
         'Streaming' = "@(
             'OBS Studio',
-            'StreamlabsOBS'
+            'Streamlabs'
         )"
         
         'Multimedia' = @{

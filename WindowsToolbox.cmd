@@ -1,2 +1,2 @@
-powershell -noexit "& ""./main.ps1"""
+powershell "& ""./main.ps1"""
 exit
