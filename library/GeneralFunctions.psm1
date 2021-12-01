@@ -1,6 +1,6 @@
 # General functions
 
-$version = "1.0.4 (2021.11.14)"
+$version = "1.0.4 (2021.12.01)"
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 $build = (Get-CimInstance Win32_OperatingSystem).version
@@ -28,7 +28,8 @@ function Info {
     Write-Output "Things that break (or doesn't work on) Windows 11 (will be fixed):"
     Write-Output "- Disabling telemetry (Disables Insider build updates. See #7)"
     Write-Output "- Remove user folders under This PC"
-    Write-Output "- Tweaks might not work reliably, try again if they don't `n`n"
+    Write-Output "- Since Windows Security is so deeply integrated into Windows now, the only way to really remove it is by using NTLite."
+    Write-Output "- Tweaks may not work reliably, try again if they don't `n`n"
     Read-Host "Press Enter to continue"
 }
 

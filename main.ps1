@@ -162,7 +162,8 @@ $objects = @{
                 'Fix No Internet prompt',
                 'Enable verbose startup / shutdown messages',
                 'Disable Xbox Game DVR and Game Bar',
-                'Hide People icon on the Taskbar'
+                'Hide People icon on the Taskbar',
+                'Restore classic context menu (Windows 11 only)'
             )"
 
             'Explorer tweaks' = "@(
@@ -319,7 +320,8 @@ $objects = @{
         '(Re)Enable Location Services',
         '(Re)Enable Activity History',
         '(Re)Enable Superfetch',
-        'Hide build number on desktop'
+        'Hide build number on desktop',
+        'Disable old context menu (Windows 11 only)'
     )"
 
     '6) Options' = "@(
@@ -1129,6 +1131,10 @@ while ($true) {
             HideTaskbarPeople
         }
 
+        "Restore classic context menu (Windows 11 only)" {
+            EnableClassicMenu
+        }
+
         #BCD edit 
 
         "Remove entry" {
@@ -1197,6 +1203,10 @@ while ($true) {
             HideBuildNumberOnDesktop
         }
 
+        "Disable old context menu (Windows 11 only)" {
+            DisableOldContextMenu
+        }
+
         #Options
         "1) Create restore point" {
             Write-Output "Creating restore point..."
@@ -1216,6 +1226,13 @@ while ($true) {
                 } elseif ( $reply -match "[cC]" ) {
                     ((Get-Content -Path $conflocation\config.json -Raw) -replace 'winget','choco') | Set-Content -Path $conflocation\config.json
                 }
+                Write-Output "Package manager changed to $global:pkgmgr"
+                $relaunch = Read-Host "Restart WindowsToolbox to apply changes? (y/n)"
+                if ($relaunch -match "[yY]") {
+                    Write-Output "WindowsToolbox will now restart"
+                    & $PSScriptRoot\main.ps1
+                    stop-process -id $PID
+                }
             }
         }
 
@@ -1234,7 +1251,7 @@ while ($true) {
         }
 
         "5) Restart" {
-            $confirm = Read-Host "Are you sure you want to restart? (y/n)"
+            $confirm = Read-Host "Are you sure you want to restart? (y/n) Remember to save your work first"
             if($confirm -eq "y") {
                 Restart-Computer
             }
