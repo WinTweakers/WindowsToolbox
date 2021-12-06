@@ -676,7 +676,7 @@ while ($true) {
             }
         }
 
-        "StreamlabsOBS" {
+        "Streamlabs" {
             if ($global:pkgmgr -eq "choco") {
                 choco install streamlabs-obs
             } elseif ($global:pkgmgr -eq "winget") {
