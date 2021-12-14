@@ -1,5 +1,6 @@
 ## This project is no longer being actively developed
 Updates at least once every two weeks, no promises tho.
+Also no more binaries, will try to find a way to release whenever a commit is pushed :frcry:
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
