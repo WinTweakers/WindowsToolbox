@@ -224,3 +224,13 @@ function EnableClassicMenu {
     Write-Output "Enabling classic context menu..."
     reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
 }
+
+function EnableClassicVolumeFlyout {
+    if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\MTCUVC") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\MTCUVC" -force -ea SilentlyContinue };
+    New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\MTCUVC' -Name 'EnableMtcUvc' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
+}
+
+function EnableClassicBatteryFlyout {
+    if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell" -force -ea SilentlyContinue };
+    New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell' -Name 'UseWin32BatteryFlyout' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
+}

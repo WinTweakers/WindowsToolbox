@@ -152,8 +152,22 @@ $objects = @{
         )"
 
         'UI Tweaks' = @{
-            'Shell tweaks' = "@(
+            'Appearance' = "@(
                 'Enable dark mode',
+                'Enable Windows 7-style volume flyout',
+                'Enable Windows 7-style battery flyout',
+                'Hide People icon on the Taskbar',
+                'Restore classic context menu (Windows 11 only)'
+            )"
+
+            'Explorer' = "@(
+                'Remove user folders under This PC',
+                'Show build number on desktop',
+                'Show full directory path in Explorer title bar',
+                'Change default explorer view to This PC'
+            )"
+
+            'Behavior' = "@(
                 'Disable Aero Shake',
                 'Switch Windows With a Single Click on the Taskbar',
                 'Disable Action Center',
@@ -161,16 +175,7 @@ $objects = @{
                 'Set Win+X menu to Command Prompt',
                 'Fix No Internet prompt',
                 'Enable verbose startup / shutdown messages',
-                'Disable Xbox Game DVR and Game Bar',
-                'Hide People icon on the Taskbar',
-                'Restore classic context menu (Windows 11 only)'
-            )"
-
-            'Explorer tweaks' = "@(
-                'Remove user folders under This PC',
-                'Show build number on desktop',
-                'Show full directory path in Explorer title bar',
-                'Change default explorer view to This PC'
+                'Disable Xbox Game DVR and Game Bar'
             )"
         }
 
@@ -321,7 +326,9 @@ $objects = @{
         '(Re)Enable Activity History',
         '(Re)Enable Superfetch',
         'Hide build number on desktop',
-        'Disable old context menu (Windows 11 only)'
+        'Disable old context menu (Windows 11 only)',
+        'Disable Windows 7-style volume flyout',
+        'Disable Windows 7-style battery flyout'
     )"
 
     '6) Options' = "@(
@@ -1135,6 +1142,14 @@ while ($true) {
             EnableClassicMenu
         }
 
+        "Enable Windows 7-style volume flyout" {
+            EnableClassicVolumeFlyout
+        }
+
+        "Enable Windows 7-style battery flyout" {
+            EnableClassicBatteryFlyout
+        }
+
         #BCD edit 
 
         "Remove entry" {
@@ -1205,6 +1220,14 @@ while ($true) {
 
         "Disable old context menu (Windows 11 only)" {
             DisableOldContextMenu
+        }
+
+        "Disable Windows 7-style volume flyout"{
+            DisableClassicVolumeFlyout
+        }
+
+        "Disable Windows 7-style battery flyout" {
+            DisableClassicBatteryFlyout
         }
 
         #Options

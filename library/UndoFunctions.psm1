@@ -242,3 +242,13 @@ function DisableOldContextMenu {
     Write-Output "Disabling old context menu..."
     reg.exe delete "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /f
 }
+
+function DisableClassicVolumeFlyout {
+    if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\MTCUVC") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\MTCUVC" -force -ea SilentlyContinue };
+    Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\MTCUVC' -Name 'EnableMtcUvc' -Force -ea SilentlyContinue;
+}
+
+function DisableClassicBatteryFlyout {
+    if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell" -force -ea SilentlyContinue };
+    New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell' -Name 'UseWin32BatteryFlyout' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
+}
