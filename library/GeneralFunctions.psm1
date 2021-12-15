@@ -1,6 +1,6 @@
 # General functions
 
-$version = "1.0.4 (2021.12.14)"
+$version = "1.0.4 (2021.12.15)"
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 $build = (Get-CimInstance Win32_OperatingSystem).version

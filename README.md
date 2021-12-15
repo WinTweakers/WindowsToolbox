@@ -57,7 +57,7 @@ Also no more binaries, will try to find a way to release whenever a commit is pu
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Windows Toolbox Screen Shot](https://i.imgur.com/SGeioqF.png)
+![Windows Toolbox Screen Shot](https://i.imgur.com/nusP0iI.png)
 
 Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 11. 
 
