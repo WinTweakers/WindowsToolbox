@@ -302,7 +302,9 @@ $objects = @{
 
             'Remote' = "@(
                 'TeamViewer',
-                'Parsec'   
+                'Parsec',
+                'VNC Viewer',
+                'VNC Server',   
             )"
 
             'Other' = "@(
@@ -804,6 +806,22 @@ while ($true) {
                 choco install parsec
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install ParsecCloudInc.Parsec
+            }
+        }
+
+        "VNC Viewer" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install vnc-viewer
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install RealVNC.VNCViewer
+            }
+        } 
+        
+        "VNC Server" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install vnc-connect
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install RealVNC.VNCServer
             }
         }
 

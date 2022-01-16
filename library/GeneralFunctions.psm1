@@ -1,6 +1,6 @@
 # General functions
 
-$version = "1.0.4 (2021.12.15)"
+$version = "1.0.5 (2022.1.16)"
 $title = "Windows Toolbox $version"
 $host.UI.RawUI.WindowTitle = $title
 $build = (Get-CimInstance Win32_OperatingSystem).version
@@ -20,7 +20,7 @@ function Info {
     Write-Output "- None of the functions have configs (for now), you have to edit them to your liking beforehand."
     Write-Output "- Windows 10 and 11 are the only supported Windows versions."
     Write-Output "- There is no undo function with a guaranteed success, all scripts are provided AS IS. Use them at your own risk."
-    if ($build -ne "10.0.17134") { Write-Output "- To Use $global:notpkgmgr instead of $global:pkgmgr edit $env:APPDATA\WindowsToolbox\config.json." }
+    if ($build -ne "10.0.17134") { Write-Output "- To use $global:notpkgmgr instead of $global:pkgmgr edit $env:APPDATA\WindowsToolbox\config.json." }
     Write-Output "- Navigation: Use the arrow keys to navigate, Enter to select and ESC to go back `n"
     Write-Output "Things that break core functions (Very unlikely to be fixed)"
     Write-Output "- Disable ShellExperienceHost"
