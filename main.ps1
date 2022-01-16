@@ -218,7 +218,8 @@ $objects = @{
                 'PuTTY',
                 'Node.JS',
                 'Docker',
-                'Windows Subsystem for Linux'   
+                'Windows Subsystem for Linux',
+                'Windows Terminal'  
             )"
         }
 
@@ -230,7 +231,8 @@ $objects = @{
             'Telegram',
             'Zalo',
             'Microsoft Teams',
-            'Teamspeak'
+            'Teamspeak',
+            'Thunderbird'
         )"
 
         'Game Launchers' = "@(
@@ -291,7 +293,8 @@ $objects = @{
                 'PowerToys',
                 'TaskbarX',
                 'StartIsBack',
-                'Winaero Tweaker (Chocolatey only)'
+                'Winaero Tweaker (Chocolatey only)',
+                'ModernFlyouts'
             )"
 
             'Archiving' = "@(
@@ -314,7 +317,8 @@ $objects = @{
                 'Internet Download Manager',
                 'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)',
                 'Nitroless (1.0.0-a4)',
-                'Authy Desktop'
+                'Authy Desktop',
+                'NTLite'
             )"
         }
     }
@@ -597,6 +601,14 @@ while ($true) {
             InstallWSL
         }
 
+        "Windows Terminal" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install microsoft-windows-terminal
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Microsoft.WindowsTerminal
+            }
+        }
+
         "Hyper-V (Windows 10/11 Pro Only)" {
             InstallHyperV
         }
@@ -664,6 +676,14 @@ while ($true) {
                 choco install teamspeak
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install TeamSpeakSystems.TeamSpeakClient
+            }
+        }
+
+        "Thunderbird" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install thunderbird
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Mozilla.Thunderbird
             }
         }
 
@@ -969,6 +989,14 @@ while ($true) {
             }
         }
 
+        "ModernFlyouts" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install modernflyouts
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install ModernFlyouts.ModernFlyouts
+            }
+        }
+
         "Internet Download Manager" {
             if ($global:pkgmgr -eq "choco") {
                 choco install internetdownloadmanager
@@ -1024,6 +1052,14 @@ while ($true) {
                 choco install authy-desktop
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install Twilio.Authy
+            }
+        }
+
+        "NTLite" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install ntlite-free
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Nlitesoft.NTLite
             }
         }
 
