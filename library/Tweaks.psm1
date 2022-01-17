@@ -187,6 +187,28 @@ function ShowExplorerFullPath {
     Write-Output "Done!"
 }
 
+function ShowHiddenFiles {
+    Write-Output "Showing hidden files in Explorer..."
+    if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -force -ea SilentlyContinue };
+    New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Hidden' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
+    Write-Output "Done!`nRestarting Explorer..."
+    taskkill.exe /F /IM "explorer.exe"
+    cmd.exe /c 'start "" "%windir%\explorer.exe"'
+    Write-Output "Waiting for explorer to complete loading"
+    Start-Sleep 10
+}
+
+function ShowFileExtensions {
+    Write-Output "Showing file extensions in Explorer..."
+    if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -force -ea SilentlyContinue };
+    New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
+    Write-Output "Done!`nRestarting Explorer..."
+    taskkill.exe /F /IM "explorer.exe"
+    cmd.exe /c 'start "" "%windir%\explorer.exe"'
+    Write-Output "Waiting for explorer to complete loading"
+    Start-Sleep 10
+}
+
 function EnableVerboseStartup {
 	Write-Output "Enabling verbose startup/shutdown status messages..."
 	if ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {

@@ -164,7 +164,9 @@ $objects = @{
                 'Remove user folders under This PC',
                 'Show build number on desktop',
                 'Show full directory path in Explorer title bar',
-                'Change default explorer view to This PC'
+                'Change default explorer view to This PC',
+                'Show hidden files',
+                'Show file extensions'
             )"
 
             'Behavior' = "@(
@@ -334,7 +336,9 @@ $objects = @{
         'Hide build number on desktop',
         'Disable old context menu (Windows 11 only)',
         'Disable Windows 7-style volume flyout',
-        'Disable Windows 7-style battery flyout'
+        'Disable Windows 7-style battery flyout',
+        'Hide hidden files in Explorer',
+        'Hide file extensions in Explorer'
     )"
 
     '6) Options' = "@(
@@ -1152,6 +1156,14 @@ while ($true) {
             SetExplorerThisPC
         }
 
+        "Show hidden files" {
+            ShowHiddenFiles
+        }
+
+        "Show file extensions" {
+            ShowFileExtensions
+        }
+
         #Shell tweaks
         "Enable dark mode" {
             DarkMode
@@ -1282,6 +1294,14 @@ while ($true) {
 
         "Disable Windows 7-style battery flyout" {
             DisableClassicBatteryFlyout
+        }
+
+        "Hide hidden files in Explorer" {
+            HideHiddenFiles
+        }
+
+        "Hide file extensions in Explorer" {
+            HideFileExtensions
         }
 
         #Options

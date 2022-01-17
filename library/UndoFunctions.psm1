@@ -252,3 +252,25 @@ function DisableClassicBatteryFlyout {
     if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell" -force -ea SilentlyContinue };
     New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell' -Name 'UseWin32BatteryFlyout' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
 }
+
+function HideHiddenFiles {
+    Write-Output "Hiding hidden hiles..."
+    if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -force -ea SilentlyContinue };
+    New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Hidden' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
+    Write-Output "Done!`nRestarting Explorer..."
+    taskkill.exe /F /IM "explorer.exe"
+    cmd.exe /c 'start "" "%windir%\explorer.exe"'
+    Write-Output "Waiting for explorer to complete loading"
+    Start-Sleep 10
+}
+
+function HideFileExtensions {
+    Write-Output "Hiding file extensions..."
+    if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -force -ea SilentlyContinue };
+    New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
+    Write-Output "Done!`nRestarting Explorer..."
+    taskkill.exe /F /IM "explorer.exe"
+    cmd.exe /c 'start "" "%windir%\explorer.exe"'
+    Write-Output "Waiting for explorer to complete loading"
+    Start-Sleep 10
+}
