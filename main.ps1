@@ -309,7 +309,7 @@ $objects = @{
                 'TeamViewer',
                 'Parsec',
                 'VNC Viewer',
-                'VNC Server',   
+                'VNC Server'  
             )"
 
             'Other' = "@(
