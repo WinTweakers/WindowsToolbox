@@ -291,6 +291,7 @@ $objects = @{
             )"
 
             'Customisation' = "@( 
+                'Auto Dark Mode (Winget only)',
                 'WinDynamicDesktop',
                 'PowerToys',
                 'TaskbarX',
@@ -313,6 +314,7 @@ $objects = @{
             )"
 
             'Other' = "@(
+                'EasyBCD (Chocolatey only)',
                 'Evernote',
                 'Gpg4win',
                 'iMazing',
@@ -961,6 +963,14 @@ while ($true) {
 
         #Other
 
+        "Auto Dark Mode (Winget only)" {
+            if ($global:pkgmgr -eq "winget") {
+                winget install Armin2208.WindowsAutoNightMode
+            } elseif ($global:pkgmgr -eq "choco") {
+                Write-Output "Auto Dark Mode cannot be installed with Chocolatey"
+            }
+        }
+
         "WinDynamicDesktop" {
             if ($global:pkgmgr -eq "choco") {
                 choco install windynamicdesktop
@@ -1034,6 +1044,14 @@ while ($true) {
                 choco install gpg4win
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install gnupg.Gpg4win
+            }
+        }
+
+        "EasyBCD (Chocolatey only)" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install easybcd
+            } elseif ($global:pkgmgr -eq "winget") {
+                Write-Output "EasyBCD cannot be installed with Winget"
             }
         }
 
