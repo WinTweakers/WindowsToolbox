@@ -78,9 +78,9 @@ Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 1
 
 ### Installation
 
-1. Download `WindowsToolbox.exe` from [Releases](https://github.com/WinTweakers/WindowsToolbox/releases)
-2. Open an elevated PowerShell window and run `Set-ExecutionPolicy Unrestricted -Scope CurrentUser`, then `ls -Recurse *.ps*1 | Unblock-File`
-3. Run `WindowsToolbox.exe`
+1. ~~Download `WindowsToolbox.exe` from [Releases](https://github.com/WinTweakers/WindowsToolbox/releases)~~ Clone this repository to your computer and extract it.
+2. Open an elevated PowerShell window, cd to where you extrected WindowsToolbox and run `Set-ExecutionPolicy Unrestricted -Scope CurrentUser`, then `ls -Recurse *.ps*1 | Unblock-File`.
+3. Run `WindowsToolbox.cmd`.
 
 
 
