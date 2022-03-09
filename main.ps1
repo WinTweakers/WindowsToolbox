@@ -322,7 +322,9 @@ $objects = @{
                 'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)',
                 'Nitroless (1.0.0-a4)',
                 'Authy Desktop',
-                'NTLite'
+                'NTLite',
+                'WinSCP',
+                'FileZilla'
             )"
         }
     }
@@ -1082,6 +1084,20 @@ while ($true) {
                 choco install ntlite-free
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install Nlitesoft.NTLite
+            }
+        }
+        "WinSCP" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install winscp
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install WinSCP.WinSCP
+            }
+        }
+        "FileZilla" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install filezilla
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install TimKosse.FileZilla
             }
         }
 
