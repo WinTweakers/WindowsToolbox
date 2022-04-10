@@ -56,7 +56,7 @@ However, there will still be occasional updates ✌️
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Windows Toolbox Screen Shot](https://i.imgur.com/nusP0iI.png)
+![Windows Toolbox Screen Shot](https://cdn.discordapp.com/attachments/885809091459575828/962631504817717268/unknown.png)
 
 Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 11. 
 

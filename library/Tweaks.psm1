@@ -158,11 +158,6 @@ function DisableAccessibilityKeys {
     Write-Output "Done!"
 }
 
-function FixNoInternetPrompt {
-    if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" -force -ea SilentlyContinue };
-    New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'EnableActiveProbingl' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-}
-
 function SetWinXMenuCMD {
     Write-Output "Setting Command prompt instead of PowerShell in WinX menu..."
     If ([System.Environment]::OSVersion.Version.Build -le 14393) {

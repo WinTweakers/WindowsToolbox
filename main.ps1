@@ -24,6 +24,9 @@
 
 Set-Location $PSScriptRoot
 
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+Get-ChildItem -Recurse $PSScriptRoot\*.ps*1 | Unblock-File
+
 Import-Module .\library\Write-Menu.psm1 -DisableNameChecking
 Import-Module .\library\WinCore.psm1 -DisableNameChecking
 Clear-Host
@@ -175,7 +178,6 @@ $objects = @{
                 'Disable Action Center',
                 'Disable Accessibility Keys',
                 'Set Win+X menu to Command Prompt',
-                'Fix No Internet prompt',
                 'Enable verbose startup / shutdown messages',
                 'Disable Xbox Game DVR and Game Bar'
             )"
@@ -227,6 +229,7 @@ $objects = @{
 
         'Communication' = "@(
             'Discord',
+            'Discord Canary',
             'Slack',
             'Zoom',
             'Skype',
@@ -621,7 +624,7 @@ while ($true) {
             InstallHyperV
         }
 
-        # Communication Menu
+        # Communication apps
 
         "Discord" {
             if ($global:pkgmgr -eq "choco") {
@@ -630,7 +633,13 @@ while ($true) {
                 winget install Discord.Discord
             }
         }
-
+        "Discord Canary" {
+            if ($global:pkgmgr -eq "choco") {
+                choco install discord-canary
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Discord.Discord.Canary
+            }
+        }
         "Slack" {
             if ($global:pkgmgr -eq "choco") {
                 choco install slack
@@ -1216,10 +1225,6 @@ while ($true) {
 
         "Disable Accessibility Keys" {
             DisableAccessibilityKeys
-        }
-
-        "Fix No Internet prompt" {
-            FixNoInternetPrompt
         }
 
         "Set Win+X menu to Command Prompt" {
