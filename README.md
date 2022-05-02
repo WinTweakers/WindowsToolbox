@@ -83,6 +83,10 @@ Windows Toolbox is a powerful but simple, easy to use toolbox for Windows 10 / 1
 2. Open an elevated PowerShell window, cd to where you extrected WindowsToolbox and run `Set-ExecutionPolicy Unrestricted -Scope CurrentUser`, then `ls -Recurse *.ps*1 | Unblock-File`.
 3. Run `WindowsToolbox.cmd`.
 
+**OR**
+
+1. Open PowerShell, then run `iwr -useb https://raw.githubusercontent.com/WinTweakers/WindowsToolbox/main/run.ps1 | iex`. (If that doesn't work, open an elevated PowerShell windows and run `Set-ExecutionPolicy Unrestricted -Scope CurrentUser` beforehand).
+
 
 
 <!-- ROADMAP -->
