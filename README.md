@@ -135,6 +135,7 @@ Project Link: [https://github.com/WinTweakers/WindowsToolbox](https://github.com
 * [W4RH4WK](https://github.com/W4RH4WK)
 * [Disassembler0](https://github.com/Disassembler0)
 * [QuietusPlus](https://github.com/QuietusPlus)
+* [r33int](https://github.com/r33int)
 
 
 

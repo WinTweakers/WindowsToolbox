@@ -144,14 +144,16 @@ $objects = @{
         'System Tweaks' = "@(
             'Lower RAM usage',
             'Enable photo viewer',
+            'Enable Ultimate Performance Power Plan',
             'Disable Prefetch prelaunch',
             'Disable Edge prelaunch',
             'Disable Superfetch',
-            'Use UTC time',
+            'Use UTC system clock',
             'Disable ShellExperienceHost',
             'Disable SearchUI',
             'Enable GodMode',
-            'Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)'
+            'Disable page file encryption (Improves the lifespan of SSDs)',
+            'Disable Web Search (Bing)'
         )"
 
         'UI Tweaks' = @{
@@ -1139,6 +1141,10 @@ while ($true) {
             EnablePhotoViewer
         }
 
+        "Enable Ultimate Performance Power Plan" {
+            powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+        }
+
         "Disable Prefetch prelaunch" {
             DisablePrefetchPrelaunch
         }
@@ -1151,7 +1157,7 @@ while ($true) {
             DisableSuperfetch
         }
 
-        "Use UTC time" {
+        "Use UTC system clock" {
             UseUTC
         }
 
@@ -1163,12 +1169,17 @@ while ($true) {
             GodMode
         }
 
-        "Improve SSD Lifespan (HIGHLY RECOMMENDED IF YOU HAVE AN SSD)" {
+        "Disable page file encryption (Improves the lifespan of SSDs)" {
             ImproveSSD
         }
 
         "Disable SearchUI" {
             DisableSearchUI
+        }
+
+        "Disable Web Search (Bing)" {
+            # https://winaero.com/disable-web-search-in-taskbar-in-windows-10-version-2004/
+            Set-Itemproperty -path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "DisableSearchBoxSuggestions" -Value 1
         }
 
         #UI Tweaks
