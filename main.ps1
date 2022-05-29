@@ -197,7 +197,6 @@ $objects = @{
             'Firefox',
             'Google Chrome',
             'Edge Chromium',
-            'Brave',
             'Vivaldi',
             'Tor Broswer'
         )"
@@ -451,14 +450,6 @@ while ($true) {
                 choco install microsoft-edge
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install Microsoft.Edge
-            }
-        }
-
-        "Brave" {
-            if ($global:pkgmgr -eq "choco") {
-                choco install brave
-            } elseif ($global:pkgmgr -eq "winget") {
-                winget install BraveSoftware.BraveBrowser
             }
         }
 
