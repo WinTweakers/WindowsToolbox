@@ -120,7 +120,6 @@ $objects = @{
 
     '1) Debloat' = "@(
         'Disable Windows Defender (NOT RECOMMENDED)',
-        'Disable Windows Defender Cloud',
         'Remove Default UWP apps',
         'Remove OneDrive',
         'Optimize Windows Updates',
@@ -365,10 +364,6 @@ while ($true) {
         #Debloat menu
         "Disable Windows Defender (NOT RECOMMENDED)" {
             DisableWindowsDefender   
-        }
-
-        "Disable Windows Defender Cloud" {
-            DisableWindowsDefenderCloud
         }
 
         "Remove Default UWP apps" {
@@ -1365,12 +1360,9 @@ while ($true) {
                     ((Get-Content -Path $conflocation\config.json -Raw) -replace 'winget','choco') | Set-Content -Path $conflocation\config.json
                 }
                 Write-Output "Package manager changed to $global:pkgmgr"
-                $relaunch = Read-Host "Restart WindowsToolbox to apply changes? (y/n)"
-                if ($relaunch -match "[yY]") {
-                    Write-Output "WindowsToolbox will now restart"
-                    & $PSScriptRoot\main.ps1
-                    stop-process -id $PID
-                }
+                Read-Host "Press Enter to continue..."
+                & $PSScriptRoot\main.ps1
+                stop-process-id $PID
             }
         }
 
