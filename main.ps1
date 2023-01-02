@@ -229,7 +229,6 @@ $objects = @{
 
         'Communication' = "@(
             'Discord',
-            'Discord Canary',
             'Slack',
             'Zoom',
             'Skype',
@@ -323,11 +322,11 @@ $objects = @{
                 'iMazing',
                 'Internet Download Manager',
                 'MS-DOS Mode for Windows 10 (Proof of Concept, made by Endermanch)',
-                'Nitroless (1.0.0-a4)',
                 'Authy Desktop',
                 'NTLite',
                 'WinSCP',
-                'FileZilla'
+                'FileZilla',
+                'osu!'
             )"
         }
     }
@@ -621,13 +620,6 @@ while ($true) {
                 winget install Discord.Discord
             }
         }
-        "Discord Canary" {
-            if ($global:pkgmgr -eq "choco") {
-                choco install discord-canary
-            } elseif ($global:pkgmgr -eq "winget") {
-                winget install Discord.Discord.Canary
-            }
-        }
         "Slack" {
             if ($global:pkgmgr -eq "choco") {
                 choco install slack
@@ -635,7 +627,6 @@ while ($true) {
                 winget install SlackTechnologies.Slack
             }
         }
-
         "Zoom" {
             if ($global:pkgmgr -eq "choco") {
                 choco install zoom
@@ -643,7 +634,6 @@ while ($true) {
                 winget install Zoom.Zoom
             }
         }
-
         "Skype" {
             if ($global:pkgmgr -eq "choco") {
                 choco install skype
@@ -651,7 +641,6 @@ while ($true) {
                 winget install Microsoft.Skype
             }
         }
-
         "Zalo" {
             if ($global:pkgmgr -eq "choco") {
                 choco install zalopc
@@ -659,7 +648,6 @@ while ($true) {
                 winget install VNGCorp.Zalo
             }
         }
-
         "Telegram" {
             if ($global:pkgmgr -eq "choco") {
                 choco install telegram
@@ -667,7 +655,6 @@ while ($true) {
                 winget install Telegram.TelegramDesktop
             } 
         }
-
         "Microsoft Teams" {
             if ($global:pkgmgr -eq "choco") {
                 choco install microsoft-teams
@@ -675,7 +662,6 @@ while ($true) {
                 winget install Microsoft.Teams
             }
         }
-
         "Teamspeak" {
             if ($global:pkgmgr -eq "choco") {
                 choco install teamspeak
@@ -683,7 +669,6 @@ while ($true) {
                 winget install TeamSpeakSystems.TeamSpeakClient
             }
         }
-
         "Thunderbird" {
             if ($global:pkgmgr -eq "choco") {
                 choco install thunderbird
@@ -1050,7 +1035,7 @@ while ($true) {
             if ($global:pkgmgr -eq "choco") {
                 choco install easybcd
             } elseif ($global:pkgmgr -eq "winget") {
-                Write-Output "EasyBCD cannot be installed with Winget"
+                Write-Output "EasyBCD cannot be installed with winget."
             }
         }
 
@@ -1060,12 +1045,6 @@ while ($true) {
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install evernote.evernote
             }
-        }
-
-        "Nitroless (1.0.0-a4)" {
-            $nitroless = "https://github.com/Nitroless/Electron/releases/download/1.0.0-Alpha4/Nitroless.Setup.1.0.0-alpha4.exe"
-            Invoke-WebRequest -Uri $nitroless -OutFile $conflocation\nitroless.exe
-            Start-Process -FilePath $conflocation\nitroless.exe
         }
 
         "Authy Desktop" {
@@ -1095,6 +1074,19 @@ while ($true) {
                 choco install filezilla
             } elseif ($global:pkgmgr -eq "winget") {
                 winget install TimKosse.FileZilla
+            }
+        }
+        "osu!" {
+            Invoke-WebRequest https://m1.ppy.sh/r/osu!install.exe -OutFile $env:TEMP\osu!install.exe
+            Start-Process $env:TEMP\osu!install.exe -Wait
+            Remove-Item $env:TEMP\osu!install.exe
+            Write-Output "osu! has been installed."
+        }
+        "osu!lazer (winget only)" {
+            if ($global:pkgmgr -eq "choco") {
+                Write-Output "osu!lazer cannot be installed with Chocolatey"
+            } elseif ($global:pkgmgr -eq "winget") {
+                winget install Peppy.Osu!
             }
         }
 

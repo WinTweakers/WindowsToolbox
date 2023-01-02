@@ -1,6 +1,4 @@
-## THIS IS NOT THE WINDOWS TOOLBOX WITH MALWARE, IT'S A NAME COINCIDENCE.
-## This project is no longer being actively developed
-However, there will still be occasional updates ✌️
+## This project is no longer maintained, save for the *very* occasional bug fix and updates.
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
