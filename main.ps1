@@ -326,7 +326,8 @@ $objects = @{
                 'NTLite',
                 'WinSCP',
                 'FileZilla',
-                'osu!'
+                'osu!',
+                'osu!lazer (winget only)'
             )"
         }
     }
