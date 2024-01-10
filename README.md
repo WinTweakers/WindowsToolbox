@@ -1,4 +1,4 @@
-## This project is no longer maintained, save for the *very* occasional bug fix and updates.
+## This project is no longer maintained, and is now in public archive mode. 
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -129,7 +129,6 @@ Project Link: [https://github.com/WinTweakers/WindowsToolbox](https://github.com
 
 * [khanhmuy](https://github.com/khanhmuy)
 * [CallMeEcho](https://github.com/CallMeEchoCodes)
-* [Silly Sock](https://github.com/Sillysockk)
 * [W4RH4WK](https://github.com/W4RH4WK)
 * [Disassembler0](https://github.com/Disassembler0)
 * [QuietusPlus](https://github.com/QuietusPlus)
